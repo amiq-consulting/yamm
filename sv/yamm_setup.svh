@@ -18,11 +18,6 @@
 `ifndef __yamm_setup
 `define __yamm_setup
 
-`ifndef MEM_SIZE
-	// Here we define the case number for the allocation_mode and the total MEM_SIZE for the test_bench
-	`define MEM_SIZE 1024*1024
-`endif
-
 `ifndef YAMM_ADDR_WIDTH
 	// defines the address bus width
 	`define YAMM_ADDR_WIDTH 32
