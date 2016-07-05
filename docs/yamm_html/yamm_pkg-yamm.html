@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>yamm
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="yamm API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2016 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, yamm API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/fonts.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+<!-- ========= Title ======= -->
+<h2>class      		<a href="summary-yamm_pkg.html">yamm_pkg</a>
+:: yamm
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				
+	
+	
+	
+	
+	
+	
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">5</span></button>
+	
+
+	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
+	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
+	<button data-scroll=#direct_associations_diagram type="button" class="btn btn-default">Direct Associations Diagram</button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Inheritance Tree ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_tree">
+			<h4 class="panel-title">
+					Class Hierarchy <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+				<div id="inheritance_tree" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<ul class="class-hierarchy">
+							<li> 		<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+ <b>
+</b> </li>
+							<li>
+							   yamm <b>
+</b> 		extends <b>yamm_buffer</b>
+
+							</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+<!-- ========= Description ======= -->
+	<pre class="comment">Top level class, acts as the full memory. This is the only level on which static buffers can be allocated
+
+<br></pre>
+
+<!-- ========= Parameters ======= -->
+
+<!-- ========= Constructor ======= -->
+
+<!-- ========= Typedefs ======= -->
+
+<!-- ========= Structs ======= -->
+
+<!-- ========= Enums ======= -->
+
+<!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inherited_variables">
+			<h4 class="panel-title">
+					Variables inherited from <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+			<ul id="inherited_variables" class="list-group panel-collapse collapse">
+			<li class="list-group-item">
+				<p><b>	<a  href="summary-yamm_pkg.html">yamm_pkg</a> ::  		<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+
+</b></p>
+					<a href="yamm_pkg-yamm_buffer.html#variable_disable_warnings">disable_warnings</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#variable_granularity">granularity</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#variable_size">size</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#variable_start_addr">start_addr</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#variable_start_addr_alignment">start_addr_alignment</a>
+
+			</li>
+	</ul>
+
+	</div>
+
+<!-- ========= Constraints ======= -->
+
+<!-- ========= Functions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#functions">
+			<h4 class="panel-title">
+					Functions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function_allocate_static_buffer"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		allocate_static_buffer
+</b>(	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+n_buffer)
+
+
+						</span>
+	<pre class="comment"><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns 1 if the buffer was allocated or 0 if it overlaps at least partially other allocated buffer<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n_buffer</b> - The new static buffer that will be allocated, if it is valid it will be inserted and also pushed in a queue on top level for
+fast retrieval<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_build"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		build
+</b>(	string
+name,
+	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+size)
+
+
+						</span>
+	<pre class="comment">Function that initializes the memory, setting a name and a size for the memory as well as
+creating a free buffer over the entire memory span, supporting allocation and making the memory usable.
+Can only be called once.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> - A name set for the memory<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>size</b> - The size of the memory<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_static_buffers"></a>
+						<span class="signature">
+
+	 function 	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_buffer_q">yamm_buffer_q</a>
+
+	<b>		get_static_buffers
+</b>()
+
+
+						</span>
+	<pre class="comment"><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the queue of static buffers that are stored in memory.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_reset"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		reset
+</b>()
+
+
+						</span>
+	<pre class="comment">Can not be used if build wasn't called. Function that deallocated all non-static buffers and also clears the contents
+and all buffers allocated inside static buffers
+
+<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_write_memory_map_to_file"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		write_memory_map_to_file
+</b>(	bit
+recursive = 0)
+
+
+						</span>
+	<pre class="comment">Function that dumps memory to file starting with the level it is called on. Can be done recursively if bit is set.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns 1 if done successfully, or 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>recursive</b> - If set, the function will also dump buffers stored inside the current buffer<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inherited_functions">
+			<h4 class="panel-title">
+					Functions inherited from <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+			<ul id="inherited_functions" class="list-group panel-collapse collapse">
+			<li class="list-group-item">
+				<p><b>	<a  href="summary-yamm_pkg.html">yamm_pkg</a> ::  		<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+
+</b></p>
+					<a href="yamm_pkg-yamm_buffer.html#function_access_overlaps">access_overlaps</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_allocate">allocate</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_allocate_by_size">allocate_by_size</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_check_address_space_consistency">check_address_space_consistency</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_check_alignment">check_alignment</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_compare_contents">compare_contents</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_deallocate">deallocate</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_deallocate_by_addr">deallocate_by_addr</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_end_addr">end_addr</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_generate_contents">generate_contents</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_all_buffers_by_type">get_all_buffers_by_type</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_buffer">get_buffer</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_buffers_by_access">get_buffers_by_access</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_buffers_in_range">get_buffers_in_range</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_contents">get_contents</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_fragmentation">get_fragmentation</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_get_usage_statistics">get_usage_statistics</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_insert">insert</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_insert_access">insert_access</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_new">new</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_print">print</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_print_free">print_free</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_print_stats">print_stats</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_set_contents">set_contents</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_set_name">set_name</a>
+, 	<a href="yamm_pkg-yamm_buffer.html#function_sprint_buffer">sprint_buffer</a>
+
+			</li>
+	</ul>
+
+	</div>
+
+<!-- ========= Tasks ======= -->
+
+<!-- ========= Diagrams ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
+			<h4 class="panel-title">
+					Inheritance Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
+			<img src="yamm_pkg-yamm_inheritance.png" border="0" usemap="#_inheritance_diagram" />
+			<map name="_inheritance_diagram">
+<area shape="rect" id="node1" href="yamm_pkg-yamm.html"  alt="" coords="214,5,274,35">
+<area shape="rect" id="node2" href="yamm_pkg-yamm_buffer.html"  alt="" coords="5,5,133,35">
+<area shape="poly" id="edge1"  alt="" coords="214,23,147,23,147,17,214,17"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#collaboration_diagram">
+			<h4 class="panel-title">
+					Collaboration Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
+			<img src="yamm_pkg-yamm_collaboration.png" border="0" usemap="#_collaboration_diagram" />
+			<map name="_collaboration_diagram">
+<area shape="rect" id="node1" href="yamm_pkg-yamm.html"  alt="" coords="39,99,99,130">
+<area shape="rect" id="node2" href="yamm_pkg-yamm_buffer.html"  alt="" coords="5,6,133,37">
+<area shape="poly" id="edge1"  alt="" coords="67,100,67,50,72,50,72,100"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#direct_associations_diagram">
+			<h4 class="panel-title">
+					Direct Associations Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
+			<img src="yamm_pkg-yamm_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
+			<map name="_direct_associations_diagram">
+<area shape="rect" id="node1" href="yamm_pkg-yamm.html"  alt="" coords="6,5,66,35"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
+		</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../sv/yamm.svh">yamm.svh</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Tue Jul 05 17:37:22 EEST 2016 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 16.1.15</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="lib/svg-pan-zoom/js/svg-pan-zoom.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+
+

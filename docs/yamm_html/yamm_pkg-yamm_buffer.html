@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>yamm
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="yamm API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2016 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, yamm API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/fonts.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+<!-- ========= Title ======= -->
+<h2>class      		<a href="summary-yamm_pkg.html">yamm_pkg</a>
+:: yamm_buffer
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				
+	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	
+	
+	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">5</span></button>
+	
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">25</span></button>
+	
+
+	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
+	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
+	<button data-scroll=#direct_associations_diagram type="button" class="btn btn-default">Direct Associations Diagram</button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Inheritance Tree ======= -->
+
+<!-- ========= Description ======= -->
+	<pre class="comment">The main class, contains all the functions used for memory management
+
+
+Each instance of the buffer represents a region in the memory and also
+contains it's own memory map that can be used for recursive buffer allocation<br></pre>
+
+<!-- ========= Parameters ======= -->
+
+<!-- ========= Constructor ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#constructor">
+			<h4 class="panel-title">
+					Constructor <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="constructor" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="constructor_new"></a>
+						<span class="signature">
+
+	 function 	logic
+
+	<b>		new
+</b>()
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Typedefs ======= -->
+
+<!-- ========= Structs ======= -->
+
+<!-- ========= Enums ======= -->
+
+<!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#variables">
+			<h4 class="panel-title">
+					Variables <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="variables" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="variable_disable_warnings"></a>
+						<span class="signature">
+
+	bit
+ <b>		disable_warnings
+</b>
+
+
+						</span>
+	<pre class="comment">If set to 1 it will disable all warnings caused by various inconsistencies<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_granularity"></a>
+						<span class="signature">
+
+	int
+ <b>		granularity
+</b>
+
+
+						</span>
+	<pre class="comment">Granularity of the buffer, modifiable by user<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_size"></a>
+						<span class="signature">
+
+	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_size_width">yamm_size_width</a>
+ <b>		size
+</b>
+
+
+						</span>
+	<pre class="comment">Size of the buffer, modifiable by user<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_start_addr"></a>
+						<span class="signature">
+
+	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+ <b>		start_addr
+</b>
+
+
+						</span>
+	<pre class="comment">Start address of the buffer, modifiable by user<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_start_addr_alignment"></a>
+						<span class="signature">
+
+	int
+ <b>		start_addr_alignment
+</b>
+
+
+						</span>
+	<pre class="comment">Start_addr_alignment of the buffer, modifiable by user<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Constraints ======= -->
+
+<!-- ========= Functions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#functions">
+			<h4 class="panel-title">
+					Functions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function_access_overlaps"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		access_overlaps
+</b>(	<a href="yamm_pkg-yamm_access.html">yamm_access</a>
+access)
+
+
+						</span>
+	<pre class="comment">It checks if an access overlaps the current buffer<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns 1 if access overlaps, at least partially, any allocated buffer.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>access</b> : The access for which the check is done<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_allocate"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		allocate
+</b>(	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+n,
+	<a href="yamm_pkg-yamm_allocation_mode_e.html">yamm_allocation_mode_e</a>
+allocation_mode = RANDOM_FIT)
+
+
+						</span>
+	<pre class="comment">This function tries to allocate the buffer randomly in the memory, according to
+the yamm_allocation_mode_e
+
+
+The buffer argument handle is required to contain a valid size (bigger than zero)<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns 1 if the buffer was successfully allocated or 0 otherwise. It returns 0 if there is no free space for the buffer to be allocated.
+On successful allocation, the buffer handle is updated with additional information: start_addr, end_addr<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n</b> : The new buffer that is going to get allocated<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>allocation_mode</b> : The allocation mode according to which the allocation will be done<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_allocate_by_size"></a>
+						<span class="signature">
+
+	 function 	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+
+	<b>		allocate_by_size
+</b>(	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+size,
+	<a href="yamm_pkg-yamm_allocation_mode_e.html">yamm_allocation_mode_e</a>
+allocation_mode = RANDOM_FIT)
+
+
+						</span>
+	<pre class="comment">This function tries to allocate a buffer with the specified size in the memory,
+according to yamm_allocation_mode_e.
+
+
+Function creates a new buffer with that size and calls allocate()<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns a buffer handle if successful or a null handle otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>size:</b> The size of the new buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>allocation_mode</b> : The allocation mode according to which the allocation will be done<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_check_address_space_consistency"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		check_address_space_consistency
+</b>()
+
+
+						</span>
+	<pre class="comment">This function is used to do a self-check on the memory model to see if all
+the buffers are correctly allocated by the model.
+It will trigger an error message if any inconsistency is found.
+It is used for debug purposes.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns 1 if no error are found and 0 otherwise.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_check_alignment"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		check_alignment
+</b>()
+
+
+						</span>
+	<pre class="comment">It checks if the alignment constraint is obeyed
+Function returns 0 if buffer start_addr is not aligned according to start_addr_alignement<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_compare_contents"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		compare_contents
+</b>(	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_byte_s">yamm_byte_s</a>
+cmp)
+
+
+						</span>
+	<pre class="comment">It compares cmp data with data stored inside the buffer.
+Function can be overwritten by user for custom comparison.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns 1 if they match or 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>cmp</b> : The string that will be compared to the contents stored in buffer<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_deallocate"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		deallocate
+</b>(	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+del,
+	bit
+recursive = 1)
+
+
+						</span>
+	<pre class="comment">This function tries to deallocate a buffer allocated in the memory.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.
+It also returns 0 if ‘recursive’ bit is not set, and it contains allocated buffers.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>del</b> : The buffer that is going to be deallocated<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>recursive</b> : If set then it will deallocate the buffer even if it contains other buffers inside<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_deallocate_by_addr"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		deallocate_by_addr
+</b>(	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+addr)
+
+
+						</span>
+	<pre class="comment">This function tries to deallocate from the memory the buffer which
+contains the specified address.
+
+
+A warning is given if the buffer contains other buffers inside.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>addr</b> : The address at which the buffer that is going to get deallocated resides.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_end_addr"></a>
+						<span class="signature">
+
+	 function 	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+
+	<b>		end_addr
+</b>()
+
+
+						</span>
+	<pre class="comment"><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the end_addr of the buffer it is called on.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_generate_contents"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		generate_contents
+</b>()
+
+
+						</span>
+	<pre class="comment">A hook function which the user can extend to implement a custom generation
+rule for data. By default it generates pure random data which is then
+stored with set_contents().
+
+
+Function can be overwritten by user for custom comparison.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_all_buffers_by_type"></a>
+						<span class="signature">
+
+	 function 	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_buffer_q">yamm_buffer_q</a>
+
+	<b>		get_all_buffers_by_type
+</b>(	string
+type_name)
+
+
+						</span>
+	<pre class="comment">Because SV doesn’t support type checking, the search will be done according
+to the type name set with set_name().<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Function returns a queue with all buffers of a certain kind.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>type_name</b> : The name for which the search is done<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_buffer"></a>
+						<span class="signature">
+
+	 function 	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+
+	<b>		get_buffer
+</b>(	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+start)
+
+
+						</span>
+	<pre class="comment">It searches for the buffer located at the specified address.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the buffer which contains the specified address. It returns a NULL handle if no buffer exists at the specfied address<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>start</b> : The address for which the search is executed<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_buffers_by_access"></a>
+						<span class="signature">
+
+	 function 	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_buffer_q">yamm_buffer_q</a>
+
+	<b>		get_buffers_by_access
+</b>(	<a href="yamm_pkg-yamm_access.html">yamm_access</a>
+access)
+
+
+						</span>
+	<pre class="comment">It searches for all buffers that span in the address range specified by access.
+The address range is computed using start_addr and size fields of yamm_access.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns a queue of buffers. If no buffers are found, it will return an empty queue.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>access</b> : The access from which the search parameters are extracted<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_buffers_in_range"></a>
+						<span class="signature">
+
+	 function 	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_buffer_q">yamm_buffer_q</a>
+
+	<b>		get_buffers_in_range
+</b>(	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+start_addr,
+	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_addr_width">yamm_addr_width</a>
+end_addr)
+
+
+						</span>
+	<pre class="comment">It searches for all buffers that span in the address space defined by start_addr and end_addr.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a queue of buffers. If end_addr is less than start_addr or no buffers are found it will return an empty queue.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>start_addr</b> : The start address of the memory span on which the search is done<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>end_addr</b> : The end address of the memory span on which the search is done<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_contents"></a>
+						<span class="signature">
+
+	virtual  function 	<a href="summary-typedef-yamm_pkg.html#typedef_yamm_byte_s">yamm_byte_s</a>
+
+	<b>		get_contents
+</b>()
+
+
+						</span>
+	<pre class="comment">This function returns the data stored in the buffer. If no data
+was previously stored with set_contents() it will do a call to
+generate_contents() to get data.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Contents stored inside the buffer<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_fragmentation"></a>
+						<span class="signature">
+
+	 function 	real
+
+	<b>		get_fragmentation
+</b>()
+
+
+						</span>
+	<pre class="comment">It computes the memory fragmentation percentage.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the percentage of occupied buffers out of the total number of buffers.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_usage_statistics"></a>
+						<span class="signature">
+
+	 function 	real
+
+	<b>		get_usage_statistics
+</b>()
+
+
+						</span>
+	<pre class="comment">It computes the memory usage percentage.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the percentage of used memory out of the total memory size.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_insert"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		insert
+</b>(	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+n)
+
+
+						</span>
+	<pre class="comment">This function tries to insert a buffer in the memory with the specified start_addr and size.
+The function makes use of the field size and the start_addr contained in the specified buffer.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns 1 if the operation is successful or 0 if the buffer would collide with another buffer in the memory.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>n</b> : The new buffer that is going to be inserted<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_insert_access"></a>
+						<span class="signature">
+
+	 function 	<a href="yamm_pkg-yamm_buffer.html">yamm_buffer</a>
+
+	<b>		insert_access
+</b>(	<a href="yamm_pkg-yamm_access.html">yamm_access</a>
+access)
+
+
+						</span>
+	<pre class="comment">Similar to insert(), this function will try to insert a buffer at a specified address in memory,
+but it takes an access as an argument instead of a buffer.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;It returns the allocated buffer handle if the operation is successful or a null handle otherwise.<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>access</b> : The access from which the buffer is created<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		print
+</b>(	bit
+recursive = 0)
+
+
+						</span>
+	<pre class="comment">It prints all the buffers in order
+If recursive bit is set it also prints the buffers inside other buffers<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_free"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		print_free
+</b>()
+
+
+						</span>
+	<pre class="comment">It prints all the free buffers in order<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_stats"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		print_stats
+</b>()
+
+
+						</span>
+	<pre class="comment">It prints the number of occupied buffer, the number of free buffers as well as
+the usage statistics and fragmentation<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_contents"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		set_contents
+</b>(	byte []
+data,
+	bit
+warning = 1)
+
+
+						</span>
+	<pre class="comment">Store custom data in the buffer. If the size of the data array set
+doesn’t match the size of the buffer, a warning will be triggered.
+This warning can be turned off.
+
+
+@param warning : If set 1 (default) a warning will be displayed if the size of the contents don't match the size of the buffer<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>data[]</b> : The string that is going to be saved as payload inside the buffer<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>warning</b> : If set 1 (default) a warning will be displayed if the size of the contents don't match the size of the buffer<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_name"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		set_name
+</b>(	string
+name)
+
+
+						</span>
+	<pre class="comment">It sets an optional name tag to the buffer.
+This name can later be used by function get_all_buffers_by_type().<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> : The name that will be saved in buffer for future searches.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sprint_buffer"></a>
+						<span class="signature">
+
+	 function 	string
+
+	<b>		sprint_buffer
+</b>(	bit
+recursive = 0,
+	int
+identation = 0)
+
+
+						</span>
+	<pre class="comment">It returns the structured memory map of the current buffer as a string.<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;A string of the structured memory map<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>recursive</b> : If set to 1 it will return the maps for all the buffers inside it as well.<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>identation</b> : Shoudn't be changed by user! It updates automatically on recursive calls.<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Tasks ======= -->
+
+<!-- ========= Diagrams ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
+			<h4 class="panel-title">
+					Inheritance Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
+			<img src="yamm_pkg-yamm_buffer_inheritance.png" border="0" usemap="#_inheritance_diagram" />
+			<map name="_inheritance_diagram">
+<area shape="rect" id="node1" href="yamm_pkg-yamm_buffer.html"  alt="" coords="5,5,133,35">
+<area shape="rect" id="node2" href="yamm_pkg-yamm.html"  alt="" coords="214,5,274,35">
+<area shape="poly" id="edge1"  alt="" coords="214,23,147,23,147,17,214,17"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#collaboration_diagram">
+			<h4 class="panel-title">
+					Collaboration Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
+			<img src="yamm_pkg-yamm_buffer_collaboration.png" border="0" usemap="#_collaboration_diagram" />
+			<map name="_collaboration_diagram">
+<area shape="rect" id="node1" href="yamm_pkg-yamm_buffer.html"  alt="" coords="5,6,133,37"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#direct_associations_diagram">
+			<h4 class="panel-title">
+					Direct Associations Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
+			<img src="yamm_pkg-yamm_buffer_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
+			<map name="_direct_associations_diagram">
+<area shape="rect" id="node1" href="yamm_pkg-yamm_buffer.html"  alt="" coords="5,5,133,35"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
+		</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../sv/yamm_buffer.svh">yamm_buffer.svh</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Tue Jul 05 17:37:22 EEST 2016 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 16.1.15</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="lib/svg-pan-zoom/js/svg-pan-zoom.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+
+

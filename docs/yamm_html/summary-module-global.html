@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>yamm
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="yamm API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2016 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, yamm API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/fonts.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+
+
+
+
+
+
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#modules">
+			<h4 class="panel-title">
+					Modules  <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+				<ul id="modules" class="list-group panel-collapse collapse in">
+				<li class="list-group-item">
+					<a name="module_yamm_alignment_test"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_alignment_test.html"><b>		yamm_alignment_test
+</b></a>
+
+
+					</span>
+	<pre class="comment">A test that demonstrates the ability of YAMM to create buffers with different alignments and granularities for
+any allocation rule
+
+<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="module_yamm_benchmark"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_benchmark.html"><b>		yamm_benchmark
+</b></a>
+
+
+					</span>
+	<pre class="comment">A module that features a specific stress test and performance measuring:
+
+
+A memory of size 1GB is initialized and 5000 buffers of size 64.5KB are allocated using UNIFORM_FIT to rise
+usage and fragmentation.
+
+
+The performance is measured afterwards for all 6 allocations mode by allocating 20000 buffers starting with a size
+of 95KB and halving it after 11500, 14000 and 18000 allocations respectively. Time elapsed and statistics are
+displayed after the 20000 allocations for every allocation mode.
+
+
+After allocation, buffers are deallocated, time taken is measured and memory is afterwards reset.
+
+
+After the final allocation mode is benchmarked the search function is tested by doing 20000 searches on random addresses.
+Time taken is displayed.
+
+<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="module_yamm_general"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_general.html"><b>		yamm_general
+</b></a>
+
+
+					</span>
+	<pre class="comment">A module that shows some generic functions of YAMM<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="module_yamm_sanitation_test"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_sanitation_test.html"><b>		yamm_sanitation_test
+</b></a>
+
+
+					</span>
+	<pre class="comment">A test that demonstrates the encapsulation of buffer data and memory integrity protection<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="module_yamm_stability_test"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_stability_test.html"><b>		yamm_stability_test
+</b></a>
+
+
+					</span>
+	<pre class="comment">A test that demonstrates the stability of YAMM by filling up the memory and recursively buffers inside it up
+to a third level of recursivity (Buffers in Buffers in Buffers in Memory)<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="module_yamm_tutorial"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_tutorial.html"><b>		yamm_tutorial
+</b></a>
+
+
+					</span>
+	<pre class="comment">A module that should help new users to understand how YAMM can be used and see some of it's features
+in action. We recommend you to run the example and follow the code.
+
+<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="module_yamm_vs_mam_test"></a>
+					<span class="signature">
+
+
+<a href="work_yamm_vs_mam_test.html"><b>		yamm_vs_mam_test
+</b></a>
+
+
+					</span>
+	<pre class="comment">A test used to measure performance against MAM for 5000 allocations<br></pre>
+				</li>
+		</ul>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Tue Jul 05 17:37:21 EEST 2016 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 16.1.15</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="lib/svg-pan-zoom/js/svg-pan-zoom.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>

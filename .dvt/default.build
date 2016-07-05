@@ -1,0 +1,12 @@
+# Automatically identify and compile all the source files in the project directory.
+# DO NOT explicitly list files/directories in 'dvt_auto_init' sections. Use 'dvt_init' sections instead.
+-uvm
++incdir+sv +incdir+examples/sv
+sv/yamm_pkg.sv
+examples/sv/yamm_alignment_test.sv
+examples/sv/yamm_benchmark.sv
+examples/sv/yamm_general.sv
+examples/sv/yamm_sanitation_test.sv
+examples/sv/yamm_stability_test.sv
+examples/sv/yamm_tutorial.sv
+examples/sv/yamm_vs_mam_test.sv
