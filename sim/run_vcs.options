@@ -1,0 +1,18 @@
++define+YAMM_USE_UVM
+-debug_access+all
+
++incdir+${PROJ_HOME}
++incdir+${PROJ_HOME}/src/sv
++incdir+${PROJ_HOME}/examples/test
++incdir+${PROJ_HOME}/examples/tb
+
++vpi
++acc
+
+-cm assert+line+cond+fsm+tgl+branch
+
+${PROJ_HOME}/src/sv/yamm_pkg.sv
+${PROJ_HOME}/examples/test/yamm_test_pkg.sv
+${PROJ_HOME}/examples/tb/*.sv
+
+-top yamm_uvm_testbench

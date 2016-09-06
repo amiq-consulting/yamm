@@ -1,0 +1,18 @@
+-64
+-linedebug
+-cover bcesfx
+-sv
+-timescale 1ns/1ps
++UVM_NO_RELNOTES
++acc=a
++define+YAMM_USE_UVM
+
+// Project include directories
++incdir+${PROJ_HOME}/src/sv
++incdir+${PROJ_HOME}/examples/tb
++incdir+${PROJ_HOME}/examples/test
+
+// Compilation units
+${PROJ_HOME}/src/sv/yamm_pkg.sv
+${PROJ_HOME}/examples/test/yamm_test_pkg.sv
+${PROJ_HOME}/examples/tb/*.sv

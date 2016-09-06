@@ -1,0 +1,31 @@
+-64bit
+-gui
+-access +rwc
+-linedebug
+-coverage all
+-covoverwrite
+-sv
+-uvm
+-timescale 1ns/1ps
+-disable_sem2009
++UVM_NO_RELNOTES
++define+YAMM_USE_UVM
+
+//-uvmnoloaddpi
+
+// Project include directories
++incdir+${PROJ_HOME}/src/sv
++incdir+${PROJ_HOME}/examples/tb
++incdir+${PROJ_HOME}/examples/test
+
+
+// Compilation units
+${PROJ_HOME}/src/sv/yamm_pkg.sv
+${PROJ_HOME}/examples/test/yamm_test_pkg.sv
+${PROJ_HOME}/examples/tb/*.sv
+
+
+
+// Top module
+-top yamm_uvm_testbench
+
