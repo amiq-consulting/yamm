@@ -7,7 +7,9 @@
 * Description: YAMM is a memory manager for SystemVerilog[/UVM]-based verification projects
 
 * Directory structure:
+
   This package contains the following directories:
+  
     docs                    - All documents related to this library
     src/                    - All SV & C++ sources of the library
     examples/tb             - testbench module required by SV tests
