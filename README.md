@@ -9,7 +9,7 @@
 Directory structure:
 
   *  docs                    - All documents related to this library
-  *  src/                    - All SV & C++ sources of the library
+  *  src                     - All SV & C++ sources of the library
   *  examples/tb             - testbench module required by SV tests
   *  examples/sv             - SystemVerilog Examples
   *  examples/cpp_tests      - C++ Examples
