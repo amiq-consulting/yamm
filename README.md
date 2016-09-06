@@ -18,11 +18,13 @@
 * To run a SystemVerilog example you can use the run_yamm.sh script included in the package:
 
 $> cd sim
+
 $> ./run_yamm.sh -help
 
 * To run a C++ example you can use the Makefile included in the package:
 
 $> cd sim
+
 $> make help
 
 
