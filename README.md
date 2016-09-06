@@ -18,17 +18,15 @@
 * To run a SystemVerilog example you can use the run_yamm.sh script included in the package:
 
 $> cd sim
-
 $> ./run_yamm.sh -help
 
 * To run a C++ example you can use the Makefile included in the package:
 
 $> cd sim
-
 $> make help
 
 
-/******************************************************************************
+******************************************************************************
 
  * (C) Copyright 2016 AMIQ Consulting
  *
@@ -44,7 +42,7 @@ $> make help
  * See the License for the specific language governing permissions and
  * limitations under the License.
 
- *******************************************************************************/
+*******************************************************************************
 
 
 You can see more details here:
