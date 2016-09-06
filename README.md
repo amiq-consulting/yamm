@@ -6,16 +6,14 @@
 * Support: office@amiq.com
 * Description: YAMM is a memory manager for SystemVerilog[/UVM]-based verification projects
 
-* Directory structure:
+Directory structure:
 
-  This package contains the following directories:
-  
-    docs                    - All documents related to this library
-    src/                    - All SV & C++ sources of the library
-    examples/tb             - testbench module required by SV tests
-    examples/sv             - SystemVerilog Examples
-    examples/cpp_tests      - C++ Examples
-    sim                     - Example of script to run simulations
+  *  docs                    - All documents related to this library
+  *  src/                    - All SV & C++ sources of the library
+  *  examples/tb             - testbench module required by SV tests
+  *  examples/sv             - SystemVerilog Examples
+  *  examples/cpp_tests      - C++ Examples
+  *  sim                     - Example of script to run simulations
 
 * To run a SystemVerilog example you can use the run_yamm.sh script included in the package:
 
