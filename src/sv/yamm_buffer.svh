@@ -102,7 +102,7 @@ class yamm_buffer
 
 
 	`ifdef YAMM_USE_UVM
-	`uvm_object_utils(yamm_buffer);
+	`uvm_object_utils(yamm_buffer)
 	function new(string name = "");
 		super.new(name);
 	endfunction

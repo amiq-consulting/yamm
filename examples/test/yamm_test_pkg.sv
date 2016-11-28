@@ -16,7 +16,7 @@ package yamm_test_pkg;
 	`include "yamm_uvm_alignment_test.sv"
 	`include "yamm_uvm_sanitation_test.sv"
 	`include "yamm_uvm_stability_test.sv"
-	`include "yamm_recursive_test.sv"
+	`include "yamm_uvm_recursive_test.sv"
 
 endpackage
 

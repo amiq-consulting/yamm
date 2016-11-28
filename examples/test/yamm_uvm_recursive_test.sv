@@ -27,6 +27,7 @@ class yamm_uvm_recursive_test extends uvm_test;
 		memory.build("new_memory", 1024*1024*1024);
 		while(i--) begin
 			handle = memory.allocate_by_size(1024*1024, UNIFORM_FIT);
+			handle.set_name("PARENT_BUFFER");
 			while(j--)
 				handle.allocate_by_size(1024, UNIFORM_FIT);
 			j = 10;

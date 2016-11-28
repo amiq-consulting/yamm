@@ -75,6 +75,8 @@ function string yamm_buffer::sprint_buffer(bit recursive=0, int identation=0);
 	else
 		sprint_buffer = $sformatf("%s \tNORMAL",sprint_buffer);
 
+	sprint_buffer = $sformatf("%s %s",sprint_buffer, this.name);
+
 	// If the recursive bit is set modify the indentation for each recursive level
 	// and append all the buffers to the string
 	if (recursive == 1 && first != null) begin
