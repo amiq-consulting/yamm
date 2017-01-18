@@ -35,6 +35,16 @@ function yamm_buffer yamm_buffer::get_buffer(yamm_addr_width_t start);
 		return null;
 	end
 
+	if(handle_to_buffer == null) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "The buffer searched contains no recursive buffers.");
+		`else
+		$warning("[YAMM_WRN] The buffer searched contains no recursive buffers.");
+		`endif
+		return null;
+	end
+
 	// Look for the buffer that contains the given address
 	while((handle_to_buffer.next) && (handle_to_buffer.end_addr < start))
 		handle_to_buffer = handle_to_buffer.next;
@@ -93,6 +103,9 @@ endfunction
 function yamm_buffer_q yamm_buffer::get_all_buffers_by_type(string type_name);
 	yamm_buffer handle_to_buffer = first;
 	yamm_buffer qu[$];
+
+	if(handle_to_buffer == null)
+		return qu;
 
 	// (Slow) Traverse the entire memory pushing in the queue the buffers which name match the given string
 	while(handle_to_buffer.next)

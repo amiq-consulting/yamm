@@ -590,6 +590,16 @@ function yamm_buffer yamm_buffer::internal_get_buffer(yamm_addr_width_t start);
 		return null;
 	end
 
+	if(first == null) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "The buffer searched is empty.");
+		`else
+		$warning("[YAMM_WRN] The buffer searched is empty.");
+		`endif
+		return null;
+	end
+
 	// Look for the buffer that contains the given address
 	while((handle_to_buffer.next) && (handle_to_buffer.end_addr < start))
 		handle_to_buffer = handle_to_buffer.next;

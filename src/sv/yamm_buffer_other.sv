@@ -51,8 +51,6 @@ function bit yamm_buffer::check_address_space_consistency();
 		if(handle_to_buffer.first) begin
 			// Check that the first buffer has the same starting address as its memory space
 			if(handle_to_buffer.first.start_addr != handle_to_buffer.start_addr) begin
-				$display("1");
-				$display(handle_to_buffer.sprint_buffer(1));
 				return 0;
 			end
 
@@ -68,8 +66,6 @@ function bit yamm_buffer::check_address_space_consistency();
 
 			// Check if its end address matches the end address of its memory space
 			if(recursive_handle_to_buffer.end_addr != handle_to_buffer.end_addr) begin
-				$display("2");
-				$display(handle_to_buffer.sprint_buffer(1));
 				return 0;
 			end
 

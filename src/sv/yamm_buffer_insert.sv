@@ -22,11 +22,22 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	// Get the buffer that contains the address of new_buffer
 	yamm_buffer handle_to_buffer;
 
+	// Check if the buffer is null
+	if(new_buffer == null) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "The buffer provided is null.");
+		`else
+		$warning("[YAMM_WRN] The buffer provided is null.");
+		`endif
+		return 0;
+	end
+
 	// Check if the buffer has positive size
 	if(new_buffer.size < 1) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-		`uvm_warning("YAMM_WRN", "The buffer's size has to be > 0. Insertion failed.");
+			`uvm_warning("YAMM_WRN", "The buffer's size has to be > 0. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The buffer's size has to be > 0. Insertion failed.");
 		`endif
@@ -37,14 +48,14 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 		`ifdef YAMM_USE_UVM
 		`uvm_warning("YAMM_WRN", "The start_addr of the buffer doesn't match its alignment! Trying to insert anyway.");
 		`else
-		$warning("[YAMM_WRN] The start_addr of the buffer doesn't match its alignment! Trying to insert anyway.");
+	$warning("[YAMM_WRN] The start_addr of the buffer doesn't match its alignment! Trying to insert anyway.");
 		`endif
 
 	if(new_buffer.size % new_buffer.granularity != 0)
 		`ifdef YAMM_USE_UVM
 		`uvm_warning("YAMM_WRN", "The size of the buffer doesn't match its granularity! Trying to insert anyway.");
 		`else
-		$warning("[YAMM_WRN] The size of the buffer doesn't match its granularity! Trying to insert anyway.");
+	$warning("[YAMM_WRN] The size of the buffer doesn't match its granularity! Trying to insert anyway.");
 		`endif
 
 
@@ -52,7 +63,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(!new_buffer) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-		`uvm_warning("YAMM_WRN", "No valid buffer was given as argument. Insertion failed.");
+			`uvm_warning("YAMM_WRN", "No valid buffer was given as argument. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] No valid buffer was given as argument. Insertion failed.");
 		`endif
@@ -63,7 +74,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if((new_buffer.next) || (new_buffer.prev)) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-		`uvm_warning("YAMM_WRN", "The buffer is already allocated somewhere in the memory. Insertion failed.");
+			`uvm_warning("YAMM_WRN", "The buffer is already allocated somewhere in the memory. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The buffer is already allocated somewhere in the memory. Insertion failed.");
 		`endif
@@ -91,7 +102,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(!handle_to_buffer) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-		`uvm_warning("YAMM_WRN", "The starting address of the buffer is not in memory. Insertion failed.");
+			`uvm_warning("YAMM_WRN", "The starting address of the buffer is not in memory. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The starting address of the buffer is not in memory. Insertion failed.");
 		`endif
@@ -101,14 +112,14 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(handle_to_buffer.is_free == 0) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-		`uvm_warning("YAMM_WRN", "The address is occupied. Insertion failed.");
+			`uvm_warning("YAMM_WRN", "The address is occupied. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The address is occupied. Insertion failed.");
 		`endif
 		return 0;
 	end
 
-	// Allocate the buffer if possible 
+	// Allocate the buffer if possible
 	if(handle_to_buffer.start_addr > new_buffer.start_addr) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
@@ -138,7 +149,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 		`ifdef YAMM_USE_UVM
 		`uvm_warning("YAMM_WRN", "The buffer doesn't fit. Insertion failed.");
 		`else
-		$warning("[YAMM_WRN] The buffer doesn't fit. Insertion failed.");
+	$warning("[YAMM_WRN] The buffer doesn't fit. Insertion failed.");
 		`endif
 	return 0;
 endfunction

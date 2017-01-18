@@ -23,6 +23,17 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 	yamm_buffer handle_to_buffer;
 	yamm_buffer new_free_buffer;
 
+	// Check if the buffer is null
+	if(deleted_buffer == null) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "The buffer provided is a null handle. Deallocation failed.");
+		`else
+		$warning("[YAMM_WRN] The buffer provided is a null handle. Deallocation failed.");
+		`endif
+		return 0;
+	end
+
 	// First check if basic conditions are met (The buffer is allocated and has a positive size)
 	if(deleted_buffer.size<=0)
 	begin
