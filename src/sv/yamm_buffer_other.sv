@@ -216,5 +216,11 @@ function int yamm_buffer::get_granularity();
 
 endfunction
 
+function string yamm_buffer::get_name();
+	
+	return this.name;
+	
+endfunction
+
 
 `endif

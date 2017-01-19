@@ -473,12 +473,12 @@ class yamm_buffer
 	extern function void set_start_addr_size(yamm_addr_width_t new_start_address, yamm_size_width_t new_size);
 
 	/**
-	 *	Function used to set the start_addr_alignment of the buffer it is called from
+	 *  Function used to set the start_addr_alignment of the buffer it is called from
 	 */
 	extern function void set_start_addr_alignment(int new_start_addr_alignment);
-	
+
 	/**
-	 *	Function used to set the granularity of the buffer it is called from
+	 *  Function used to set the granularity of the buffer it is called from
 	 */
 	extern function void set_granularity(int new_granularity);
 
@@ -496,16 +496,21 @@ class yamm_buffer
 	 * @return Returns the end_addr of the buffer it is called from.
 	 */
 	extern function yamm_addr_width_t get_end_addr();
-	
+
 	/**
 	 * @return Returns the start_addr_alignment of the buffer it is called from.
 	 */
 	extern function int get_start_addr_alignment();
-	 
+
 	/**
 	 * @return Returns the granularity of the buffer it is called from.
 	 */
 	extern function int get_granularity();
+
+	/**
+	 * @return Returns the type name of the buffer
+	 */
+	extern function string get_name();
 
 
 endclass
