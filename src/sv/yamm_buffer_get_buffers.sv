@@ -108,7 +108,7 @@ function yamm_buffer_q yamm_buffer::get_all_buffers_by_type(string type_name);
 		return qu;
 
 	// (Slow) Traverse the entire memory pushing in the queue the buffers which name match the given string
-	while(handle_to_buffer.next)
+	while(handle_to_buffer)
 	begin
 		if(handle_to_buffer.name == type_name)
 			qu.push_back(handle_to_buffer);
