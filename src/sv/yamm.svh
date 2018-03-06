@@ -42,7 +42,7 @@ class yamm extends yamm_buffer;
 	 * @param name - A name set for the memory
 	 * @param size - The size of the memory
 	 */
-	extern function void build(string name, yamm_addr_width_t size);
+	extern function void build(string name, yamm_size_width_t size);
 
 	/**
 	 *
@@ -88,7 +88,7 @@ class yamm extends yamm_buffer;
 endclass
 
 
-function void yamm::build(string name, yamm_addr_width_t size);
+function void yamm::build(string name, yamm_size_width_t size);
 
 	yamm_buffer mem;
 

@@ -101,7 +101,7 @@ function bit yamm_buffer::allocate(yamm_buffer new_buffer, yamm_allocation_mode_
 
 endfunction
 
-function yamm_buffer yamm_buffer::allocate_by_size(yamm_addr_width_t size, yamm_allocation_mode_e allocation_mode = RANDOM_FIT);
+function yamm_buffer yamm_buffer::allocate_by_size(yamm_size_width_t size, yamm_allocation_mode_e allocation_mode = RANDOM_FIT);
 
 	// Create a buffer and give it the specified size
 	yamm_buffer new_buffer = new;

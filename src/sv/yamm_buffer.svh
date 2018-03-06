@@ -260,7 +260,7 @@ class yamm_buffer
 	 *
 	 * @return It returns a buffer handle if successful or a null handle otherwise
 	 */
-	extern function yamm_buffer allocate_by_size(yamm_addr_width_t size, yamm_allocation_mode_e allocation_mode = RANDOM_FIT);
+	extern function yamm_buffer allocate_by_size(yamm_size_width_t size, yamm_allocation_mode_e allocation_mode = RANDOM_FIT);
 
 	/**
 	 * This function tries to insert a buffer in the memory with the specified start_addr and size.
