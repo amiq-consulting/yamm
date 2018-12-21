@@ -50,7 +50,6 @@ bool yamm_buffer::insert(yamm_buffer* n) {
 		first_free->end_addr = first_free->start_addr + first_free->size - 1;
 		first_free->is_free = 1;
 		first = first_free;
-		temp = first_free;
 	}
 
 	if (n->start_addr_alignment == 0) {
@@ -83,7 +82,13 @@ bool yamm_buffer::insert(yamm_buffer* n) {
 	temp = internal_get_buffer(n->start_addr);
 	// Calculate buffer end address
 	n->end_addr = n->start_addr + n->size - 1;
-
+	if (n->end_addr < n->start_addr) {
+		if (!disable_warnings)
+			fprintf(stderr,
+					"[YAMM_WRN]  The end address of the buffer is not in memory!\n\t in %s at line %d\n",
+					__FILE__, __LINE__);
+		return 0;
+	}
 	if (!temp) {
 		if (!disable_warnings)
 			fprintf(stderr,

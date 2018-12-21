@@ -26,7 +26,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(new_buffer == null) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The buffer provided is null.");
+		`uvm_warning("YAMM_WRN", "The buffer provided is null.");
 		`else
 		$warning("[YAMM_WRN] The buffer provided is null.");
 		`endif
@@ -37,7 +37,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(new_buffer.size < 1) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The buffer's size has to be > 0. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "The buffer's size has to be > 0. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The buffer's size has to be > 0. Insertion failed.");
 		`endif
@@ -60,10 +60,10 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 
 
 	// Check if the given parameter is a valid handle
-	if(!new_buffer) begin
+	if(new_buffer == null) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "No valid buffer was given as argument. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "No valid buffer was given as argument. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] No valid buffer was given as argument. Insertion failed.");
 		`endif
@@ -71,10 +71,10 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	end
 
 	// Check to see if it is linked to any other buffers
-	if((new_buffer.next) || (new_buffer.prev)) begin
+	if((new_buffer.next != null) || (new_buffer.prev != null)) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The buffer is already allocated somewhere in the memory. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "The buffer is already allocated somewhere in the memory. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The buffer is already allocated somewhere in the memory. Insertion failed.");
 		`endif
@@ -84,25 +84,35 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	// If there is no handle to the first buffer then the memory map is not initialized
 	// Initialize it with a new free buffer of the same size as the memory map
 	// It is used when allocating inside a buffer
-	if(!first) begin
+	if(first == null) begin
 		first_free = new;
 		first_free.start_addr = start_addr;
 		first_free.size = size;
 		first_free.end_addr = first_free.start_addr + first_free.size - 1;
 		first_free.is_free = 1;
 		first = first_free;
-		handle_to_buffer = first_free;
 	end
 
 	new_buffer.end_addr = new_buffer.start_addr + new_buffer.size - 1;
+	
+	// Check if end address of inserted buffer is overflowing
+	if(new_buffer.end_addr < new_buffer.start_addr) begin
+		`ifdef YAMM_USE_UVM
+		`uvm_warning("YAMM_WRN", "The end address of the buffer is not in memory. Insertion failed.");
+		`else
+		$warning("[YAMM_WRN] The end address of the buffer is not in memory. Insertion failed.");
+		`endif
+		return 0;
+	end
+	
 	handle_to_buffer = internal_get_buffer(new_buffer.start_addr);
 
 	// We are using the get_buffer function which can return a null handle
 	// if the address is not valid
-	if(!handle_to_buffer) begin
+	if(handle_to_buffer == null) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The starting address of the buffer is not in memory. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "The starting address of the buffer is not in memory. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The starting address of the buffer is not in memory. Insertion failed.");
 		`endif
@@ -112,7 +122,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(handle_to_buffer.is_free == 0) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The address is occupied. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "The address is occupied. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The address is occupied. Insertion failed.");
 		`endif
@@ -123,7 +133,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(handle_to_buffer.start_addr > new_buffer.start_addr) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The address is occupied. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "The address is occupied. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The address is occupied. Insertion failed.");
 		`endif
@@ -133,7 +143,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	if(new_buffer.end_addr > handle_to_buffer.end_addr) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "The buffer overlaps, not enough space. Insertion failed.");
+		`uvm_warning("YAMM_WRN", "The buffer overlaps, not enough space. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The buffer overlaps, not enough space. Insertion failed.");
 		`endif
