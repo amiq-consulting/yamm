@@ -559,6 +559,8 @@ function void yamm_buffer::intern_reset();
 			end
 			else begin
 				temp.contents.delete();
+				temp.number_of_buffers = 0;
+				temp.number_of_free_buffers = 1;
 				if(temp.first != null) begin
 					// If recursive static buffers are implemented make this a recursive call
 					// temp.intern_reset();
