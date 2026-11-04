@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE spechtml PUBLIC "-//DVT//specador-preferences" "specador-preferences.dtd">
+<spechtml version="7">
+    <!-- GENERAL OPTIONS -->
+    <!-- Generated output format (html, pdf). Default value: html. -->
+    <output-format>html</output-format>
+    <!-- Location where documentation will be generated. Relative paths are solved as relative to project directory. -->
+    <location>/tmp/yamm_specador</location>
+    <!-- Set the output folder name. Default name is specador_docs. -->
+    <output-folder-name>yamm_html</output-folder-name>
+    <!-- Delete all files in the destination directory before generating documentation. -->
+    <clean-location>true</clean-location>
+    <!-- When running in GUI mode, choose whether to open or not the generated documentation in browser. -->
+    <!-- Set to false so gen_specador_docs.sh is safe in CI / headless environments. -->
+    <open-in-browser>false</open-in-browser>
+    <!-- Set the documentation title. -->
+    <title>yamm API Specification</title>
+    <!-- Set the author. -->
+    <author>AMIQ Consulting</author>
+    <!-- Set the copyright message. -->
+    <copyright>2026 AMIQ Consulting. Apache License 2.0.</copyright>
+    <!-- Set the version of the documentation. -->
+    <version/>
+    <!-- Syntax for comments formatting: reStructuredText, markdown, javadoc, naturaldocs, auto or noformat. -->
+    <doc-formatting-type>auto</doc-formatting-type>
+    <!-- Add a custom CSS file to the documentation. -->
+    <custom-css-file> </custom-css-file>
+    <!-- Add a custom JavaScript file to the documentation. -->
+    <custom-js-file> </custom-js-file>
+    <!-- Provide the path to a reStructuredText or Markdown file, containing the description for a custom Table of Contents menu. -->
+    <custom-toc/>
+    <!-- Generate documentation only for public API. -->
+    <public-only>true</public-only>
+    <!-- API matching the below filters will not be included in the generated documentation. Default: none. You can specify a comma-separated list of name patterns. Patterns may contain: * = any string, ? = any character. -->
+    <filter-string>uvm*</filter-string>
+    <!-- You can specify one or more file or directory paths. -->
+    <filter-path>examples</filter-path>
+    <!-- You can specify one or more directory paths to be included in the exported documentation. -->
+    <attach-path/>
+    <!-- Only API defined under the specified paths will be included. -->
+    <include-path/>
+    <!-- Inline or above comments containing one of the keywords from this list (comma separated list) will not be included. Change the strategy attribute to 'line' to skip only the lines that contain one of the keywords. -->
+    <filter-comments/>
+    <!-- Collect comments content after the specified tag. -->
+    <filter-comments-start-tag/>
+    <!-- Collect comments content until the specified tag. -->
+    <filter-comments-end-tag/>
+    <!-- Generate UML inheritance diagram for each class. -->
+    <export-uml-inheritance-diagram>true</export-uml-inheritance-diagram>
+    <!-- Generate UVM Component diagrams for each test. -->
+    <export-uvm-test-diagram>true</export-uvm-test-diagram>
+    <!-- Set the UVM Components diagram depth. -->
+    <uvm-components-diagram-depth>25</uvm-components-diagram-depth>
+    <!-- Generate UML collaboration diagram for each class, struct, or unit. -->
+    <export-uml-collaboration-diagram>true</export-uml-collaboration-diagram>
+    <!-- Use orthogonal edge routing for class diagrams. -->
+    <orthogonal-class-diagrams>false</orthogonal-class-diagrams>
+    <!-- Generate design block diagram for each module, entity. -->
+    <export-design-block-diagram>false</export-design-block-diagram>
+    <!-- Generate design flow diagram for each module, entity. -->
+    <export-design-flow-diagram>false</export-design-flow-diagram>
+    <!-- Generate design schematic diagram for each module, entity. -->
+    <export-design-schematic-diagram>false</export-design-schematic-diagram>
+    <!-- 
+		Highlight/filter ports, signals or blocks of design diagrams, using regular expressions and colors. A filter is defined using filter rules (one per line).
+		The general form of a filter rule is:
+			command element_kinds matching regex [using color_name_or_code]
+
+		- command: hide, show, or color
+		- element_kinds is a comma-separated list of kinds (instances, types, ports, port types and transaction types)
+		- regex is a regular expression that matches the relevant diagram element labels
+		- color_name_or_code is a color specified by name, 6-or-3-digit hexadecimal code, comma-separated decimal RGB code or the keyword random
+	 -->
+    <design-diagram-filters/>
+    <!-- Generate design schematic diagram without logic gates for each module/architecture. -->
+    <export-design-subinstances-diagram>false</export-design-subinstances-diagram>
+    <!-- Generate finite-state machine diagrams for all state variables found in the module, entity. -->
+    <export-fsm-diagrams>false</export-fsm-diagrams>
+    <!-- Direction for the FSM Diagrams: Up, Down, Left or Right -->
+    <fsm-diagram-direction>Down</fsm-diagram-direction>
+    <!-- Placement strategy for FSM Diagrams: Brandes-Koepf or Network Simplex -->
+    <fsm-placement-strategy>Brandes-Koepf</fsm-placement-strategy>
+    <!-- Enforce the in/out connections between states: None, All States or All States Except Initial -->
+    <fsm-enforce-edge-port-side>All States Except Initial</fsm-enforce-edge-port-side>
+    <!-- Position for initial state in FSM Diagram: Free, First or Last -->
+    <fsm-initial-state-position>First</fsm-initial-state-position>
+    <!-- Show default state in FSM Diagrams -->
+    <fsm-show-default-state>true</fsm-show-default-state>
+    <!-- Show loopback edges in FSM Diagrams -->
+    <fsm-show-loopback-edges>false</fsm-show-loopback-edges>
+    <!-- Filter condition fragments occurring in every transition. -->
+    <fsm-filter-common-expressions-in-conditions>false</fsm-filter-common-expressions-in-conditions>
+    <!-- Generate bitfield diagram for each UVM register. -->
+    <export-bitfield-diagram>false</export-bitfield-diagram>
+    <!-- Limit the size of generated design hierarchies or exclude large design diagrams to prevent crashes. -->
+    <max-nof-elaborated-instances>50</max-nof-elaborated-instances>
+    <!-- Include design parameters in the instances and submodules hierarchies. -->
+    <include-design-parameters>true</include-design-parameters>
+    <!-- Generate documentation for unnamed always blocks/processes. Default: true. -->
+    <export-unnamed-always-blocks>true</export-unnamed-always-blocks>
+    <!-- Export source code for documented elements. -->
+    <export-source-code>false</export-source-code>
+    <!-- CROSS-LINK WITH PRE-GENERATED DOCUMENTATION -->
+    <!-- You can specify one or more directory paths for existing Specador documentation to be referenced in the generated output. -->
+    <external-doc-path/>
+    <!-- SYSTEMVERILOG SPECIFIC -->
+    <!-- Export variables declared inside modules. -->
+    <export-vlog-modules-variables>false</export-vlog-modules-variables>
+    <!-- Generate macros documentation. -->
+    <export-vlog-macros>true</export-vlog-macros>
+    <!-- Generate ifndef guards documentation. Default: false. -->
+    <export-vlog-ifndef-guards>false</export-vlog-ifndef-guards>
+    <!-- Generate control defines documentation. Default: true. -->
+    <export-vlog-control-defines>true</export-vlog-control-defines>
+    <!-- Export variables declared inside packages. -->
+    <export-vlog-packages-variables>false</export-vlog-packages-variables>
+    <!-- Generate libraries documentation. You can select the specific libraries you want to document using export-vlog-library tag. For all libraries set export-vlog-libraries to true. -->
+    <export-vlog-libraries>true</export-vlog-libraries>
+    <!-- Generate assertions documentation. -->
+    <export-vlog-assertions>true</export-vlog-assertions>
+    <!-- Generate covergroups documentation. -->
+    <export-vlog-covergroups>true</export-vlog-covergroups>
+    <!-- Generate inner classes documentation. -->
+    <export-vlog-inner-classes>true</export-vlog-inner-classes>
+    <!-- Generate local parameters documentation. -->
+    <export-vlog-localparams>true</export-vlog-localparams>
+    <!-- The value "__UVM" excludes all UVM classes, while the values "__KEEP_FIRST_PARENT", "__KEEP_FIRST_ASSOCIATION", "__KEEP_REGS" and "__COLLABORATION_ONLY_COMPONENTS" allow you to add some of them back. -->
+    <vlog-filter-class-diagrams/>
+    <!-- Generate class inherited variables, functions and tasks documentation. -->
+    <export-vlog-class-inherited-members>false</export-vlog-class-inherited-members>
+    <!-- VHDL SPECIFIC -->
+    <!-- Generate libraries documentation. You can select the specific libraries you want to document using export-vhdl-library tag. For all libraries set export-vhdl-libraries to true. -->
+    <export-vhdl-libraries>true</export-vhdl-libraries>
+    <!-- E LANGUAGE SPECIFIC -->
+    <!-- Generate macro documentation. -->
+    <export-e-macro>true</export-e-macro>
+    <!-- Generate packages documentation. You can select the specific packages you want to document using export-e-package tag. For all packages set export-e-packages to true. -->
+    <export-e-packages>true</export-e-packages>
+    <!-- Generate covergroups documentation. -->
+    <export-e-covergroups>true</export-e-covergroups>
+    <!-- Generate checks documentation. -->
+    <export-e-checks>true</export-e-checks>
+    <!-- Generate tests documentation. -->
+    <export-e-tests>true</export-e-tests>
+</spechtml>

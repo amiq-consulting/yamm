@@ -1,0 +1,12 @@
+# Python packages required by the Specador Sphinx-based HTML build.
+# Installed into the persistent venv at ~/.dvt/sphinxenv by gen_specador_docs.sh.
+#
+# To update: edit the versions here, then delete the cached venv and re-run the
+# script:
+#   rm -rf ~/.dvt/sphinxenv && docs/scripts/gen_specador_docs.sh
+#
+# Version lower bounds are based on Specador 26.1.23 (Sphinx 5.x builder).
+# Pin upper bounds to avoid silent breakage when new major releases land.
+sphinx>=5.3,<9
+myst-parser>=0.18,<5
+sphinx-rtd-theme>=1.2,<3

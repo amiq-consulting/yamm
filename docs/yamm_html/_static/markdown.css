@@ -1,0 +1,42 @@
+.comment div.heading_title {
+    text-decoration:underline;
+    font-weight: bold;
+}
+
+.comment div.topic_content {
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.comment div.topic_title {
+    text-decoration:underline;
+    font-weight: bold;
+}
+
+.comment dl {
+    overflow: hidden;
+}
+
+.comment dt {
+    margin: 0 0 4px 0;
+    float: left;
+    clear: left;
+    width: 150px;
+    font-weight: bold;
+    word-break: break-word;
+    border-left: none !important;
+    background: inherit !important;
+    color: inherit !important;
+}
+		
+.comment dd {
+    margin: 0 0 4px 150px !important;
+}
+
+.comment table {
+	border: 1px solid #e1e4e5;
+	border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    margin-bottom: 24px;
+}

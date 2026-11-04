@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Class yamm_pkg::yamm &mdash; yamm API Specification</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/specador.css?v=b7f383bd" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/markdown.css?v=246a9725" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/fonts.css?v=edabd333" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/specador.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/highlight.min.js?v=2dda88ce"></script>
+      <script src="../../../../_static/svg-pan-zoom.min.js?v=a65b44e7"></script>
+      <script src="../../../../_static/specador.js?v=877dcbae"></script>
+      <script src="../../../../_static/custom.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Class yamm_pkg::yamm_access" href="yamm_access.html" />
+    <link rel="prev" title="Package yamm_pkg" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+	<a id="generate-button" class="btn btn-neutral" style="display: none;" style="width: 16px; height: 16px;">
+		<span class="fa"></span>
+		<img src="../../../../_static/ai-assistant.png">
+		<span class="title" style="margin-right: 8px; vertical-align: text-top;">Generate missing comments</span>
+    </a>
+
+    <a href="#top" id="scroll-top-btn" class="btn btn-neutral scroll-top-button">
+      <span class="fa fa-arrow-up"></span>
+    </a> 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            yamm API Specification
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work-sv.html">Packages</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Package yamm_pkg</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Class yamm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="yamm_access.html">Class yamm_access</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm_access.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="yamm_buffer.html">Class yamm_buffer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm_buffer.html#constructors">Constructors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="yamm_buffer.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#enums">Enums</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-macros.html">Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-asserts.html">Assertions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-diagrams.html">Diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../index-diagrams.html#uml-inheritance-diagrams">UML Inheritance Diagrams</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">yamm API Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../work-sv.html">Packages</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package yamm_pkg</a></li>
+      <li class="breadcrumb-item active">Class yamm_pkg::yamm</li>
+
+		<button id="specador-layout-btn" onclick="switchLayout()" class="btn btn-neutral float-right" title="Maximum width">
+			<span class="fa fa-expand">
+			</span>
+		</button>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-yamm-pkg-yamm">
+<span id="class-6cd14ddd"></span><h1>Class yamm_pkg::yamm<a class="headerlink" href="#class-yamm-pkg-yamm" title="Link to this heading"></a></h1>
+<div id="class-hierarchy"><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference internal" href="index.html"><span class="doc">yamm_pkg</span></a> :: <a class="reference internal" href="yamm_buffer.html"><span class="doc">yamm_buffer</span></a></dt><dd><ul>
+<li><p><a class="reference internal" href="index.html"><span class="doc">yamm_pkg</span></a> :: <a class="reference internal" href="#"><span class="doc">yamm</span></a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div><div class="comment" ><p>Top level class, acts as the full memory. This is the only level on which static buffers can be allocated</p>
+</div><section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<div class="member docutils container" id="function-abf671d">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span> <span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yamm_size_width_t</span> <span class="pre">size</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ Function that initializes the memory, setting a name and a size for the memory as well as
+  creating a free buffer over the entire memory span, supporting allocation and making the memory usable.
+  Can only be called once.
+
+
+</p>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-591e30e0">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">allocate_static_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_buffer</span> <span class="pre">n_buffer</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns 1 if the buffer was allocated or 0 if it overlaps at least partially other allocated buffer
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-b99bdfe">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Can not be used if build wasn&#39;t called. Function that deallocated all non-static buffers and also clears the contents
+and all buffers allocated inside static buffers</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-3746d71c">
+<div class="qualifiers" style="display: none"> function yamm_buffer_q</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_static_buffers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the queue of static buffers that are stored in memory.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-1368bc54"><span class="std std-ref">yamm_buffer_q</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-3a807df0">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">write_memory_map_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bit</span> <span class="pre">recursive</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ Function that dumps memory to file starting with the level it is called on. Can be done recursively if bit is set.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns 1 if done successfully, or 0 otherwise
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <div id="img" class="modal-content"></div>
+</div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Package yamm_pkg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yamm_access.html" class="btn btn-neutral float-right" title="Class yamm_pkg::yamm_access" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 AMIQ Consulting. Apache License 2.0..
+    </p>
+  </div>
+
+  
+Generated by <a href="https://eda.amiq.com/products/specador-documentation-generator">Specador™</a> 26.1.23 using
+<a href="https://github.com/readthedocs/sphinx_rtd_theme">Read the Docs</a> theme.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

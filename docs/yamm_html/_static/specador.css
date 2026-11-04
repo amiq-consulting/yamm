@@ -1,0 +1,521 @@
+.wy-nav-content {
+    max-width: 1000px;
+}
+
+.wy-nav-content svg {
+    display: block;
+    margin: auto;
+}
+
+.wy-table-responsive table {
+    margin: auto;
+    width: 100%;
+}
+
+.wy-table-responsive table thead {
+    text-align: center !important;
+}
+
+.wy-table-responsive table tr td:not(:last-child):not(.docutils *) {
+	text-align: center !important;
+}
+
+:root {
+  --link-color: #2980b9;
+}
+
+.wy-nav-content a, .wy-nav-content a:visited {
+    color: var(--link-color);
+}
+
+.wy-nav-content .sig-object {
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,Courier,monospace;
+}
+
+#always-blocks .sig-param {
+	font-style: normal;
+}
+
+.rst-content #instances ul li, #submodules ul li, #class-hierarchy ul li, #design-hierarchy ul li {
+    list-style: none !important;
+    margin-left: 16px !important;
+}
+
+.rst-content #instances dd ul li, #submodules dd ul li, #class-hierarchy dd ul li, #design-hierarchy dd ul li {
+    margin-left: 0px !important;
+}
+
+.rst-content #instances dd ul li p, .rst-content #class-hierarchy dd ul li p {
+    font-weight: bold;
+}
+
+.rst-content #instances dl dt, .rst-content #submodules dl dt, .rst-content #design-hierarchy dl dt {
+    font-weight: normal;
+}
+
+.rst-content #submodules > ul > li > dl > dt, .rst-content #design-hierarchy > ul > li > dl > dt {
+    font-weight: bold;
+}
+
+.rst-content #submodules dl dt {
+    margin-bottom: 0px;
+}
+
+.rst-content #design-hierarchy dl dt {
+    margin-bottom: 0px;
+}
+
+.rst-content #instances li:before, #submodules li:before, #class-hierarchy li:before,  #design-hierarchy li:before {
+    content: "⠀";
+}
+
+.rst-content #instances dd ul li:before, #submodules dd ul li:before, #class-hierarchy dd ul li:before, #design-hierarchy dd ul li:before {
+    content: '\21b3';
+}
+
+.rst-content #instances p, #instances dl, #instances dt, #submodules p, #submodules dl, #submodules dt, #class-hierarchy p, #class-hierarchy dl, #class-hierarchy dt, #design-hierarchy p, #design-hierarchy dl, #design-hierarchy dt {
+    display: inline;
+}
+
+.rst-content #instances dl dd, .rst-content #class-hierarchy dl dd, .rst-content #submodules dl dd, .rst-content #design-hierarchy dl dd {
+    margin: 0 0 18px 24px;
+    line-height: 24px;
+}
+
+div.diagram.container {
+	position: relative;
+	display: block;
+	max-width: 100%;
+}
+
+div.diagram.container svg {
+    overflow: visible !important;
+}
+
+div.diagram.container:not(.bitfield) svg {
+    max-width: 90% !important;
+    min-height: inherit !important;
+    max-height: 80vh !important;
+}
+
+div.block.diagram.container > svg {
+    max-height: initial !important;
+}
+
+div.fsm.diagram.container > svg {
+    overflow: hidden !important;
+    min-width: 90% !important;
+}
+
+div.flow.diagram.container > svg,
+div.subinstances.diagram.container > svg,
+div.schematic.diagram.container > svg {
+    max-height: 600px !important;
+}
+
+.wy-table-responsive table td, .wy-table-responsive table th {
+    white-space: normal !important;
+}
+
+.wy-table-responsive table td >  blockquote {
+    margin-left: 0px;
+    margin-bottom: 0px;
+}
+
+.rst-content ul:not(:has(li)) {
+    display: none !important;
+}
+
+.hljs {
+    display: inline-block;
+    padding: 0.5em;
+    background-color: #f4f4f4;
+}
+
+.hljs,
+.hljs-subst,
+.lisp .hljs-title,
+.clojure .hljs-built_in {
+    color: black;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-parent,
+.hljs-tag .hljs-value,
+.hljs-rules .hljs-value,
+.hljs-preprocessor,
+.hljs-pragma,
+.ruby .hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.hljs-template_tag,
+.django .hljs-variable,
+.smalltalk .hljs-class,
+.hljs-addition,
+.hljs-flow,
+.hljs-stream,
+.bash .hljs-variable,
+.apache .hljs-cbracket,
+.coffeescript .hljs-attribute {
+    color: #CC00CC;
+}
+
+.hljs-section {
+    color: #00B414;
+}
+
+.hljs-type {
+    font-weight: bold;
+    color: #359BCB;
+}
+
+.hljs-comment,
+.hljs-annotation,
+.hljs-template_comment,
+.diff .hljs-header,
+.hljs-chunk {
+    color: #808080;
+}
+
+.hljs-number,
+.hljs-date,
+.hljs-regexp,
+.hljs-literal,
+.smalltalk .hljs-symbol,
+.smalltalk .hljs-char,
+.hljs-change,
+.tex .hljs-special {
+    color: #0000FF;
+}
+
+.hljs-label,
+.hljs-javadoc,
+.ruby .hljs-string,
+.hljs-decorator,
+.hljs-filter .hljs-argument,
+.hljs-localvars,
+.hljs-array,
+.hljs-attr_selector,
+.hljs-pseudo,
+.hljs-pi,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-envvar,
+.hljs-shebang,
+.apache .hljs-sqbracket,
+.nginx .hljs-built_in,
+.tex .hljs-formula,
+.hljs-prompt,
+.clojure .hljs-attribute {
+    color: #00e;
+}
+
+.hljs-keyword,
+.hljs-id,
+.hljs-phpdoc,
+.hljs-title,
+.hljs-built_in,
+.smalltalk .hljs-class,
+.hljs-winutils,
+.bash .hljs-variable,
+.apache .hljs-tag,
+.xml .hljs-tag,
+.tex .hljs-command,
+.hljs-request,
+.hljs-status {
+    font-weight: bold;
+    color: #8B0000;
+}
+
+.nginx .hljs-built_in {
+    font-weight: normal;
+}
+
+.coffeescript .javascript,
+.javascript .xml,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata {
+    opacity: 0.5;
+}
+
+/* --- */
+.apache .hljs-tag {
+    font-weight: bold;
+    color: blue;
+}
+
+.hljs-ln-code {
+    white-space: pre;
+}
+
+.hljs-ln-n {
+    margin-right: 10px;
+    padding: 0px 5px 0px 5px;
+    border-right: 1px solid #ccc;
+    color: #999;
+}
+
+.viewcode-back {
+    position: absolute;
+    right: 1%;
+}
+
+.table-hover tr {
+    cursor: pointer;
+}
+
+.table-hover tr.selected td, td.current_state, td.future_state {
+    background-color: moccasin!important;
+}
+
+rect.previous_state {
+    fill: lightcoral;
+}
+
+rect.next_state {
+    fill: lightgreen;
+}
+
+rect.previous_state.next_state {
+    fill: yellow;
+}
+
+rect.current_state{
+    fill: crimson;
+}
+
+rect.highlighted {
+	fill: #f1c40f;
+	stroke: #f1c40f;
+	stroke-width: 1;
+}
+
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.toctree-l2 {
+    word-wrap: break-word;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 300; /* Sit on top */
+  /*padding-top: 100px; /* Location of the box */
+  /*padding-left: 300px;*/
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.modal > .modal-content > svg {
+    display: inline;
+    width: inherit;
+    min-width: inherit;
+    max-width: inherit;
+    height: inherit;
+    min-height: inherit;
+    max-height: inherit;
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: rgb(28, 28, 28);
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+div.hover-button {
+    position: absolute;
+    display: flex;
+    right: 0.3em;
+}
+
+div.diagram button {
+    opacity: 0.35;
+    transition: opacity 0.3s, border .3s, background-color .3s;
+    user-select: none;
+    padding: 0;
+    border: none;
+    outline: none;
+    border-radius: 0.4em;
+    border: #1b1f2426 1px solid;
+    background-color: #f6f8fa;
+    color: #57606a;
+}
+
+div.diagram button:hover {
+    opacity: 1;
+    border: #1b1f2448 1px solid;
+    background-color: #dee1e4;
+}
+
+div.diagram button > image {
+    fill: currentColor;
+    height: inherit;
+    opacity: inherit;
+}
+
+.in-line-css-class  {
+    display: inline-block;
+    font-size: 14.4px;
+    margin-bottom: 0px !important;
+    padding-left: 3px; 
+}
+
+figcaption {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 2em;
+}
+
+figcaption span {
+    font-size: 85%;
+}
+
+.rubric {
+    font-size: 150%;
+    font-family: Roboto Slab,ff-tisa-web-pro,Georgia,Arial,sans-serif;
+    font-weight: 700;
+}
+
+.nowrap {
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.viewcode-back, .viewcode-link {
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,Courier,monospace;
+    color: #27ae60!important;
+}
+
+.admonition-title {
+    display: block!important;
+}
+
+.bitfield-table tr td {
+  text-align: center !important;
+}
+
+table.when-subtypes td:nth-child(1) p {
+    display: inline;
+}
+
+table.when-subtypes .subtype span {
+    font-size: 80%;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 2.4px 6px;
+    border: 1px solid #7fbbe3;
+    background: #e7f2fa
+}
+
+table.assertions div[class^=highlight-systemverilog] {
+    margin: 12px 0 12px !important;
+}
+
+.scroll-top-button {
+    position: fixed;
+    right: 1%;
+    bottom: 1%;
+    z-index: 200;
+    display: none;
+}
+
+.scroll-top-button:hover {
+    opacity: 1;
+    border: #1b1f2448 1px solid;
+    background-color: #dee1e4;
+}
+
+.verbatim-comment pre {
+    font-family: Lato, proxima-nova, Helvetica Neue, Arial, sans-serif !important;
+    font-size: 16px !important;
+    color: #404040 !important;
+}
+
+.verbatim-comment div[class^=highlight] {
+    border: none;
+}
+
+.verbatim-comment div[class^=highlight] div[class^=highlight] {
+    overflow-x: auto;
+    margin: 0;
+    background: inherit;
+}
+
+.copy-icon, .expand-icon {
+    padding: 3px 4px;
+}
+
+
+.vscode-dark pre code {
+    color: #fff;
+    background: var(--vscode-editor-background) !important;
+}
+
+pre code {
+    background: #f8f8f8 !important;
+    padding: 12px !important;
+    display: block;
+    white-space: pre !important;
+    border: none;
+    width: 50%;
+    min-width: fit-content;
+}
+
+/* Only for preview */
+.comment pre code {
+    width: 100%;
+}
+
+.panes {
+    overflow: auto;
+}
+
+pre:has(code) {
+    line-height: 100%;
+    overflow-x: auto;
+}
+
+pre {
+    margin-top: 0;
+}

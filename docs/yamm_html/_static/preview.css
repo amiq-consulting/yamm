@@ -1,0 +1,467 @@
+:root {
+    --dropdown-toolbar-bg-color: #e6e6e6;
+    --toolbar-hover-color: #e6e6e6;
+    --floating-toolbar-bg-color: #ffffff;
+    --floating-toolbar-hover-color: #e6e6e6;
+    --editor-border-color: #bbbbbb;
+    --editor-border-radius: 8px;
+
+    --floating-action-button-color: #fff;
+    --floating-action-button-width: 28px;
+    /* Colors copied from theme.css */
+    --floating-action-green: #27ae60; 
+    --floating-action-green-hover: #2cc36b;
+
+    --z-index-dropdown: 100;
+    --z-index-floating-btn: 50;
+}
+
+.wy-nav-side,
+.wy-nav-top,
+.wy-breadcrumbs {
+    display: none;
+}
+
+.wy-nav-content-wrap {
+    margin-left: 0;
+}
+
+.vscode-dark .admonition p {
+    color: #000;
+}
+
+.vscode-dark  .wy-nav-content-wrap {
+    background: var(--vscode-editor-background) !important;
+}
+
+.vscode-dark div .highlight {
+    background: var(--vscode-editor-background) !important;
+}
+
+.wy-nav-content {
+    width: auto !important;
+	max-width: 100% !important;
+}
+
+hr {
+    display: none;
+}
+
+section #inner-classes ul li,
+section #components ul li,
+section [id^="entity-"] dl dd ul {
+    color: var(--link-color);
+}
+
+div.diagram.container:not(.bitfield) svg {
+    height: auto;
+}
+
+blockquote {
+    background-color: initial;
+    scrollbar-color: initial;
+}
+
+body {
+    font-size: 16px !important;
+    background: var(--vscode-editor-background, #fcfcfc) !important;
+    color: var(--vscode-editor-foreground, #404040) !important;
+}
+
+.vscode-dark ::-webkit-scrollbar {
+	width: 12px;
+}
+
+.vscode-dark ::-webkit-scrollbar-track {
+    background-color: var(--vscode-editor-background, #fcfcfc) !important;
+	border-radius: 10px;
+}
+
+.vscode-dark ::-webkit-scrollbar-thumb {
+	background-color: color-mix(in srgb, var(--vscode-editor-foreground, #404040) 75%, var(--vscode-editor-background, #fcfcfc) 25%) !important;
+	border-radius: 10px;
+}
+
+.vscode-dark ::-webkit-scrollbar-thumb:vertical:hover {
+	background-color: var(--vscode-editor-foreground, #404040) !important;
+}
+
+.vscode-dark ::-webkit-scrollbar-thumb:vertical:active {
+	background-color: color-mix(in srgb, var(--vscode-editor-foreground, #404040) 25%, var(--vscode-editor-background, #fcfcfc) 75%) !important;
+}
+
+.vscode-dark .btn {
+    background-color: darkgreen;
+}
+
+.vscode-dark .btn-neutral {
+    background-color: darkgray !important;
+}
+
+.vscode-dark .btn-danger {
+    background-color: darkred !important;
+}
+
+.vscode-dark .rst-content table.docutils caption, .rst-content table.field-list caption, .wy-table caption {
+    color: var(--vscode-editor-foreground, #000) !important;
+}
+
+.vscode-dark .rst-content table.docutils:not(.field-list) tr:nth-child(2n-1) td, .wy-table-backed, .wy-table-odd td, .wy-table-striped tr:nth-child(2n-1) td {
+    background: var(--vscode-editor-background, #f3f6f6) !important;
+}
+
+.vscode-dark .rst-content table.docutils thead, .rst-content table.field-list thead, .wy-table thead {
+    color: var(--vscode-editor-foreground,#000) !important;
+}
+
+.diagram.block svg {
+    pointer-events: none;
+}
+
+.vscode-dark .diagram line, .diagram path {
+    stroke: var(--vscode-editor-foreground, #000) !important;
+}
+
+#generate-button {
+    position: fixed;
+    right: 1%;
+    top: 1%;
+    z-index: var(--z-index-floating-btn);
+}
+
+.ai-container-floating-actions {
+    color: var(--floating-action-button-color) !important;
+    width: var(--floating-action-button-width);
+    padding: 2px 5px 3px;
+}
+
+/* Prevent animation when button becomes active */
+.ai-container-floating-actions:active {
+    padding: 2px 5px 3px;
+}
+
+/* Override white outline after clicking on the button */
+.ai-container-floating-actions:focus {
+    outline: 0 !important;
+}
+
+/* Remove hover color after clicking on the btn */
+.ai-container-floating-actions:focus:has(.fa-check) {
+    background-color: var(--floating-action-green) !important;
+}
+
+/* Remove hover color after clicking on the btn */
+.ai-container-floating-actions:hover:has(.fa-check) {
+    background-color: var(--floating-action-green-hover) !important;
+}
+
+.ai-container-floating-actions-group {
+    position: absolute;
+    display: none;
+    gap: 5px;
+    justify-content: flex-end;
+
+    /* Add padding for a more pleasant hover experience */
+    transform: translate(2%, -55%);
+    padding-right: 1%;
+    padding-top: 1%;
+
+    z-index: var(--z-index-floating-btn);
+}
+
+td .ai-container-floating-actions-group {
+    transform: translate(2%, -2%);
+}
+
+.active .ai-container-floating-actions-group {
+    transform: translate(2%, 0%);
+}
+
+.comment:hover .ai-container-floating-actions-group {
+    display: inline-flex;
+    top: 100%;
+}
+
+button.stop {
+    background-color: #e74c3c;
+}
+
+button.stop:hover {
+    background-color: #c0392b;
+}
+
+#ai-generated-comment {
+    padding: 8px 0px;
+}
+
+div[contenteditable="true"] #ai-generated-comment {
+    white-space: pre-wrap
+}
+
+.ai-generated {
+    box-shadow: 0 5px 10px #0000004d;
+}
+
+.ai-generated p:last-of-type {
+    margin: 0 0 4px;
+}
+
+.ai-generated ul:last-of-type {
+    margin-bottom: 4px;
+}
+
+.edit-generated {
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.ai-generated,
+.edit-generated {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.floating {
+    align-self: flex-end;
+    opacity: 0.5;
+    padding: 1.5px 3px 2px;
+    transform: none !important;
+    min-width: max-content;
+}
+
+/* Prevent animation when button becomes active */
+.floating:active {
+    padding: 1.5px 3px 2px;
+}
+
+.floating:hover {
+    opacity: 1;
+}
+
+section > div.comment .toolbar-header {
+    border: 0;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-bottom: 0;
+}
+
+.vscode-dark section > div.comment .toolbar-header .toolbar-btn {
+    color: #fcfcfc;
+}
+
+section > div.comment .toolbar-header .toolbar {
+    padding: 8px;
+    border: 1px solid var(--editor-border-color);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+section > div.comment div.panes {
+    padding: 0 8px 8px;
+}
+
+section > div.comment div.panes > .editor {
+    padding: 0 8px 8px;
+}
+
+.comment-for-ai {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div.comment-for-ai.locked {
+    cursor: not-allowed;
+}
+
+div.comment-for-ai.locked a {
+    pointer-events: none;
+}
+
+/* !!! IMPORTANT it makes discard/regenerate buttons NOT clickable in some cases without this */
+.rst-content .admonition {
+    margin-bottom: 12px;
+}
+
+.right-buttons {
+    gap: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Style the editor */
+
+/* Remove lexical on focus border */
+.editor,
+.editor:focus,
+.editor:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+div.preview svg {
+    width: 100%;
+}
+
+div.preview {
+	min-height: 1.25em;
+}
+
+.floating-text-format-popup {
+    position: absolute;
+    background: var(--floating-toolbar-bg-color);
+    border-radius: var(--editor-border-radius);
+    box-shadow: 0 5px 10px #0000004d;
+    padding: 4px 6px;
+    opacity: 0;
+
+    transition: opacity 0.5s ease;
+}
+
+.floating-text-format-popup.dragging {
+    pointer-events: none;
+    user-select: none;
+}
+
+.style-floating-btns {
+    min-width: max-content;
+}
+
+.dropdown-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dropdown-toolbar-bg-color);
+    padding: 2px 3px;
+    border-radius: 2px;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: var(--z-index-dropdown);
+}
+
+.floating-text-format-popup .dropdown-content {
+    background-color: var(--floating-toolbar-bg-color);
+}
+
+.dropdown-action {
+    display: inline-flex;
+    align-items: center;
+    min-width: max-content;
+    justify-content: left;
+    flex-direction: row-reverse;
+    margin: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+    border: none;
+    border-radius: 2px;
+    padding: 4px 10px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in, border-color 0.3s ease-in, color 0.3s ease-in;
+}
+
+.dropdown-action:hover {
+    background-color: var(--toolbar-hover-color);
+}
+
+.floating-text-format-popup .dropdown-action:hover {
+    background-color: var(--floating-toolbar-hover-color);
+}
+
+.toolbar-header {
+    border: 1px solid var(--editor-border-color);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 5px;
+}
+
+.separator-line {
+    margin: 2px 8px 0 8px;
+}
+
+.centered-vertical-line {
+    border-left: 1px solid var(--editor-border-color);
+    height: 80%;
+}
+
+div.wy-table-responsive {
+    overflow: visible;
+}
+
+.toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    min-width: max-content;
+    justify-content: center;
+    flex-direction: row-reverse;
+    margin: 0 2px 0 2px;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 10px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in, border-color 0.3s ease-in, color 0.3s ease-in;
+}
+
+.toolbar-btn:hover {
+    background-color: var(--toolbar-hover-color);
+}
+
+.floating-text-format-popup .toolbar-btn:hover {
+    background-color: var(--floating-toolbar-hover-color);
+}
+
+.comment {
+    cursor: text;
+    position: relative;
+    gap: 10px;
+	justify-content: space-between;
+}
+
+td .comment {
+	display: flex;
+}
+
+.comment:hover {
+    box-shadow: 0 5px 10px #0000004d;
+}
+
+.comment.no-hover:hover {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.round-bottom-border {
+    border: 1px solid var(--editor-border-color);
+    border-top: none;
+    border-color: var (--editor-border-color);
+    border-bottom-left-radius: var(--editor-border-radius);
+    border-bottom-right-radius: var(--editor-border-radius);
+}
+
+.round-border-editor {
+    border: 1px solid var(--editor-border-color);
+    border-color: var (--editor-border-color);
+    border-radius: var(--editor-border-radius);
+}
+
+body.no_scroll {
+    overflow: hidden;
+}
+
+.never-show {
+    display: none !important;
+    visibility: hidden;
+}

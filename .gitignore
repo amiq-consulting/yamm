@@ -15,3 +15,7 @@ sim/YAMM
 sim/work_ius/
 sim/work_q/
 sim/work_vcs/
+
+# Specador/sphinx build artifacts in the generated docs (docs/yamm_html)
+docs/yamm_html/.buildinfo
+docs/yamm_html/_sources/

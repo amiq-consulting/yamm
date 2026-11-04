@@ -1,0 +1,1257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Class yamm_pkg::yamm_buffer &mdash; yamm API Specification</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/specador.css?v=b7f383bd" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/markdown.css?v=246a9725" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/fonts.css?v=edabd333" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/specador.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/highlight.min.js?v=2dda88ce"></script>
+      <script src="../../../../_static/svg-pan-zoom.min.js?v=a65b44e7"></script>
+      <script src="../../../../_static/specador.js?v=877dcbae"></script>
+      <script src="../../../../_static/custom.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Macros" href="../../../../index-macros.html" />
+    <link rel="prev" title="Class yamm_pkg::yamm_access" href="yamm_access.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+	<a id="generate-button" class="btn btn-neutral" style="display: none;" style="width: 16px; height: 16px;">
+		<span class="fa"></span>
+		<img src="../../../../_static/ai-assistant.png">
+		<span class="title" style="margin-right: 8px; vertical-align: text-top;">Generate missing comments</span>
+    </a>
+
+    <a href="#top" id="scroll-top-btn" class="btn btn-neutral scroll-top-button">
+      <span class="fa fa-arrow-up"></span>
+    </a> 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            yamm API Specification
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work-sv.html">Packages</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Package yamm_pkg</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="yamm.html">Class yamm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="yamm_access.html">Class yamm_access</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm_access.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Class yamm_buffer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#constructors">Constructors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#enums">Enums</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-macros.html">Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-asserts.html">Assertions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-diagrams.html">Diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../index-diagrams.html#uml-inheritance-diagrams">UML Inheritance Diagrams</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">yamm API Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../work-sv.html">Packages</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package yamm_pkg</a></li>
+      <li class="breadcrumb-item active">Class yamm_pkg::yamm_buffer</li>
+
+		<button id="specador-layout-btn" onclick="switchLayout()" class="btn btn-neutral float-right" title="Maximum width">
+			<span class="fa fa-expand">
+			</span>
+		</button>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-yamm-pkg-yamm-buffer">
+<span id="class-6d3d60e2"></span><h1>Class yamm_pkg::yamm_buffer<a class="headerlink" href="#class-yamm-pkg-yamm-buffer" title="Link to this heading"></a></h1>
+<div class="diagram inheritance docutils container" id="class-6d3d60e2-uml">
+<div class="hover-button">
+    <button title="Expand Diagram">
+        <span class="fa fa-arrows-alt expand-icon"></span>
+    </button>
+</div><svg fill-opacity="1" xmlns:xlink="http://www.w3.org/1999/xlink" color-rendering="auto" color-interpolation="auto" text-rendering="auto" stroke="black" stroke-linecap="square" width="728" stroke-miterlimit="10" shape-rendering="auto" stroke-opacity="1" fill="black" stroke-dasharray="none" font-weight="normal" stroke-width="1" height="769" xmlns="http://www.w3.org/2000/svg" font-family="'Dialog'" font-style="normal" stroke-linejoin="miter" font-size="12px" stroke-dashoffset="0" image-rendering="auto"
+><!--Generated using AMIQ DVT/Specador--><defs id="genericDefs"
+  /><g
+  ><g fill="rgb(255,243,176)" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(255,243,176)"
+    ><rect x="22" y="12" width="376" href="../../../work-sv/packages/yamm_pkg/yamm_buffer.html#class-6d3d60e2" id="rect_1" height="745" stroke="none"
+    /></g
+    ><g stroke-linecap="butt" stroke-linejoin="round" stroke-width="2"
+    ><rect fill="none" x="22" width="376" height="745" y="12"
+      /><line y2="48" fill="none" x1="22" x2="398" y1="48"
+      /><line y2="73" fill="none" x1="22" x2="398" y1="73"
+      /><text x="42" font-size="26px" y="39" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="bold" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="333px" xml:space="preserve"
+      >  yamm_pkg::yamm_buffer  </text
+      ><text x="26" font-size="15px" y="66" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="224px" xml:space="preserve"
+      >  + disable_warnings : bit  </text
+      ><text x="26" font-size="15px" y="91" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="224px" xml:space="preserve"
+      >  + access_overlaps(): bit  </text
+      ><text x="26" font-size="15px" y="111" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="168px" xml:space="preserve"
+      >  + allocate(): bit  </text
+      ><text x="26" font-size="15px" y="131" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="296px" xml:space="preserve"
+      >  + allocate_by_size(): yamm_buffer  </text
+      ><text x="26" font-size="15px" y="151" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="352px" xml:space="preserve"
+      >  + check_address_space_consistency(): bit  </text
+      ><text x="26" font-size="15px" y="171" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="224px" xml:space="preserve"
+      >  + check_alignment(): bit  </text
+      ><text x="26" font-size="15px" y="191" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="232px" xml:space="preserve"
+      >  + compare_contents(): bit  </text
+      ><text x="26" font-size="15px" y="211" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="184px" xml:space="preserve"
+      >  + deallocate(): bit  </text
+      ><text x="26" font-size="15px" y="231" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="248px" xml:space="preserve"
+      >  + deallocate_by_addr(): bit  </text
+      ><text x="26" font-size="15px" y="251" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="248px" xml:space="preserve"
+      >  + generate_contents(): void  </text
+      ><text x="26" font-size="15px" y="271" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="368px" xml:space="preserve"
+      >  + get_all_buffers_by_type(): yamm_buffer_q  </text
+      ><text x="26" font-size="15px" y="291" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="248px" xml:space="preserve"
+      >  + get_buffer(): yamm_buffer  </text
+      ><text x="26" font-size="15px" y="311" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="352px" xml:space="preserve"
+      >  + get_buffers_by_access(): yamm_buffer_q  </text
+      ><text x="26" font-size="15px" y="331" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="344px" xml:space="preserve"
+      >  + get_buffers_in_range(): yamm_buffer_q  </text
+      ><text x="26" font-size="15px" y="351" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="264px" xml:space="preserve"
+      >  + get_contents(): yamm_byte_s  </text
+      ><text x="26" font-size="15px" y="371" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="312px" xml:space="preserve"
+      >  + get_end_addr(): yamm_addr_width_t  </text
+      ><text x="26" font-size="15px" y="391" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="248px" xml:space="preserve"
+      >  + get_fragmentation(): real  </text
+      ><text x="26" font-size="15px" y="411" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="224px" xml:space="preserve"
+      >  + get_granularity(): int  </text
+      ><text x="26" font-size="15px" y="431" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="192px" xml:space="preserve"
+      >  + get_name(): string  </text
+      ><text x="26" font-size="15px" y="451" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="280px" xml:space="preserve"
+      >  + get_size(): yamm_size_width_t  </text
+      ><text x="26" font-size="15px" y="471" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="328px" xml:space="preserve"
+      >  + get_start_addr(): yamm_addr_width_t  </text
+      ><text x="26" font-size="15px" y="491" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="296px" xml:space="preserve"
+      >  + get_start_addr_alignment(): int  </text
+      ><text x="26" font-size="15px" y="511" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="272px" xml:space="preserve"
+      >  + get_usage_statistics(): real  </text
+      ><text x="26" font-size="15px" y="531" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="152px" xml:space="preserve"
+      >  + insert(): bit  </text
+      ><text x="26" font-size="15px" y="551" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="272px" xml:space="preserve"
+      >  + insert_access(): yamm_buffer  </text
+      ><text x="26" font-size="15px" y="571" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="200px" xml:space="preserve"
+      >  + print_stats(): void  </text
+      ><text x="26" font-size="15px" y="591" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="224px" xml:space="preserve"
+      >  + reset_contents(): void  </text
+      ><text x="26" font-size="15px" y="611" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="208px" xml:space="preserve"
+      >  + set_contents(): void  </text
+      ><text x="26" font-size="15px" y="631" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="232px" xml:space="preserve"
+      >  + set_granularity(): void  </text
+      ><text x="26" font-size="15px" y="651" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="176px" xml:space="preserve"
+      >  + set_name(): void  </text
+      ><text x="26" font-size="15px" y="671" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="176px" xml:space="preserve"
+      >  + set_size(): void  </text
+      ><text x="26" font-size="15px" y="691" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="224px" xml:space="preserve"
+      >  + set_start_addr(): void  </text
+      ><text x="26" font-size="15px" y="711" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="304px" xml:space="preserve"
+      >  + set_start_addr_alignment(): void  </text
+      ><text x="26" font-size="15px" y="731" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="264px" xml:space="preserve"
+      >  + set_start_addr_size(): void  </text
+      ><text x="26" font-size="15px" y="751" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="normal" rectid="rect_1" lengthAdjust="spacingAndGlyphs" textLength="232px" xml:space="preserve"
+      >  + sprint_buffer(): string  </text
+      ><rect x="458" y="367" fill="white" width="248" href="../../../work-sv/packages/yamm_pkg/yamm.html#class-6cd14ddd" id="rect_2" height="35" stroke="none"
+      /><rect fill="none" x="458" width="248" height="35" y="367"
+      /><text x="462" font-size="26px" y="394" font-family="'Ubuntu Mono'" font-style="normal" stroke="none" font-weight="bold" rectid="rect_2" lengthAdjust="spacingAndGlyphs" textLength="240px" xml:space="preserve"
+      >  yamm_pkg::yamm  </text
+      ><path fill="none" d="M457 385 C453 385 451 385 438 385 C426 385 403 385 402 385"
+      /><polygon fill="white" points=" 406 380 399 385 406 390" stroke="none"
+      /><polygon stroke-linecap="round" fill="none" points=" 406 380 399 385 406 390"
+    /></g
+  ></g
+></svg
+>
+<figcaption>
+    <p><span class="caption-text" >Inheritance Diagram of yamm_buffer</span><a class="headerlink" href="#class-6d3d60e2-uml" title="Link to this image"></a></p>
+</figcaption></div>
+<div class="comment" ><p>The main class, contains all the functions used for memory management</p>
+<p>Each instance of the buffer represents a region in the memory and also
+contains it&#39;s own memory map that can be used for recursive buffer allocation</p>
+</div><table class="longtable docutils align-default" id="id1">
+<caption><span class="caption-text">Variables</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p>
+</th>
+</tr>
+</thead>
+<tbody id="field-e54a3b5a">
+<tr class="row-even"><td><div id="disable_warnings">disable_warnings</div></td>
+<td><p>bit</p></td>
+<td><div class="comment" ><p>If set to 1 it will disable all warnings caused by various inconsistencies</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+<section id="constructors">
+<h2>Constructors<a class="headerlink" href="#constructors" title="Link to this heading"></a></h2>
+<div class="member docutils container" id="constructor-dc14b294">
+<div class="qualifiers" style="display: none"> function </div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<div class="member docutils container" id="function-8e543981">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">print_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>It prints the number of occupied buffer, the number of free buffers as well as
+the usage statistics and fragmentation</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-a6391260">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">check_alignment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>It checks if the alignment constraint is obeyed. Function returns 0 if buffer start_addr is not aligned according to start_addr_alignement</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-6af97ec9">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">allocate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_buffer</span> <span class="pre">new_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yamm_allocation_mode_e</span> <span class="pre">allocation_mode</span> <span class="pre">=</span> <span class="pre">RANDOM_FIT</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function tries to allocate the buffer randomly in the memory, according to
+  the yamm_allocation_mode_e
+
+
+</p><p>
+
+ The buffer argument handle is required to contain a valid size (bigger than zero)
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Arguments:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+n : The new buffer that is going to get allocated
+
+</p>
+
+</dd></dl><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns 1 if the buffer was successfully allocated or 0 otherwise. It returns 0 if there is no free space for the buffer to be allocated.
+On successful allocation, the buffer handle is updated with additional information: start_addr, end_addr
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-1af3f773">
+<div class="qualifiers" style="display: none"> function yamm_buffer</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">allocate_by_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_size_width_t</span> <span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yamm_allocation_mode_e</span> <span class="pre">allocation_mode</span> <span class="pre">=</span> <span class="pre">RANDOM_FIT</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function tries to allocate a buffer with the specified size in the memory,
+  according to yamm_allocation_mode_e.
+
+
+</p><p>
+
+ Function creates a new buffer with that size and calls allocate()
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Arguments:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+size: The size of the new buffer
+
+</p>
+
+</dd></dl><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns a buffer handle if successful or a null handle otherwise
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#class-6d3d60e2"><span class="std std-ref">yamm_buffer</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-48fa545">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_buffer</span> <span class="pre">new_buffer</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function tries to insert a buffer in the memory with the specified start_addr and size.
+  The function makes use of the field size and the start_addr contained in the specified buffer.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Arguments:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+n : The new buffer that is going to be inserted
+
+</p>
+
+</dd></dl><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns 1 if the operation is successful or 0 if the buffer would collide with another buffer in the memory.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-fac5859e">
+<div class="qualifiers" style="display: none"> function yamm_buffer</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">insert_access</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_access</span> <span class="pre">access</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ Similar to insert(), this function will try to insert a buffer at a specified address in memory,
+  but it takes an access as an argument instead of a buffer.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns the allocated buffer handle if the operation is successful or a null handle otherwise.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#class-6d3d60e2"><span class="std std-ref">yamm_buffer</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-2e72f1d5">
+<div class="qualifiers" style="display: none"> function yamm_buffer</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_addr_width_t</span> <span class="pre">start</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It searches for the buffer located at the specified address.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the buffer which contains the specified address. It returns a NULL handle if no buffer exists at the specfied address
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#class-6d3d60e2"><span class="std std-ref">yamm_buffer</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-37bee784">
+<div class="qualifiers" style="display: none"> function yamm_buffer_q</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_buffers_in_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_addr_width_t</span> <span class="pre">start_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yamm_addr_width_t</span> <span class="pre">end_addr</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It searches for all buffers that span in the address space defined by start_addr and end_addr.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns a queue of buffers. If end_addr is less than start_addr or no buffers are found it will return an empty queue.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-1368bc54"><span class="std std-ref">yamm_buffer_q</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-c00b48b">
+<div class="qualifiers" style="display: none"> function yamm_buffer_q</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_buffers_by_access</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_access</span> <span class="pre">access</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It searches for all buffers that span in the address range specified by access.
+  The address range is computed using start_addr and size fields of yamm_access.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns a queue of buffers. If no buffers are found, it will return an empty queue.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-1368bc54"><span class="std std-ref">yamm_buffer_q</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-88a69c03">
+<div class="qualifiers" style="display: none"> function yamm_buffer_q</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_all_buffers_by_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span> <span class="pre">type_name</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ Because SV doesn’t support type checking, the search will be done according
+  to the type name set with set_name().
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Function returns a queue with all buffers of a certain kind.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-1368bc54"><span class="std std-ref">yamm_buffer_q</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-5c4bc74a">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">deallocate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_buffer</span> <span class="pre">deleted_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit</span> <span class="pre">recursive</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function tries to deallocate a buffer allocated in the memory.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Arguments:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+del : The buffer that is going to be deallocated
+
+</p>
+
+</dd></dl><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.
+It also returns 0 if ‘recursive’ bit is not set, and it contains allocated buffers.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-8ff1eae4">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">deallocate_by_addr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_addr_width_t</span> <span class="pre">addr</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function tries to deallocate from the memory the buffer which
+  contains the specified address.
+
+
+</p><p>
+
+ A warning is given if the buffer contains other buffers inside.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-f2b967e3">
+<div class="qualifiers" style="display: none">virtual  function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">byte</span> <span class="pre">#[]</span> <span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit</span> <span class="pre">warning</span> <span class="pre">=</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ Store custom data in the buffer. If the size of the data array set
+  doesn’t match the size of the buffer, a warning will be triggered.
+  This warning can be turned off.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Arguments:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+data[] : The string that is going to be saved as payload inside the buffer
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-9665a76f">
+<div class="qualifiers" style="display: none">virtual  function yamm_byte_s</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_contents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function returns the data stored in the buffer. If no data
+ was previously stored with set_contents() it will do a call to
+ generate_contents() to get data.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Contents stored inside the buffer
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-6d7c179e"><span class="std std-ref">yamm_byte_s</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-47cb1898">
+<div class="qualifiers" style="display: none">virtual  function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">generate_contents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>A hook function which the user can extend to implement a custom generation
+rule for data. By default it generates pure random data which is then
+stored with set_contents().</p>
+<p>Function can be overwritten by user for custom comparison.</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-38124c0">
+<div class="qualifiers" style="display: none">virtual  function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">compare_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_byte_s</span> <span class="pre">cmp_data</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It compares cmp data with data stored inside the buffer.
+  Function can be overwritten by user for custom comparison.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Arguments:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+cmp : The string that will be compared to the contents stored in buffer
+
+</p>
+
+</dd></dl><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+It returns 1 if they match or 0 otherwise
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-42e28e96">
+<div class="qualifiers" style="display: none">virtual  function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">reset_contents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Wipes the data stored in the buffer</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-492a45f9">
+<div class="qualifiers" style="display: none"> function string</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">sprint_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bit</span> <span class="pre">recursive</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">identation</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It returns the structured memory map of the current buffer as a string.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+A string of the structured memory map
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-f33091d6">
+<div class="qualifiers" style="display: none"> function real</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_usage_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It computes the memory usage percentage.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the percentage of used memory out of the total memory size.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-7d06b70">
+<div class="qualifiers" style="display: none"> function real</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_fragmentation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It computes the memory fragmentation percentage.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the percentage of occupied buffers out of the total number of buffers.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-3406cc7b">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">access_overlaps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_access</span> <span class="pre">access</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It checks if an access overlaps the current buffer
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns 1 if access overlaps, at least partially, any allocated buffer.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-87359b51">
+<div class="qualifiers" style="display: none"> function bit</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">check_address_space_consistency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ This function is used to do a self-check on the memory model to see if all
+ the buffers are correctly allocated by the model.
+ It will trigger an error message if any inconsistency is found.
+ It is used for debug purposes.
+
+
+</p>
+
+<p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns 1 if no error are found and 0 otherwise.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-534d53d4">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span> <span class="pre">name</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><p>
+
+ It sets an optional name tag to the buffer.
+ This name can later be used by function get_all_buffers_by_type().
+
+
+</p>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-bc6cfc37">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_start_addr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_addr_width_t</span> <span class="pre">new_start_address</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Function used to set the start address of the buffer it is called from</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-534fb94a">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_size_width_t</span> <span class="pre">new_size</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Function used to set the size of the buffer it is called from</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-8f9ba709">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_start_addr_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yamm_addr_width_t</span> <span class="pre">new_start_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yamm_size_width_t</span> <span class="pre">new_size</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Function used to set both the size and the start_address of the buffer it is called from</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-5324ffdb">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_start_addr_alignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">new_start_addr_alignment</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Function used to set the start_addr_alignment of the buffer it is called from</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-997e3fe5">
+<div class="qualifiers" style="display: none"> function void</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">set_granularity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">new_granularity</span></span></em><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>Function used to set the granularity of the buffer it is called from</p>
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-260788c3">
+<div class="qualifiers" style="display: none"> function yamm_addr_width_t</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_start_addr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the start_addr of the buffer it is called from.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-46d2ed0f"><span class="std std-ref">yamm_addr_width_t</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-74c19ed6">
+<div class="qualifiers" style="display: none"> function yamm_size_width_t</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the size of the buffer it is called from.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-309e211f"><span class="std std-ref">yamm_size_width_t</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-1f07692a">
+<div class="qualifiers" style="display: none"> function yamm_addr_width_t</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_end_addr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the end_addr of the buffer it is called from.
+
+</p>
+
+</dd></dl>
+
+</div><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="index.html#typedef-46d2ed0f"><span class="std std-ref">yamm_addr_width_t</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="function-83124d67">
+<div class="qualifiers" style="display: none"> function int</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_start_addr_alignment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the start_addr_alignment of the buffer it is called from.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-633544d9">
+<div class="qualifiers" style="display: none"> function int</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_granularity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the granularity of the buffer it is called from.
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div class="member docutils container" id="function-74bf3960">
+<div class="qualifiers" style="display: none"> function string</div><dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><div class="comment" ><p>
+
+</p><dl><dt class="def_name_wrapper">
+
+Returns:
+
+</dt><dd class="def_description_wrapper">
+
+<p>
+
+Returns the type name of the buffer
+
+</p>
+
+</dd></dl>
+
+</div></dd></dl>
+
+</div>
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <div id="img" class="modal-content"></div>
+</div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="yamm_access.html" class="btn btn-neutral float-left" title="Class yamm_pkg::yamm_access" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../../index-macros.html" class="btn btn-neutral float-right" title="Macros" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 AMIQ Consulting. Apache License 2.0..
+    </p>
+  </div>
+
+  
+Generated by <a href="https://eda.amiq.com/products/specador-documentation-generator">Specador™</a> 26.1.23 using
+<a href="https://github.com/readthedocs/sphinx_rtd_theme">Read the Docs</a> theme.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

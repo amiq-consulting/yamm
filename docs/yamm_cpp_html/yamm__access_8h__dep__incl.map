@@ -1,0 +1,13 @@
+<map id="src/cpp/yamm_access.h" name="src/cpp/yamm_access.h">
+<area shape="rect" id="node1" title=" " alt="" coords="713,5,878,32"/>
+<area shape="rect" id="node2" href="$yamm_8h.html" title=" " alt="" coords="737,155,853,181"/>
+<area shape="rect" id="node11" href="$yamm__buffer_8h.html" title=" " alt="" coords="775,80,930,107"/>
+<area shape="rect" id="node3" href="$yamm__allocate_8cpp.html" title=" " alt="" coords="5,237,188,263"/>
+<area shape="rect" id="node4" href="$yamm__buffer__locals_8cpp.html" title=" " alt="" coords="212,229,357,271"/>
+<area shape="rect" id="node5" href="$yamm__contents_8cpp.html" title=" " alt="" coords="382,237,569,263"/>
+<area shape="rect" id="node6" href="$yamm__deallocate_8cpp.html" title=" " alt="" coords="593,237,789,263"/>
+<area shape="rect" id="node7" href="$yamm__debug_8cpp.html" title=" " alt="" coords="813,237,985,263"/>
+<area shape="rect" id="node8" href="$yamm__get__buffers_8cpp.html" title=" " alt="" coords="1010,237,1213,263"/>
+<area shape="rect" id="node9" href="$yamm__insert_8cpp.html" title=" " alt="" coords="1237,237,1407,263"/>
+<area shape="rect" id="node10" href="$yamm__set__up_8cpp.html" title=" " alt="" coords="1431,237,1607,263"/>
+</map>

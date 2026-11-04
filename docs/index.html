@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="YAMM - Yet Another Memory Manager. Documentation landing page.">
+<title>YAMM &mdash; Documentation</title>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dfe4ea;
+    --text: #24292f;
+    --muted: #57606a;
+    --accent: #0b5fa5;
+    --accent-dark: #094a82;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+  }
+  header {
+    width: 100%;
+    background: linear-gradient(135deg, #10233b 0%, #0b5fa5 100%);
+    color: #fff;
+    padding: 48px 24px 56px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  header h1 .abbr { color: #8ecdf5; }
+  header p {
+    margin: 0 auto;
+    max-width: 560px;
+    font-size: 1.05rem;
+    color: #d5e4f2;
+  }
+  main {
+    width: 100%;
+    max-width: 960px;
+    padding: 32px 24px 48px;
+    margin-top: -28px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(16, 35, 59, 0.08);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px rgba(11, 95, 165, 0.18);
+  }
+  .card .icon {
+    font-size: 1.9rem;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .card h2 {
+    margin: 0 0 6px;
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+  }
+  .card p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .card .tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  footer {
+    margin-top: auto;
+    padding: 18px 24px 28px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="abbr">YAMM</span> &mdash; Yet Another Memory Manager</h1>
+  <p>A memory manager for SystemVerilog&nbsp;/&nbsp;UVM-based verification
+     projects, with an equivalent C++ implementation.</p>
+</header>
+
+<main>
+  <div class="grid">
+
+    <a class="card" href="yamm_html/index.html">
+      <div class="icon">&#9889;</div>
+      <h2>API Specification (SystemVerilog)</h2>
+      <p>Full reference of the <code>yamm_pkg</code> package: classes,
+         functions, functions' contracts, assertions and diagrams.
+         Generated with Specador.</p>
+      <span class="tag">SystemVerilog / UVM</span>
+    </a>
+
+    <a class="card" href="yamm_cpp_html/index.html">
+      <div class="icon">&lt;/&gt;</div>
+      <h2>API Documentation (C++)</h2>
+      <p>Reference of the C++ <code>yamm_ns</code> implementation: classes,
+         members and diagrams. Generated with Doxygen.</p>
+      <span class="tag">C++</span>
+    </a>
+
+    <a class="card" href="YAMM_User_Manual.pdf">
+      <div class="icon">&#128196;</div>
+      <h2>User Manual (PDF)</h2>
+      <p>Concepts, usage guide and examples for the YAMM memory manager.</p>
+      <span class="tag">Manual</span>
+    </a>
+
+    <a class="card" href="YAMM_User_Manual.docx">
+      <div class="icon">&#128220;</div>
+      <h2>User Manual (Word)</h2>
+      <p>Same user manual in Microsoft Word format, for editing and
+         annotation.</p>
+      <span class="tag">Manual</span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  YAMM &mdash; Apache License 2.0 &middot;
+  <a href="https://github.com/amiq-eda/yamm/blob/master/README.md" style="color: var(--accent);">README</a>
+</footer>
+</body>
+</html>

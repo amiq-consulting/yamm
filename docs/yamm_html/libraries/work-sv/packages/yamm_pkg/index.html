@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Package yamm_pkg &mdash; yamm API Specification</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/specador.css?v=b7f383bd" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/markdown.css?v=246a9725" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/fonts.css?v=edabd333" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/specador.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/highlight.min.js?v=2dda88ce"></script>
+      <script src="../../../../_static/svg-pan-zoom.min.js?v=a65b44e7"></script>
+      <script src="../../../../_static/specador.js?v=877dcbae"></script>
+      <script src="../../../../_static/custom.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Class yamm_pkg::yamm" href="yamm.html" />
+    <link rel="prev" title="Packages" href="../../work-sv.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+	<a id="generate-button" class="btn btn-neutral" style="display: none;" style="width: 16px; height: 16px;">
+		<span class="fa"></span>
+		<img src="../../../../_static/ai-assistant.png">
+		<span class="title" style="margin-right: 8px; vertical-align: text-top;">Generate missing comments</span>
+    </a>
+
+    <a href="#top" id="scroll-top-btn" class="btn btn-neutral scroll-top-button">
+      <span class="fa fa-arrow-up"></span>
+    </a> 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            yamm API Specification
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work-sv.html">Packages</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Package yamm_pkg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="yamm.html">Class yamm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="yamm_access.html">Class yamm_access</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm_access.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="yamm_buffer.html">Class yamm_buffer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="yamm_buffer.html#constructors">Constructors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="yamm_buffer.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#enums">Enums</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-macros.html">Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-asserts.html">Assertions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index-diagrams.html">Diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../index-diagrams.html#uml-inheritance-diagrams">UML Inheritance Diagrams</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">yamm API Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../work-sv.html">Packages</a></li>
+      <li class="breadcrumb-item active">Package yamm_pkg</li>
+
+		<button id="specador-layout-btn" onclick="switchLayout()" class="btn btn-neutral float-right" title="Maximum width">
+			<span class="fa fa-expand">
+			</span>
+		</button>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-yamm-pkg">
+<span id="package-e4d7c7b5"></span><h1>Package yamm_pkg<a class="headerlink" href="#package-yamm-pkg" title="Link to this heading"></a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="yamm.html">Class yamm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yamm_access.html">Class yamm_access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yamm_buffer.html">Class yamm_buffer</a></li>
+</ul>
+</div>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Typedefs</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Actual Type</p></th>
+<th class="head"><p>Description</p>
+</th>
+</tr>
+</thead>
+<tbody id="typedef-46d2ed0f">
+<tr class="row-even"><td><div id="yamm_addr_width_t">yamm_addr_width_t</div></td>
+<td><p>bit[32-1:0]</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>The width in bits of a memory address, can be modified from YAMM_ADDR_WIDTH definition; default
+ </p></div>
+ <div class="topic_content">
+<p>31 bits
+ </p></div>
+</div></td>
+</tr>
+<tr class="row-odd" id="typedef-1368bc54"><td><div id="yamm_buffer_q">yamm_buffer_q</div></td>
+<td><p><a class="reference internal" href="yamm_buffer.html#class-6d3d60e2"><span class="std std-ref">yamm_buffer</span></a></p></td>
+<td><div class="comment" ><p>Defines a queue of yamm_buffer</p>
+</div></td>
+</tr>
+<tr class="row-even" id="typedef-6d7c179e"><td><div id="yamm_byte_s">yamm_byte_s</div></td>
+<td><p>byte</p></td>
+<td><div class="comment" ><p>Defines a byte array</p>
+</div></td>
+</tr>
+<tr class="row-odd" id="typedef-309e211f"><td><div id="yamm_size_width_t">yamm_size_width_t</div></td>
+<td><p>bit[32:0]</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>The width in bits of a memory size, can be modified from YAMM_ADDR_WIDTH definition; default
+ </p></div>
+ <div class="topic_content">
+<p>32 bits
+ </p></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Link to this heading"></a></h2>
+<div class="member docutils container" id="typedef-a8b7b326">
+<dl class="object">
+<dt class="sig sig-object">
+<span class="sig-name descname"><span class="pre">yamm_allocation_mode_e</span></span></dt>
+<dd><div class="comment" ><p>The supported allocation modes, used by buffer allocation operations</p>
+</div><dl class="field-list simple">
+<dt class="field-odd">Enum Items<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>RANDOM_FIT = 0</p></li>
+<li><p>FIRST_FIT_RND = 1</p></li>
+<li><p>BEST_FIT_RND = 2</p></li>
+<li><p>FIRST_FIT = 3</p></li>
+<li><p>BEST_FIT = 4</p></li>
+<li><p>UNIFORM_FIT = 5</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="member docutils container" id="typedef-850af843">
+<dl class="object">
+<dt class="sig sig-object">
+<span class="sig-name descname"><span class="pre">yamm_direction_e</span></span></dt>
+<dd><div class="comment" ><p>Direction for accesses, not used at the moment</p>
+</div><dl class="field-list simple">
+<dt class="field-odd">Enum Items<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>YAMM_RD = 0</p></li>
+<li><p>YAMM_WR = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <div id="img" class="modal-content"></div>
+</div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../work-sv.html" class="btn btn-neutral float-left" title="Packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yamm.html" class="btn btn-neutral float-right" title="Class yamm_pkg::yamm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 AMIQ Consulting. Apache License 2.0..
+    </p>
+  </div>
+
+  
+Generated by <a href="https://eda.amiq.com/products/specador-documentation-generator">Specador™</a> 26.1.23 using
+<a href="https://github.com/readthedocs/sphinx_rtd_theme">Read the Docs</a> theme.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1229 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Macros &mdash; yamm API Specification</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/specador.css?v=b7f383bd" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/markdown.css?v=246a9725" />
+      <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=edabd333" />
+
+  
+    <link rel="shortcut icon" href="_static/specador.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/highlight.min.js?v=2dda88ce"></script>
+      <script src="_static/svg-pan-zoom.min.js?v=a65b44e7"></script>
+      <script src="_static/specador.js?v=877dcbae"></script>
+      <script src="_static/custom.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Assertions" href="index-asserts.html" />
+    <link rel="prev" title="Class yamm_pkg::yamm_buffer" href="libraries/work-sv/packages/yamm_pkg/yamm_buffer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+	<a id="generate-button" class="btn btn-neutral" style="display: none;" style="width: 16px; height: 16px;">
+		<span class="fa"></span>
+		<img src="_static/ai-assistant.png">
+		<span class="title" style="margin-right: 8px; vertical-align: text-top;">Generate missing comments</span>
+    </a>
+
+    <a href="#top" id="scroll-top-btn" class="btn btn-neutral scroll-top-button">
+      <span class="fa fa-arrow-up"></span>
+    </a> 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            yamm API Specification
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="libraries/work-sv/work-sv.html">Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/index.html">Package yamm_pkg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/index.html#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm.html">Class yamm</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm_access.html">Class yamm_access</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm_access.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm_buffer.html">Class yamm_buffer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm_buffer.html#constructors">Constructors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/yamm_buffer.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="libraries/work-sv/packages/yamm_pkg/index.html#enums">Enums</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index-asserts.html">Assertions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index-diagrams.html">Diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index-diagrams.html#uml-inheritance-diagrams">UML Inheritance Diagrams</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">yamm API Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Macros</li>
+
+		<button id="specador-layout-btn" onclick="switchLayout()" class="btn btn-neutral float-right" title="Maximum width">
+			<span class="fa fa-expand">
+			</span>
+		</button>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="macros">
+<h1>Macros<a class="headerlink" href="#macros" title="Link to this heading"></a></h1>
+<table class="longtable docutils align-default" id="id1">
+<caption><span class="caption-text">Defined Control Defines</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UVM_CORESERVICE_TYPE</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_DEPRECATED_STARTING_PHASE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_HDL_MAX_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_LINE_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_MAX_STREAMBITS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NUM_LINES</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_PACKER_MAX_BYTES</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_REG_ADDR_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_REG_BYTENABLE_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_REG_CVR_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_REG_DATA_WIDTH</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>YAMM_ADDR_WIDTH</p></td>
+<td><div class="comment" ><p>defines the address bus width</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable docutils align-default" id="id2">
+<caption><span class="caption-text">Undefined Control Defines</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CDNS_NO_SQR_CHK_SEQ_ID</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>INCA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MODEL_TECH</p></td>
+<td><div class="comment" ><p>Any vendor specific defines go here.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>QUESTA</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>TODO</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_CB_TRACE_ON</p></td>
+<td><div class="comment" ><p>The +define+UVM_CB_TRACE_ON setting will instrument the uvm library to emit
+messages with message id UVMCB_TRC and UVM_NONE verbosity
+notifing add,delete and execution of uvm callbacks. The instrumentation is off by default.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_CMDLINE_NO_DPI</p></td>
+<td><div class="comment" ><p>Import DPI functions used by the interface to generate the
+lists.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_DEPRECATED_REPORTING</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_DISABLE_AUTO_ITEM_RECORDING</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_EMPTY_MACROS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_ENABLE_FIELD_CHECKS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_FIX_REV</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>Macro
+ </p></div>
+ <div class="topic_content">
+<p>UVM_VERSION_STRING
+ </p></div>
+<p>Provides a string-ized version of the UVM Library version number.</p>
+<p>When there is a FIX_REV, the string is &#34;-.&#34; (such as &#34;UVM-1.1d&#34;).
+When there is NO FIX_REV, the string is &#34;-.&#34; (such as &#34;UVM-1.2&#34;).</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_HDL_NO_DPI</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NO_DEPRECATED</p></td>
+<td><div class="comment" ><p>Deprecation Control Macros</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_NO_DPI</p></td>
+<td><div class="comment" ><p>Top-level file for DPI subroutines used by UVM.</p>
+<p>Tool-specific distribution overlays may be required.</p>
+<p>To use UVM without any tool-specific overlay, use +defin+UVM_NO_DPI</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NO_WAIT_FOR_NBA</p></td>
+<td><div class="comment" ><p>If &#96;included directly in a program block, can&#39;t use a non-blocking assign,
+but it isn&#39;t needed since program blocks are in a separate region.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_REGEX_NO_DPI</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_REG_NO_INDIVIDUAL_FIELD_ACCESS</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_REPORT_DISABLE_FILE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_REPORT_DISABLE_FILE_LINE</p></td>
+<td><div class="comment" ><p><code>ifndef UVM_USE_FILE_LINE </code>define UVM_REPORT_DISABLE_FILE_LINE
+&#96;endif</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_REPORT_DISABLE_LINE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_USE_PROCESS_CONTAINER</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_USE_PROCESS_STATE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_USE_RESOURCE_CONVERTER</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_USE_STRING_QUEUE_STREAMING_PACK</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_USE_SUSPEND_RESUME</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>VCS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>YAMM_USE_UVM</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-text">Defines</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 20.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>M_FIELD_QDA_ENUM(TYPE, T, ARG, FLAG)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_ARRAY_RESIZE(ARG, VAL)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_ARRAY_RESIZE</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_DATA_AA_enum_key(KEY, ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_enum_key</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_DATA_AA_generic(TYPE, KEY, ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_generic</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_DATA_AA_int_key(KEY, ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_int_int</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_DATA_AA_int_string(ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_int_string</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_DATA_AA_object_int(ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_object_int</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_DATA_AA_object_string(ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_object_string</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_DATA_AA_string_string(ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_DATA_AA_string_string</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_QDA_INT(TYPE, ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_QDA_INT</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_QDA_OBJECT(TYPE, ARG, FLAG)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_QDA_STRING(TYPE, ARG, FLAG)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_SET_AA_INT_ENUMTYPE(INDEX_TYPE, ARRAY_TYPE, ARRAY, RHS, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_SET_AA_INT_ENUMTYPE</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_SET_AA_INT_TYPE(INDEX_TYPE, ARRAY_TYPE, ARRAY, RHS, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_SET_AA_INT_TYPE</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_FIELD_SET_AA_OBJECT_TYPE(INDEX_TYPE, ARRAY, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_SET_AA_OBJECT_TYPE</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_FIELD_SET_AA_TYPE(INDEX_TYPE, ARRAY_TYPE, ARRAY, RHS, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_FIELD_SET_AA_TYPE</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>M_UVM_QUEUE_RESIZE(ARG, VAL)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_QUEUE_RESIZE</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>M_UVM_SARRAY_RESIZE(ARG, VAL)</p></td>
+<td></td>
+<td><div class="comment" ><h2>M_UVM_SARRAY_RESIZE</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_BLOCKING_GET_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_BLOCKING_GET_IMP_SFX(SFX, imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_BLOCKING_GET_PEEK_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_BLOCKING_PEEK_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_BLOCKING_PEEK_IMP_SFX(SFX, imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_BLOCKING_PUT_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td><div class="comment" ><hr />
+<p> TLM imp implementations</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_BLOCKING_PUT_IMP_SFX(SFX, imp, TYPE, arg)</p></td>
+<td></td>
+<td><div class="comment" ><p>These imps are used in uvm_<em><em>port, uvm</em></em>_export and uvm_*_imp, using suffixes</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_BLOCKING_TRANSPORT_IMP(imp, REQ, RSP, req_arg, rsp_arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_BLOCKING_TRANSPORT_IMP_SFX(SFX, imp, REQ, RSP, req_arg, rsp_arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_DEFAULT_TIMEOUT</p></td>
+<td><p>9200s</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>MACRO
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_DEFAULT_TIMEOUT
+ </p></div>
+<p>The default timeout for simulation, if not overridden by
+&lt;uvm_root::set_timeout&gt; or &lt;uvm_cmdline_processor::+UVM_TIMEOUT&gt;</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_EXPORT_COMMON(MASK, TYPE_NAME)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_FUNCTION_ERROR</p></td>
+<td><p>&quot;TLM interface function not implemented&quot;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_GET_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_GET_PEEK_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_IMP_COMMON(MASK, TYPE_NAME, IMP)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_MAJOR_REV</p></td>
+<td><p>1</p></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_MAJOR_REV
+  </p></div>
+<p> Defines the MAJOR revision number.</p>
+<p> For UVM version 1.2, the MAJOR revision number is &#39;1&#39;</p>
+<pre class="pre_section"> &#96;define UVM_MAJOR_REV 1</pre>
+
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_MAJOR_REV_1</p></td>
+<td></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_MAJOR_REV_1
+  </p></div>
+<p> Indicates that the MAJOR version of this release is &#39;1&#39;.</p>
+<pre class="pre_section"> &#96;define UVM_MAJOR_REV_1</pre>
+
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_MAJOR_VERSION_1_2</p></td>
+<td></td>
+<td><div class="comment" ><p>Undocumented, same thing as UVM_VERSION_1_2</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_MINOR_REV</p></td>
+<td><p>2</p></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_MINOR_REV
+  </p></div>
+<p> Defines the MINOR revision number.</p>
+<p> For UVM version 1.2, the MINOR revision number is &#39;2&#39;</p>
+<pre class="pre_section"> &#96;define UVM_MINOR_REV 2</pre>
+
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_MINOR_REV_2</p></td>
+<td></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_MINOR_REV_2
+  </p></div>
+<p> Indicates that the MINOR version of this release is &#39;2&#39;.</p>
+<pre class="pre_section"> &#96;define UVM_MINOR_REV_2</pre>
+
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_MS_IMP_COMMON(MASK, TYPE_NAME)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NAME</p></td>
+<td><p>UVM</p></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_NAME
+  </p></div>
+<p> The name used by the library when displaying the name of
+ the library.</p>
+<pre class="pre_section"> &#96;define UVM_NAME UVM</pre>
+
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_NONBLOCKING_GET_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NONBLOCKING_GET_IMP_SFX(SFX, imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_NONBLOCKING_GET_PEEK_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NONBLOCKING_PEEK_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_NONBLOCKING_PEEK_IMP_SFX(SFX, imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NONBLOCKING_PUT_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_NONBLOCKING_PUT_IMP_SFX(SFX, imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_NONBLOCKING_TRANSPORT_IMP(imp, REQ, RSP, req_arg, rsp_arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_NONBLOCKING_TRANSPORT_IMP_SFX(SFX, imp, REQ, RSP, req_arg, rsp_arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_PEEK_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_PH_TRACE(ID, MSG, PH, VERB)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_PORT_COMMON(MASK, TYPE_NAME)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_POST_VERSION_1_1</p></td>
+<td></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_POST_VERSION_1_1
+  </p></div>
+<p> Indicates that this version of the UVM came after the
+ 1.1 versions, including the various 1.1 fix revisions.  </p>
+<p> The first UVM version wherein this macro is defined is
+ 1.2, and the macro will continue to be defined
+ for all future revisions of the UVM library.</p>
+<pre class="pre_section"> &#96;define UVM_POST_VERSION_1_1</pre>
+
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_PUT_IMP(imp, TYPE, arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_RESOURCE_GET_FCNS(base_type)</p></td>
+<td></td>
+<td><div class="comment" ><p> When specicializing resources the get_by_name and get_by_type
+ functions must be redefined.  The reason is that the version of these
+ functions in the base class (uvm_resource#(T)) returns an object of
+ type uvm_resource#(T).  In the specializations we must return an
+ object of the type of the specialization.  So, we call the base_class
+ implementation of these functions and then downcast to the subtype.</p>
+<p> This macro is invokved once in each where a resource specialization
+ is a class defined as:</p>
+<pre class="pre_section">  class  extends uvm_resource#(T)</pre>
+
+<p> where  is the name of the derived class.
+ The argument to this macro is T, the type of the uvm_resource#(T)
+ specialization.  The class in which the macro is defined must supply
+ a typedef of the specialized class of the form:</p>
+<pre class="pre_section">  typedef  this_subtype;</pre>
+
+<p> where  is the same as above.  The macro
+ generates the get_by_name() and get_by_type() functions for the
+ specialized resource (i.e. resource subtype).</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_FUNCTION_ERROR</p></td>
+<td><p>&quot;Sequencer interface function not implemented&quot;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_GET_MASK</p></td>
+<td><p>(1&lt;&lt;7)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_GET_NEXT_ITEM_MASK</p></td>
+<td><p>(1&lt;&lt;0)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_HAS_DO_AVAILABLE_MASK</p></td>
+<td><p>(1&lt;&lt;3)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_ITEM_DONE_MASK</p></td>
+<td><p>(1&lt;&lt;2)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_PEEK_MASK</p></td>
+<td><p>(1&lt;&lt;8)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_PULL_IMP(imp, REQ, RSP, req_arg, rsp_arg)</p></td>
+<td></td>
+<td><div class="comment" ><hr />
+<h2> imp definitions</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_PULL_MASK</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_PUSH_MASK</p></td>
+<td><p>(UVM_SEQ_ITEM_PUT_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_PUT_MASK</p></td>
+<td><p>(1&lt;&lt;6)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_PUT_RESPONSE_MASK</p></td>
+<td><p>(1&lt;&lt;5)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_TASK_ERROR</p></td>
+<td><p>&quot;Sequencer interface task not implemented&quot;</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_TRY_NEXT_ITEM_MASK</p></td>
+<td><p>(1&lt;&lt;1)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_ITEM_UNI_PULL_MASK</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_SEQ_ITEM_WAIT_FOR_SEQUENCES_MASK</p></td>
+<td><p>(1&lt;&lt;4)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_SEQ_PORT(MASK, TYPE_NAME)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_STRING_QUEUE_STREAMING_PACK(q)</p></td>
+<td><p>uvm_pkg::m_uvm_string_queue_join(q)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TASK_ERROR</p></td>
+<td><p>&quot;TLM interface task not implemented&quot;</p></td>
+<td><div class="comment" ><hr />
+<p>   Copyright 2007-2011 Mentor Graphics Corporation
+   Copyright 2007-2010 Cadence Design Systems, Inc.
+   Copyright 2010 Synopsys, Inc.
+   All Rights Reserved Worldwide</p>
+<p>   Licensed under the Apache License, Version 2.0 (the
+   &#34;License&#34;); you may not use this file except in
+   compliance with the License.  You may obtain a copy of
+   the License at</p>
+<pre><code>   http://www.apache.org/licenses/LICENSE-2.0
+</code></pre>
+<h2>   Unless required by applicable law or agreed to in
+   writing, software distributed under the License is
+   distributed on an &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied.  See
+   the License for the specific language governing
+   permissions and limitations under the License.</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_ANALYSIS_MASK</p></td>
+<td><p>(1&lt;&lt;8)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_BLOCKING_GET_MASK</p></td>
+<td><p>(1&lt;&lt;1)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_BLOCKING_GET_PEEK_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_GET_MASK    | UVM_TLM_BLOCKING_PEEK_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_BLOCKING_MASTER_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_PUT_MASK       | UVM_TLM_BLOCKING_GET_MASK | UVM_TLM_BLOCKING_PEEK_MASK | UVM_TLM_MASTER_BIT_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_BLOCKING_PEEK_MASK</p></td>
+<td><p>(1&lt;&lt;2)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_BLOCKING_PUT_MASK</p></td>
+<td><p>(1&lt;&lt;0)</p></td>
+<td><div class="comment" ><p>primitive interfaces</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_BLOCKING_SLAVE_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_PUT_MASK       | UVM_TLM_BLOCKING_GET_MASK | UVM_TLM_BLOCKING_PEEK_MASK | UVM_TLM_SLAVE_BIT_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_BLOCKING_TRANSPORT_MASK</p></td>
+<td><p>(1&lt;&lt;3)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_B_MASK</p></td>
+<td><p>(1&lt;&lt;2)</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>MACRO
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_B_MASK
+ </p></div>
+<p>Define blocking mask onehot assignment = &#39;b100</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_B_TRANSPORT_IMP(imp, T, t, delay)</p></td>
+<td></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>Macro
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_B_TRANSPORT_IMP
+ </p></div>
+<p>The macro wraps the function b_transport()
+Execute a blocking transaction. Once this method returns,
+the transaction is assumed to have been executed. Whether
+that execution is successful or not must be indicated by the
+transaction itself.</p>
+<p>The callee may modify or update the transaction object, subject
+to any constraints imposed by the transaction class. The
+initiator may re-use a transaction object from one call to
+the next and across calls to b_transport(). </p>
+<p>The call to b_transport shall mark the first timing point of the
+transaction. The return from b_transport() shall mark the final
+timing point of the transaction. The timing annotation argument
+allows the timing points to be offset from the simulation times
+at which the task call and return are executed.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_FIFO_FUNCTION_ERROR</p></td>
+<td><p>&quot;fifo channel function not implemented&quot;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_FIFO_TASK_ERROR</p></td>
+<td><p>&quot;fifo channel task not implemented&quot;</p></td>
+<td><div class="comment" ><hr />
+<p>   Copyright 2007-2011 Mentor Graphics Corporation
+   Copyright 2007-2011 Cadence Design Systems, Inc.
+   Copyright 2010 Synopsys, Inc.
+   All Rights Reserved Worldwide</p>
+<p>   Licensed under the Apache License, Version 2.0 (the
+   &#34;License&#34;); you may not use this file except in
+   compliance with the License.  You may obtain a copy of
+   the License at</p>
+<pre><code>   http://www.apache.org/licenses/LICENSE-2.0
+</code></pre>
+<h2>   Unless required by applicable law or agreed to in
+   writing, software distributed under the License is
+   distributed on an &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied.  See
+   the License for the specific language governing
+   permissions and limitations under the License.</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_FUNCTION_ERROR</p></td>
+<td><p>&quot;TLM-2 interface function not implemented&quot;</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>MACRO
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_FUNCTION_ERROR
+ </p></div>
+<p>Defines Not-Yet-Implemented TLM functions</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_GET_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_GET_MASK    | UVM_TLM_NONBLOCKING_GET_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_GET_PEEK_MASK</p></td>
+<td><p>(UVM_TLM_GET_MASK | UVM_TLM_PEEK_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_GET_TYPE_NAME(NAME)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_MASTER_BIT_MASK</p></td>
+<td><p>(1&lt;&lt;9)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_MASTER_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_MASTER_MASK    | UVM_TLM_NONBLOCKING_MASTER_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_NB_BW_MASK</p></td>
+<td><p>(1&lt;&lt;1)</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>MACRO
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_NB_BW_MASK
+ </p></div>
+<p>Define Non blocking backward mask onehot assignment = &#39;b010</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_NB_FW_MASK</p></td>
+<td><p>(1&lt;&lt;0)</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>MACRO
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_NB_FW_MASK
+ </p></div>
+<p>Define Non blocking Forward mask onehot assignment = &#39;b001</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_NB_TRANSPORT_BW_IMP(imp, T, P, t, p, delay)</p></td>
+<td></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> &#96;UVM_TLM_NB_TRANSPORT_BW_IMP
+  </p></div>
+<p> Implementation of the backward path.
+ The macro wraps the function called nb_transport_bw().
+ This function MUST be implemented in the INITIATOR component class.</p>
+<p> Every call to this method may mark a timing point, including the final
+ timing point, in the execution of the transaction.
+ The timing annotation argument allows the timing point
+ to be offset from the simulation times at which the backward path is used.
+ The final timing point of a transaction may be marked by a call
+ to nb_transport_fw() within <a class="a_wrapper" href="index-macros.html">&#96;UVM_TLM_NB_TRANSPORT_FW_IMP</a> or a return from
+ this or subsequent call to nb_transport_bw().</p>
+<p> See &lt;TLM2 Interfaces, Ports, Exports and Transport Interfaces Subset&gt;
+ for more details on the semantics and rules of the nonblocking
+ transport interface.</p>
+<p> Example:</p>
+<pre class="pre_section"> class master extends uvm_component;
+    uvm_tlm_nb_initiator_socket
+          #(trans, uvm_tlm_phase_e, this_t) initiator_socket;
+
+    function void build_phase(uvm_phase phase);
+       initiator_socket = new(&#34;initiator_socket&#34;, this, this);
+    endfunction
+
+    function uvm_tlm_sync_e nb_transport_bw(trans t,
+                                   ref uvm_tlm_phase_e p,
+                                   input uvm_tlm_time delay);
+        transaction = t;
+        state = p;
+        return UVM_TLM_ACCEPTED;
+    endfunction
+
+    ...
+ endclass</pre>
+
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_NB_TRANSPORT_FW_IMP(imp, T, P, t, p, delay)</p></td>
+<td></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>Macro
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_NB_TRANSPORT_FW_IMP
+ </p></div>
+<p>The macro wraps the forward path call function nb_transport_fw()</p>
+<p>The first call to this method for a transaction marks the initial timing point.
+Every call to this method may mark a timing point in the execution of the
+transaction. The timing annotation argument allows the timing points
+to be offset from the simulation times at which the forward path is used.
+The final timing point of a transaction may be marked by a call
+to nb_transport_bw() within <a class="a_wrapper" href="index-macros.html">&#96;UVM_TLM_NB_TRANSPORT_BW_IMP</a> or a return from this
+or subsequent call to nb_transport_fw().</p>
+<p>See &lt;TLM2 Interfaces, Ports, Exports and Transport Interfaces Subset&gt;
+for more details on the semantics and rules of the nonblocking
+transport interface.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_NONBLOCKING_GET_MASK</p></td>
+<td><p>(1&lt;&lt;5)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_NONBLOCKING_GET_PEEK_MASK</p></td>
+<td><p>(UVM_TLM_NONBLOCKING_GET_MASK | UVM_TLM_NONBLOCKING_PEEK_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_NONBLOCKING_MASTER_MASK</p></td>
+<td><p>(UVM_TLM_NONBLOCKING_PUT_MASK    | UVM_TLM_NONBLOCKING_GET_MASK | UVM_TLM_NONBLOCKING_PEEK_MASK | UVM_TLM_MASTER_BIT_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_NONBLOCKING_PEEK_MASK</p></td>
+<td><p>(1&lt;&lt;6)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_NONBLOCKING_PUT_MASK</p></td>
+<td><p>(1&lt;&lt;4)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_NONBLOCKING_SLAVE_MASK</p></td>
+<td><p>(UVM_TLM_NONBLOCKING_PUT_MASK    | UVM_TLM_NONBLOCKING_GET_MASK | UVM_TLM_NONBLOCKING_PEEK_MASK | UVM_TLM_SLAVE_BIT_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_NONBLOCKING_TRANSPORT_MASK</p></td>
+<td><p>(1&lt;&lt;7)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_PEEK_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_PEEK_MASK   | UVM_TLM_NONBLOCKING_PEEK_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_PUT_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_PUT_MASK    | UVM_TLM_NONBLOCKING_PUT_MASK)</p></td>
+<td><div class="comment" ><p>combination interfaces</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_SLAVE_BIT_MASK</p></td>
+<td><p>(1&lt;&lt;10)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_SLAVE_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_SLAVE_MASK    | UVM_TLM_NONBLOCKING_SLAVE_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TLM_TASK_ERROR</p></td>
+<td><p>&quot;TLM-2 interface task not implemented&quot;</p></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>MACRO
+ </p></div>
+ <div class="topic_content">
+<p>&#96;UVM_TLM_TASK_ERROR
+ </p></div>
+<p>Defines Not-Yet-Implemented TLM tasks</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_TLM_TRANSPORT_MASK</p></td>
+<td><p>(UVM_TLM_BLOCKING_TRANSPORT_MASK | UVM_TLM_NONBLOCKING_TRANSPORT_MASK)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>UVM_TRANSPORT_IMP(imp, REQ, RSP, req_arg, rsp_arg)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>UVM_VERSION_1_2</p></td>
+<td></td>
+<td><div class="comment" > <div class="topic_title">
+
+
+<p> Macro
+  </p></div>
+  <div class="topic_content">
+<p> UVM_VERSION_1_2
+  </p></div>
+<p> Indicates that the version of this release is &#39;1.2&#39;.</p>
+<pre class="pre_section"> &#96;define UVM_VERSION_1_2</pre>
+
+</div></td>
+</tr>
+<tr class="row-even"><td><p>UVM_VERSION_STRING</p></td>
+<td><p>&quot;UVM_NAME-UVM_MAJOR_REV.UVM_MINOR_REV&quot;</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_bottomup_phase(PHASE, COMP, PREFIX)</p></td>
+<td></td>
+<td><div class="comment" ><p>PREFIX<code>PHASE</code><em>phase PREFIX<code>PHASE</code></em>ph = PREFIX<code>PHASE</code>_phase::get();</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_component_registry_internal(T, S)</p></td>
+<td></td>
+<td><div class="comment" ><p>This is needed due to an issue in of passing down strings
+created by args to lower level macros.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_component_registry_param(T)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_component_registry_param</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_get_type_name_func(T)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_get_type_name_func</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_object_create_func(T)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_object_create_func</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_object_registry_internal(T, S)</p></td>
+<td></td>
+<td><div class="comment" ><p>This is needed due to an issue in of passing down strings
+created by args to lower level macros.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_object_registry_param(T)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_object_registry_param</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_print_int(ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>Purpose
+ </p></div>
+ <div class="topic_content">
+<p>provide print functionality for a specific integral field. This
+ </p></div>
+<p>macro is available for user access. If used externally, a record_options
+object must be avaialble and must have the name opt.</p>
+<div class="topic_title">
+
+
+<p>Postcondition
+ </p></div>
+ <div class="topic_content">
+<p><em>ARG</em>  is printed using the format set by the FLAGS.
+ </p></div>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_record_int(ARG, FLAG)</p></td>
+<td></td>
+<td><div class="comment" ><div class="topic_title">
+
+
+<p>Purpose
+ </p></div>
+ <div class="topic_content">
+<p>provide record functionality for a specific integral field. This
+ </p></div>
+<p>macro is available for user access. If used externally, a record_options
+object must be avaialble and must have the name opt.</p>
+<div class="topic_title">
+
+
+<p>Postcondition
+ </p></div>
+ <div class="topic_content">
+<p><em>ARG</em>  is printed using the format set by the FLAGS.
+ </p></div>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_record_object(ARG, FLAG)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_record_qda_enum(ARG, FLAG, SZ)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_record_qda_enum</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_record_qda_int(ARG, FLAG, SZ)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_record_qda_int</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_record_qda_object(ARG, FLAG, SZ)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_record_qda_object</h2>
+</div></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_record_qda_string(ARG, FLAG, SZ)</p></td>
+<td></td>
+<td><div class="comment" ><h2>m_uvm_record_qda_string</h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_record_string(ARG, STR, FLAG)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_register_sequence(TYPE_NAME, SEQUENCER)</p></td>
+<td></td>
+<td><div class="comment" ><hr />
+<p> DEPRECATED ***
+ Group- Sequence Registration Macros</p>
+<h2> The sequence-specific macros perform the same function as the set of
+ &#96;uvm_object_*_utils macros, except they also set the default sequencer type
+ the sequence will run on. </h2>
+</div></td>
+</tr>
+<tr class="row-odd"><td><p>m_uvm_task_phase(PHASE, COMP, PREFIX)</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>m_uvm_topdown_phase(PHASE, COMP, PREFIX)</p></td>
+<td></td>
+<td><div class="comment" ><p>PREFIX<code>PHASE</code><em>phase PREFIX<code>PHASE</code></em>ph = PREFIX<code>PHASE</code>_phase::get();</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <div id="img" class="modal-content"></div>
+</div></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="libraries/work-sv/packages/yamm_pkg/yamm_buffer.html" class="btn btn-neutral float-left" title="Class yamm_pkg::yamm_buffer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index-asserts.html" class="btn btn-neutral float-right" title="Assertions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026 AMIQ Consulting. Apache License 2.0..
+    </p>
+  </div>
+
+  
+Generated by <a href="https://eda.amiq.com/products/specador-documentation-generator">Specador™</a> 26.1.23 using
+<a href="https://github.com/readthedocs/sphinx_rtd_theme">Read the Docs</a> theme.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

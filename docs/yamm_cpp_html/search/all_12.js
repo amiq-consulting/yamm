@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['yamm_85',['yamm',['../classyamm__ns_1_1yamm.html#acc421ad027b72336c7340392d93be2ab',1,'yamm_ns::yamm::yamm()'],['../classyamm__ns_1_1yamm__buffer.html#aadee88381be58e9ffcb00bd8d15ae6c6',1,'yamm_ns::yamm_buffer::yamm()'],['../classyamm__ns_1_1yamm.html',1,'yamm_ns::yamm']]],
+  ['yamm_2eh_86',['yamm.h',['../yamm_8h.html',1,'']]],
+  ['yamm_5faccess_87',['yamm_access',['../classyamm__ns_1_1yamm__access.html#aba9dfbe4bb968f33be94b0f1d3dcfc79',1,'yamm_ns::yamm_access::yamm_access()'],['../classyamm__ns_1_1yamm__access.html',1,'yamm_ns::yamm_access']]],
+  ['yamm_5faccess_2eh_88',['yamm_access.h',['../yamm__access_8h.html',1,'']]],
+  ['yamm_5fallocate_2ecpp_89',['yamm_allocate.cpp',['../yamm__allocate_8cpp.html',1,'']]],
+  ['yamm_5fbest_5ffit_90',['YAMM_BEST_FIT',['../yamm_8h.html#ac460c7bbb500638dee4ee0c4584ab18d',1,'yamm.h']]],
+  ['yamm_5fbest_5ffit_5frnd_91',['YAMM_BEST_FIT_RND',['../yamm_8h.html#a07b0a1445339496ed7b0201be23bc42f',1,'yamm.h']]],
+  ['yamm_5fbuffer_92',['yamm_buffer',['../classyamm__ns_1_1yamm__buffer.html#a9c955d66c5f23ee5d7ad099fbb2e0895',1,'yamm_ns::yamm_buffer::yamm_buffer(yamm_buffer *new_buffer)'],['../classyamm__ns_1_1yamm__buffer.html#a71603c1cf6dab528ebeffa1709fb3c95',1,'yamm_ns::yamm_buffer::yamm_buffer(uint_64_t size, std::string name)'],['../classyamm__ns_1_1yamm__buffer.html#af1e74d328f71e176110e48351339817a',1,'yamm_ns::yamm_buffer::yamm_buffer(std::string name)'],['../classyamm__ns_1_1yamm__buffer.html#a83086fb08a73d8740850ee558b7f2a0a',1,'yamm_ns::yamm_buffer::yamm_buffer(uint_64_t start, uint_64_t size)'],['../classyamm__ns_1_1yamm__buffer.html#a6f4912192ce62d90dd44bde438e8b403',1,'yamm_ns::yamm_buffer::yamm_buffer(uint_64_t size)'],['../classyamm__ns_1_1yamm__buffer.html#ab0680e3bb97ba702d2a77cb014fe772b',1,'yamm_ns::yamm_buffer::yamm_buffer()'],['../classyamm__ns_1_1yamm__buffer.html',1,'yamm_ns::yamm_buffer']]],
+  ['yamm_5fbuffer_2eh_93',['yamm_buffer.h',['../yamm__buffer_8h.html',1,'']]],
+  ['yamm_5fbuffer_5flocals_2ecpp_94',['yamm_buffer_locals.cpp',['../yamm__buffer__locals_8cpp.html',1,'']]],
+  ['yamm_5fcontents_2ecpp_95',['yamm_contents.cpp',['../yamm__contents_8cpp.html',1,'']]],
+  ['yamm_5fdeallocate_2ecpp_96',['yamm_deallocate.cpp',['../yamm__deallocate_8cpp.html',1,'']]],
+  ['yamm_5fdebug_2ecpp_97',['yamm_debug.cpp',['../yamm__debug_8cpp.html',1,'']]],
+  ['yamm_5fexit_5fcode_98',['YAMM_EXIT_CODE',['../yamm_8h.html#a543c2880678b6d4c62bb041af555194a',1,'yamm.h']]],
+  ['yamm_5ffirst_5ffit_99',['YAMM_FIRST_FIT',['../yamm_8h.html#a3e0f77717bef49856490d1f28867df87',1,'yamm.h']]],
+  ['yamm_5ffirst_5ffit_5frnd_100',['YAMM_FIRST_FIT_RND',['../yamm_8h.html#aa5880df0976d60579db189fe3bfc83ba',1,'yamm.h']]],
+  ['yamm_5fgb_101',['YAMM_GB',['../yamm__debug_8cpp.html#a4dcce22e30b53ff5199cc451b1eb5670',1,'yamm_debug.cpp']]],
+  ['yamm_5fget_5fbuffers_2ecpp_102',['yamm_get_buffers.cpp',['../yamm__get__buffers_8cpp.html',1,'']]],
+  ['yamm_5finsert_2ecpp_103',['yamm_insert.cpp',['../yamm__insert_8cpp.html',1,'']]],
+  ['yamm_5fkb_104',['YAMM_KB',['../yamm__debug_8cpp.html#aa3ae0f091eaae22de9353129d55fef6d',1,'yamm_debug.cpp']]],
+  ['yamm_5fmb_105',['YAMM_MB',['../yamm__debug_8cpp.html#af8fcac94a317c6969047f76b3c5bd396',1,'yamm_debug.cpp']]],
+  ['yamm_5fns_106',['yamm_ns',['../namespaceyamm__ns.html',1,'']]],
+  ['yamm_5frandom_5ffit_107',['YAMM_RANDOM_FIT',['../yamm_8h.html#a1aa7f71b97b8e81940900bcbed7074a3',1,'yamm.h']]],
+  ['yamm_5fset_5fup_2ecpp_108',['yamm_set_up.cpp',['../yamm__set__up_8cpp.html',1,'']]],
+  ['yamm_5funiform_5ffit_109',['YAMM_UNIFORM_FIT',['../yamm_8h.html#ab8a34cf8886010d5132092b5250f2211',1,'yamm.h']]]
+];
