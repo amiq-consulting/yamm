@@ -48,6 +48,9 @@ yamm_access_test: lib
 yamm_benchmark_test: lib
 	g++ -g -O3 -Wall -o "YAMM" $(OBJS) ./../examples/cpp_tests/yamm_benchmark_test.cpp -I${YAMM_SRC_CPP}
 
+yamm_fit_stress_test: lib
+	g++ -g -O3 -Wall -o "YAMM" $(OBJS) ./../examples/cpp_tests/yamm_fit_stress_test.cpp -I${YAMM_SRC_CPP}
+
 run: $(TEST_TO_RUN)
 	./YAMM
 

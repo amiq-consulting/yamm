@@ -174,84 +174,50 @@ function yamm_buffer yamm_buffer::find_suitable_buffer(yamm_size_width_t size, i
 		end
 
 		BEST_FIT: begin
+			// Smallest free buffer that can hold 'size' bytes starting at an aligned address.
+			// The usable (aligned) size must be checked for EVERY candidate; checking only the
+			// raw temp.size can select a buffer which doesn't fit once aligned and then the
+			// whole search fails although other suitable buffers exist.
 			yamm_buffer best_temp;
-			int set = 0;
-
-			if(compute_size_with_align(alignment, temp) >= size)
-				best_temp = temp;
 
 			// Traverse the whole mem. looking for the smallest free buffer that fits.
-			while(temp.next_free) begin
-				temp = temp.next_free;
-
+			while(temp) begin
 				if(size <= temp.size) begin
-					if(!best_temp)
-						if(alignment != 1)
-							tsize = compute_size_with_align(alignment, temp);
-						else
-							tsize = temp.size;
+					if(alignment != 1)
+						tsize = compute_size_with_align(alignment, temp);
 					else
-						if((alignment != 1) && (temp.size <= best_temp.size))
-							tsize = compute_size_with_align(alignment, temp);
-						else
-							tsize = temp.size;
+						tsize = temp.size;
 
-					if(size <= tsize) begin
-						// The best_temp isn't yet set, take the first buffer that fits as reference
-						if(!set) begin
-							best_temp = temp;
-							set = 1;
-						end
-						if((temp.size <= best_temp.size) && (size <= tsize))
-							best_temp = temp;
-					end
+					if((size <= tsize) && ((best_temp == null) || (temp.size <= best_temp.size)))
+						best_temp = temp;
 				end
-
+				temp = temp.next_free;
 			end
 
-			if(best_temp)
-				if(compute_size_with_align(alignment, best_temp) >= size)
-					return best_temp;
-				else
-					return null;
-			else
-				return null;
+			return best_temp;
 
 		end
 
 		UNIFORM_FIT: begin
-
-			yamm_buffer uniform_temp = temp;
-			bit found = 0;
+			// Largest free buffer that can hold 'size' bytes starting at an aligned address.
+			// Same rule as BEST_FIT: the aligned size is checked for every candidate.
+			yamm_buffer uniform_temp;
 
 			// Traverse the whole mem looking for the largest buffer that fits
-			while(temp.next_free) begin
-				temp = temp.next_free;
-
+			while(temp) begin
 				if(size <= temp.size) begin
-					if(!found)
-						if(alignment != 1) begin
-							tsize = compute_size_with_align(alignment, temp);
-							found = 1;
-						end
-						else begin
-							tsize = temp.size;
-							found = 1;
-						end
+					if(alignment != 1)
+						tsize = compute_size_with_align(alignment, temp);
 					else
 						tsize = temp.size;
 
-					if((temp.size >= uniform_temp.size) && (size <= tsize)) begin
+					if((size <= tsize) && ((uniform_temp == null) || (temp.size >= uniform_temp.size)))
 						uniform_temp = temp;
-					end
 				end
-
+				temp = temp.next_free;
 			end
 
-			if(compute_size_with_align(alignment, uniform_temp) >= size)
-				return uniform_temp;
-			else
-				return null;
+			return uniform_temp;
 
 		end
 

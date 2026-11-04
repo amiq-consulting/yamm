@@ -1,5 +1,4 @@
 -64bit
--gui
 -access +rwc
 -linedebug
 -coverage all

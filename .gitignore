@@ -1,0 +1,17 @@
+# Ignore log files
+*.log
+# Ignore DVT artifacts
+.dvt/*
+.project
+
+# Local steering file
+STEERING.md
+
+# C++ build artifacts (sim/Makefile)
+sim/Objects/
+sim/YAMM
+
+# Simulator work directories (sim/run_yamm.sh)
+sim/work_ius/
+sim/work_q/
+sim/work_vcs/

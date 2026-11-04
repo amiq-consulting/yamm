@@ -49,6 +49,6 @@ $> make help
 
 You can see more details here:
 
-[Article about YAMM concepts and first release](http://www.amiq.com/consulting/2016/07/12/yamm-yet-another-memory-manager/)
+[Article about YAMM concepts and first release](https://www.consulting.amiq.com/2016/07/12/yamm-yet-another-memory-manager/)
 
 

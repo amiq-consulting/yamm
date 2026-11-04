@@ -88,7 +88,7 @@ run_with_ius() {
 run_with_questa() {  
 
     if [ ${do_clean} == "yes" ]; then
-	rm -rf ${SCRIPT_DIR}/work_questa
+	rm -rf ${SCRIPT_DIR}/work_q
     fi
 
     if [ ! -d "${SCRIPT_DIR}/work_q" ];then
@@ -100,7 +100,12 @@ run_with_questa() {
     vlib work
     vlog -f $PROJ_HOME/sim/run_questa.options
 
-    vsim yamm_uvm_testbench -sv_seed ${seed} +UVM_TESTNAME=${test_name} 
+    # Run interactively when attached to a terminal, otherwise batch-run
+    if [ -t 0 ]; then
+	vsim yamm_uvm_testbench -sv_seed ${seed} +UVM_TESTNAME=${test_name} 
+    else
+	vsim -c yamm_uvm_testbench -sv_seed ${seed} +UVM_TESTNAME=${test_name} -do "run; quit"
+    fi
 
 }
 
@@ -116,8 +121,15 @@ run_with_vcs() {
 
     cd ${SCRIPT_DIR}/work_vcs
 
-    vcsi -ntb_opts uvm -f ${PROJ_HOME}/sim/run_vcs.options -gui -full64 -sverilog -timescale=1ns/1ps 
-	./simv +UVM_NO_RELNOTES +UVM_TESTNAME=${test_name} +ntb_random_seed=${seed} 
+    # Compile (and run) interactively when attached to a terminal,
+    # otherwise compile then run in batch mode
+    if [ -t 0 ]; then
+	vcsi -ntb_opts uvm -f ${PROJ_HOME}/sim/run_vcs.options -gui -full64 -sverilog -timescale=1ns/1ps
+	./simv +UVM_NO_RELNOTES +UVM_TESTNAME=${test_name} +ntb_random_seed=${seed}
+    else
+	vcs -ntb_opts uvm -f ${PROJ_HOME}/sim/run_vcs.options -full64 -sverilog -timescale=1ns/1ps
+	./simv +UVM_NO_RELNOTES +UVM_TESTNAME=${test_name} +ntb_random_seed=${seed}
+    fi
 }		
 
 ##########################################################################################

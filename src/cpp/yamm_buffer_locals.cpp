@@ -95,9 +95,12 @@ bool yamm_buffer::compute_start_addr(yamm_buffer* temp, int alloc_mode) {
 
 
 		} else {
-			if ((temp->end_addr - temp->start_addr - size + 1
-					- start_addr_alignment) > 0)
-				// Same as above but taking in consideration the alignment
+			// Same as above but taking in consideration the alignment.
+			// The operands are unsigned: test 'temp->size > size + alignment'
+			// instead of '(end - start - size + 1 - alignment) > 0', which wraps
+			// to a huge value when the free buffer is not larger than
+			// size + alignment and produces an address outside the buffer.
+			if (temp->size > size + start_addr_alignment)
 				start_addr = temp->start_addr
 						+ (generate_rand64()
 								% (temp->end_addr - temp->start_addr - size + 1
@@ -106,6 +109,11 @@ bool yamm_buffer::compute_start_addr(yamm_buffer* temp, int alloc_mode) {
 				start_addr = temp->start_addr;
 
 			this->get_closest_aligned_addr(temp);
+
+			// The new buffer must lie completely inside the free buffer
+			if ((start_addr < temp->start_addr) || (start_addr > temp->end_addr)
+					|| (temp->end_addr - start_addr + 1 < size))
+				return 0;
 		}
 		break;
 	}
@@ -191,83 +199,46 @@ yamm_buffer* yamm_buffer::find_suitable_buffer(uint_64_t size,
 	}
 
 	case YAMM_BEST_FIT: {
+		// Smallest free buffer that can hold 'size' bytes at an aligned address.
+		// The aligned size is checked for every candidate.
 		yamm_buffer* best_temp = NULL;
-		int set = 0;
 
-		if (compute_size_with_align(alignment, temp) >= size)
-			best_temp = temp;
-
-		// Traverse the whole memory looking for the smallest free buffer that fits.
-		while (temp->next_free) {
-
-			temp = temp->next_free;
-
+		while (temp) {
 			if (size <= temp->size) {
-				if (best_temp == NULL)
-					if (alignment != 1)
-						tsize = compute_size_with_align(alignment, temp);
-					else
-						tsize = temp->size;
-				else if ((alignment != 1) && (temp->size < best_temp->size))
+				if (alignment != 1)
 					tsize = compute_size_with_align(alignment, temp);
 				else
 					tsize = temp->size;
 
-				if (size <= tsize) {
-					// The best_temp isn't yet set, take the first buffer that fits as reference
-					if (!set) {
-						best_temp = temp;
-						set = 1;
-					}
-					if ((temp->size <= best_temp->size) && (size <= tsize))
-						best_temp = temp;
-				}
+				if ((size <= tsize)
+						&& ((best_temp == NULL) || (temp->size <= best_temp->size)))
+					best_temp = temp;
 			}
+			temp = temp->next_free;
 		}
 
-		if (best_temp)
-			if (compute_size_with_align(alignment, best_temp) >= size)
-				return best_temp;
-			else
-				return NULL;
-		else
-			return NULL;
-
-		break;
+		return best_temp;
 	}
 
 		// Same as YAMM_BEST_FIT but now we are looking for the largest free buffer
 	case YAMM_UNIFORM_FIT: {
-		yamm_buffer* uniform_temp = temp;
-		bool found = 0;
+		yamm_buffer* uniform_temp = NULL;
 
-		// Traverse the whole memory looking for the largest buffer that fits
-		while (temp->next_free) {
-			temp = temp->next_free;
-
+		while (temp) {
 			if (size <= temp->size) {
-				if (!found)
-					if (alignment != 1) {
-						tsize = compute_size_with_align(alignment, temp);
-						found = 1;
-					} else {
-						tsize = temp->size;
-						found = 1;
-					}
+				if (alignment != 1)
+					tsize = compute_size_with_align(alignment, temp);
 				else
 					tsize = temp->size;
 
-				if ((temp->size >= uniform_temp->size) && (size <= tsize))
+				if ((size <= tsize)
+						&& ((uniform_temp == NULL) || (temp->size >= uniform_temp->size)))
 					uniform_temp = temp;
 			}
+			temp = temp->next_free;
 		}
 
-		if (compute_size_with_align(alignment, uniform_temp) >= size)
-			return uniform_temp;
-		else
-			return NULL;
-
-		break;
+		return uniform_temp;
 	}
 
 	case YAMM_RANDOM_FIT: {
