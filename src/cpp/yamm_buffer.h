@@ -52,6 +52,12 @@ protected:
 	yamm_buffer* next;
 	/**  previous free buffer on current recursion level (free or occupied) */
 	yamm_buffer* prev;
+	/**
+	 * The memory level that contains this buffer in its own list.
+	 * It is set when the buffer is allocated and used by deallocate()
+	 * to find the correct level at which the buffer has to be deallocated.
+	 */
+	yamm_buffer* parent = NULL;
 
 	/** buffer's payload */
 	char* contents;
@@ -342,11 +348,19 @@ public:
 	/**
 	 * This function tries to deallocate a buffer allocated in the memory.
 	 *
+	 * The buffer can be a direct child of the level the function is called
+	 * from, or a child of any deeper level of that memory. In the second
+	 * case the deallocation is delegated to the level that directly
+	 * contains the buffer, so the buffer is always removed from the
+	 * correct list.
+	 *
 	 * A warning is given if the buffer contains other buffers inside.
 	 *
 	 * @param buffer The buffer that is going to be deallocated
 	 *
 	 * @return It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.
+	 * It also returns 0 if the buffer is not allocated anywhere inside this memory
+	 * (a warning is given in that case).
 	 */
 
 	bool deallocate(yamm_buffer* buffer);

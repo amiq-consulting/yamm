@@ -18,10 +18,10 @@
 #ifndef __yamm_access_test
 #define __yamm_access_test
 
-#include <iostream>
 #include <stdio.h>
 
 #include "yamm.h"
+#include "test_utils.h"
 
 using namespace yamm_ns;
 
@@ -43,9 +43,13 @@ int main(int argc, char* argv[]) {
 
 	for(uint_64_t i=0;i<number_of_allocations; ++i) {
 		acs->start_addr = 1024*1024*i;
-		a.insert_access(acs);
-
+		if(!a.insert_access(acs)) {
+			check(false, "insert_access failed");
+			break;
+		}
 	}
+
+	check(a.check_address_space_consistency(), "Inconsistent after inserts");
 
 	std::cout << "Usage statistics\n";
 	std::cout << "Used: " << a.get_usage_statistics() << "%\tFrag: " << a.get_fragmentation() << "%\n";
@@ -62,9 +66,17 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "Expected " << number_of_allocations << " \tFound:" << buffers.size() << "\n";
 
-	delete acs;
-	return 0;
+	check(buffers.size() == number_of_allocations, "Number of buffers found does not match the number of allocations");
 
+	delete acs;
+
+	if (g_failures == 0) {
+		std::cout << "All access cases passed\n";
+		return 0;
+	} else {
+		std::cerr << g_failures << " check(s) FAILED\n";
+		return 1;
+	}
 }
 
 #endif // __yamm_access_test

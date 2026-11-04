@@ -27,9 +27,11 @@ class yamm_uvm_recursive_test extends uvm_test;
 		memory.build("new_memory", 1024*1024*1024);
 		while(i--) begin
 			handle = memory.allocate_by_size(1024*1024, UNIFORM_FIT);
+			if(handle == null)
+				`uvm_fatal("YAMM_RECURSIVE_FATAL", "allocate_by_size returned null for top-level buffer")
 			handle.set_name("PARENT_BUFFER");
 			while(j--)
-				handle.allocate_by_size(1024, UNIFORM_FIT);
+				void'(handle.allocate_by_size(1024, UNIFORM_FIT));
 			j = 10;
 		end
 

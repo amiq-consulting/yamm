@@ -1,0 +1,250 @@
+
+
+`ifndef __yamm_uvm_deallocate_level_test
+`define __yamm_uvm_deallocate_level_test
+
+
+/**
+ * Tests the level-aware behavior of yamm_buffer::deallocate():
+ *  - deallocate() called from an ancestor level on a buffer that is a
+ *    (possibly deep) descendant must succeed and remove the buffer at its
+ *    own level (the parent chain is walked and the operation delegated).
+ *  - deallocate() called from a level that does NOT contain the buffer
+ *    (sibling branch or a completely different memory) must fail with a
+ *    warning and leave the memory untouched.
+ *  - the 'recursive' flag only applies to the buffer being deallocated:
+ *    when the buffer has children and recursive == 0 the call must fail,
+ *    while recursive == 1 allows it.
+ */
+class yamm_uvm_deallocate_level_test extends uvm_test;
+
+	`uvm_component_utils(yamm_uvm_deallocate_level_test)
+
+	function new(string name, uvm_component parent);
+		super.new(name, parent);
+	endfunction
+
+	function void build_phase(uvm_phase phase);
+
+		super.build_phase(phase);
+
+	endfunction
+
+	task run_phase(uvm_phase phase);
+
+		yamm mem = new;
+		yamm other_mem = new;
+		yamm_buffer app0;
+		yamm_buffer app1;
+		yamm_buffer child;
+		yamm_buffer grandchild;
+		yamm_buffer child2;
+		bit ok;
+
+		mem.build("BigMem", 64);
+		other_mem.build("OtherMem", 64);
+
+		// ------------------------------------------------------------------
+		// Build a two-level structure:
+		//   BigMem -> [ APP0(0..31), APP1(32..63) ]
+		//   APP0   -> [ CHILD(0..7), FREE(8..31) ]
+		// ------------------------------------------------------------------
+		app0 = new;
+		app0.set_name("APP0");
+		app0.set_start_addr(0);
+		app0.set_size(32);
+		if(!mem.allocate(app0, FIRST_FIT))
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate APP0")
+
+		app1 = new;
+		app1.set_name("APP1");
+		app1.set_size(32);
+		if(!mem.allocate(app1, FIRST_FIT))
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate APP1")
+
+		child = new;
+		child.set_name("CHILD");
+		child.set_size(8);
+		if(!app0.allocate(child, FIRST_FIT))
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate CHILD inside APP0")
+
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent before any deallocation")
+
+
+		// ------------------------------------------------------------------
+		// Case 1: buffer2 IS a (deep) child of the caller.
+		// mem.deallocate(child) must walk up the parent chain, delegate to
+		// APP0 and free the buffer at its own level.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 1: deallocate a depth-1 child from the top level", UVM_NONE)
+		ok = mem.deallocate(child);
+		if(!ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Ancestor deallocate of a child should have succeeded")
+		if(child.get_size() != 0)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Child was not actually deallocated")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after ancestor deallocate")
+		`uvm_info("YAMM_DEALLOC_LVL_INF", $sformatf("%s", mem.sprint_buffer(1)), UVM_MEDIUM)
+
+		// ------------------------------------------------------------------
+		// Case 1b: sole-child edge case — SOLE_CHILD exactly fills APP0 so
+		// its next and prev are both null inside APP0's list.  The ancestor-
+		// level call must still succeed; the "not linked anywhere" guard must
+		// NOT fire when the caller is not the direct owner.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 1b: deallocate a sole child (exact fit, next=null prev=null) from the top level", UVM_NONE)
+		begin
+			yamm_buffer sole_child = new;
+			sole_child.set_name("SOLE_CHILD");
+			sole_child.set_size(32);
+			if(!app0.allocate(sole_child, FIRST_FIT))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate SOLE_CHILD inside APP0")
+			ok = mem.deallocate(sole_child);
+			if(!ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Ancestor deallocate of a sole child (exact fit) should have succeeded")
+			if(!mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after ancestor deallocate of sole child")
+			`uvm_info("YAMM_DEALLOC_LVL_INF", $sformatf("%s", mem.sprint_buffer(1)), UVM_MEDIUM)
+		end
+
+		// Rebuild the same structure for the remaining cases.
+		child = new;
+		child.set_name("CHILD");
+		child.set_size(8);
+		if(!app0.allocate(child, FIRST_FIT))
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to re-allocate CHILD inside APP0")
+
+		// ------------------------------------------------------------------
+		// Case 2a: buffer2 is NOT a child of the caller (sibling branch).
+		// app1.deallocate(child) must warn and return 0, leaving everything
+		// unchanged.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 2a: deallocate from a sibling level (not an ancestor)", UVM_NONE)
+		ok = app1.deallocate(child);
+		if(ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Deallocate from a non-ancestor level should have failed")
+		if(child.get_size() != 8)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Child was modified even though deallocation should have failed")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected sibling deallocate")
+
+		// ------------------------------------------------------------------
+		// Case 2b: buffer belongs to a completely different memory object.
+		// Allocate foreign_buf inside other_mem, then verify that mem cannot
+		// deallocate it, and that other_mem cannot deallocate child from mem.
+		// Both calls must warn and return 0, leaving both memories intact.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 2b: deallocate a buffer from a foreign memory", UVM_NONE)
+		begin
+			yamm_buffer foreign_buf = new;
+			foreign_buf.set_name("FOREIGN");
+			foreign_buf.set_size(8);
+			if(!other_mem.allocate(foreign_buf, FIRST_FIT))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate FOREIGN inside other_mem")
+			// mem must not be able to free a buffer that lives in other_mem
+			ok = mem.deallocate(foreign_buf);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Deallocate of a foreign buffer from mem should have failed")
+			if(foreign_buf.get_size() != 8)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "FOREIGN was modified even though deallocation should have failed")
+			if(!mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "mem inconsistent after rejected foreign deallocate")
+			if(!other_mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "other_mem inconsistent after rejected foreign deallocate")
+			// other_mem must not be able to free a buffer that lives in mem
+			ok = other_mem.deallocate(child);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Deallocate of a mem buffer from other_mem should have failed")
+			if(child.get_size() != 8)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "CHILD was modified even though deallocation should have failed")
+			if(!mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "mem inconsistent after reverse foreign deallocate")
+			if(!other_mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "other_mem inconsistent after reverse foreign deallocate")
+		end
+
+		// ------------------------------------------------------------------
+		// Case 3: the recursive flag. Give CHILD a child of its own and try
+		// to free CHILD from its direct parent (APP0) with recursive == 0
+		// and recursive == 1. The flag is evaluated only at the level where
+		// the buffer actually lives.
+		// ------------------------------------------------------------------
+		grandchild = new;
+		grandchild.set_name("GRANDCHILD");
+		grandchild.set_size(4);
+		if(!child.allocate(grandchild, FIRST_FIT))
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate GRANDCHILD inside CHILD")
+
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 3a: recursive=0 on a buffer with children must fail", UVM_NONE)
+		ok = app0.deallocate(child, 0);
+		if(ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "recursive=0 deallocate of a buffer with children should have failed")
+		if(child.get_size() != 8)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Child was modified even though recursive=0 deallocation should have failed")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected recursive=0 deallocate")
+
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 3b: recursive=1 on a buffer with children must succeed", UVM_NONE)
+		ok = app0.deallocate(child, 1);
+		if(!ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "recursive=1 deallocate of a buffer with children should have succeeded")
+		if(child.get_size() != 0)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Child was not actually deallocated with recursive=1")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after recursive=1 deallocate")
+		`uvm_info("YAMM_DEALLOC_LVL_INF", $sformatf("%s", mem.sprint_buffer(1)), UVM_MEDIUM)
+
+		// ------------------------------------------------------------------
+		// Case 4: self-deallocation must be rejected. A level can only free
+		// buffers that live in its own subtree; a buffer (or the memory root)
+		// is not contained in itself, so both calls below must warn and return
+		// 0 without corrupting anything.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 4a: a top-level buffer deallocating itself", UVM_NONE)
+		ok = app0.deallocate(app0);
+		if(ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "A buffer deallocating itself should have failed")
+		if(app0.get_size() != 32)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "APP0 was modified even though self-deallocation should have failed")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected buffer self-deallocate")
+
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 4b: the memory root deallocating itself", UVM_NONE)
+		ok = mem.deallocate(mem);
+		if(ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "The memory root deallocating itself should have failed")
+		if(mem.get_size() != 64)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Memory size changed even though self-deallocation should have failed")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected memory self-deallocate")
+
+		// ------------------------------------------------------------------
+		// Case 5: a child trying to free its own parent must be rejected.
+		// APP1's parent chain does not lead through CHILD, so the call is
+		// refused (no delegation upward). A fresh child is allocated for this
+		// case because 'child' above was already freed by Case 3.
+		// ------------------------------------------------------------------
+		child2 = new;
+		child2.set_name("CHILD2");
+		child2.set_size(8);
+		if(!app0.allocate(child2, FIRST_FIT))
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate CHILD2 inside APP0")
+
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 5: a child deallocate()ing its own parent", UVM_NONE)
+		ok = child2.deallocate(app1);
+		if(ok)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "A child freeing its parent should have failed")
+		if(app1.get_size() != 32)
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "APP1 was modified even though child-frees-parent should have failed")
+		if(!mem.check_address_space_consistency())
+			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected child-frees-parent deallocate")
+
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "All cross-level deallocate cases passed", UVM_LOW)
+
+	endtask
+
+endclass
+
+`endif
+

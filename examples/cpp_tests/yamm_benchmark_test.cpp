@@ -56,13 +56,14 @@ int main(int argc, char* argv[]) {
 		size_for_each_mode = 95 * 1024;
 
 		// Initial uniform allocations to fragment the memory
-		for (int i = 0; i < initial_allocations; ++i)
+		for (int i = 0; i < initial_allocations; ++i) {
 			if (!a.allocate_by_size(initial_allocations_size,
-			YAMM_UNIFORM_FIT)) {
-				std::cout << "INITIAL FAIL!";
-				break;
+				YAMM_UNIFORM_FIT)) {
+				std::cout << "INITIAL FAIL!\n";
+				exit(YAMM_EXIT_CODE);
 			} else
 				number_of_successful_allocations++;
+		}
 
 		// Allocations by mode
 		for (int i = 0; i < number_of_allocations; ++i) {
@@ -96,6 +97,14 @@ int main(int argc, char* argv[]) {
 
 		if (!a.check_address_space_consistency()) {
 			std::cout << "\n\n\nConsistency FAIL!\n\n\n";
+			exit(YAMM_EXIT_CODE);
+		}
+
+		// After a soft reset every buffer must have been released, so the
+		// memory should report no usage at all.
+		if (a.get_usage_statistics() != 0) {
+			std::cout << "\n\n\nSoft reset did not free all buffers! Used: "
+				<< a.get_usage_statistics() << "%\n\n\n";
 			exit(YAMM_EXIT_CODE);
 		}
 

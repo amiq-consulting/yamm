@@ -117,6 +117,7 @@ function void yamm::build(string name, yamm_size_width_t size);
 	mem.end_addr = this.end_addr;
 	mem.size = mem.size;
 	mem.is_free = 1;
+	mem.parent = this;
 	first_free = mem;
 	first = mem;
 

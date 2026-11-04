@@ -19,6 +19,7 @@
 #define __yamm_debug
 
 #include "yamm.h"
+#include <cstring>
 
 using namespace yamm_ns;
 
@@ -108,19 +109,22 @@ std::string yamm_buffer::sprint(bool recursive = 0, int indentation = 0) {
 	std::string indent = "    ";
 
 	char aux[100] = { 0 };
+	char aux2[100] = { 0 };
 
 	sprintf(aux, "@%08llx:@%08llx:%08llx", this->start_addr, this->end_addr,
 			this->size);
 
 	if (this->is_free)
-		sprintf(aux, "%s FREE", aux);
+		sprintf(aux2, "%s FREE", aux);
 	else
-		sprintf(aux, "%s USED", aux);
+		sprintf(aux2, "%s USED", aux);
+	strcpy(aux, aux2);
 
 	if (this->is_static)
-		sprintf(aux, "%s STATIC", aux);
+		sprintf(aux2, "%s STATIC", aux);
 	else
-		sprintf(aux, "%s NORMAL", aux);
+		sprintf(aux2, "%s NORMAL", aux);
+	strcpy(aux, aux2);
 
 	std::string rez(aux);
 
@@ -204,6 +208,14 @@ bool yamm_buffer::check_address_space_consistency() {
 	yamm_buffer* temp;
 	temp = first;
 	while (temp) {
+
+		// Every buffer in the list has to point back to the level containing it
+		if (temp->parent != this) {
+			fprintf(stderr,
+					"[YAMM_ERR] Parent link mismatch for buffer [%llu, %llu] !\n\t in %s at line %d\n",
+					temp->start_addr, temp->end_addr, __FILE__, __LINE__);
+			exit(YAMM_EXIT_CODE);
+		}
 
 		if (temp->next) {
 

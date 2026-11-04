@@ -160,6 +160,7 @@ yamm_buffer* yamm_buffer::find_suitable_buffer(uint_64_t size,
 			first_free->end_addr = first_free->start_addr + first_free->size
 					- 1;
 			first_free->is_free = 1;
+			first_free->parent = this;
 			first = first_free;
 			delete temp;
 			temp = first_free;
@@ -313,6 +314,7 @@ yamm_buffer* yamm_buffer::find_suitable_buffer(uint_64_t size,
 void yamm_buffer::add(yamm_buffer* new_buffer, yamm_buffer* container_buffer) {
 
 	yamm_buffer* temp_prev = new yamm_buffer;
+	temp_prev->parent = this;
 
 	// First, check if there is a displacement caused by allocation mode or alignment
 	if (new_buffer->start_addr > container_buffer->start_addr) {

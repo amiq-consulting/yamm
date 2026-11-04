@@ -49,6 +49,7 @@ bool yamm_buffer::insert(yamm_buffer* n) {
 		first_free->size = size;
 		first_free->end_addr = first_free->start_addr + first_free->size - 1;
 		first_free->is_free = 1;
+		first_free->parent = this;
 		first = first_free;
 	}
 
@@ -121,6 +122,8 @@ bool yamm_buffer::insert(yamm_buffer* n) {
 		return 0;
 	}
 
+	// Keep track of the memory level that contains the new buffer
+	n->parent = this;
 	add(n, temp);
 	return 1;
 

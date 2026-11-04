@@ -262,6 +262,7 @@ yamm_buffer::~yamm_buffer() {
 		this->first_free = NULL;
 	}
 
+	this->parent = NULL;
 	this->next = NULL;
 	this->prev = NULL;
 	this->next_free = NULL;
@@ -314,6 +315,7 @@ void yamm::build(uint_64_t size) {
 
 		// The initial buffer
 		yamm_buffer* mem = new yamm_buffer;
+		mem->parent = this;
 
 		this->first_free = mem;
 		this->first = mem;

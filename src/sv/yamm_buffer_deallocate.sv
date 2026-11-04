@@ -22,6 +22,7 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 
 	yamm_buffer handle_to_buffer;
 	yamm_buffer new_free_buffer;
+	bit buffer_in_memory;
 
 	// Check if the buffer is null
 	if(deleted_buffer == null) begin
@@ -70,20 +71,60 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 		return 0;
 	end
 
-	// The buffer has to be linked somewhere in the memory
-	if((deleted_buffer.next == null) && (deleted_buffer.prev == null) && (this.first != deleted_buffer)) begin
+	// This guard is only meaningful when deleted_buffer is a direct child of
+	// this level. When called from an ancestor level, deleted_buffer lives in
+	// a deeper list and its next/prev are relative to that list, not ours —
+	// so skip the check and let the parent-chain walk below determine ownership.
+	if(deleted_buffer.parent == this) begin
+		if((deleted_buffer.next == null) && (deleted_buffer.prev == null) && (this.first != deleted_buffer)) begin
+			if(!disable_warnings)
+			`ifdef YAMM_USE_UVM
+				`uvm_warning("YAMM_WRN", "Buffer is not linked anywhere in the memory. Deallocation failed.");
+			`else
+			$warning("[YAMM_WRN] Buffer is not linked anywhere in the memory. Deallocation failed.");
+			`endif
+			return 0;
+		end
+	end
+
+	// Walk the parent chain to check ownership: reject buffers whose
+	// chain doesn't reach this level (sibling/foreign branch).
+	// Self-deallocate is naturally rejected, since the chain starts
+	// at the buffer's parent, not the buffer itself.
+	buffer_in_memory = 0;
+	handle_to_buffer = deleted_buffer.parent;
+	// Guard against hypothetical parent-chain cycles with a bounded walk.
+	begin
+		int depth = 0;
+		while((handle_to_buffer != null) && (buffer_in_memory == 0) && (depth < 256)) begin
+			if(handle_to_buffer == this)
+				buffer_in_memory = 1;
+			else
+				handle_to_buffer = handle_to_buffer.parent;
+			depth++;
+		end
+	end
+
+	// The buffer isn't allocated anywhere inside this memory
+	if(buffer_in_memory == 0) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-			`uvm_warning("YAMM_WRN", "Buffer is not linked anywhere in the memory. Deallocation failed.");
+			`uvm_warning("YAMM_WRN", "The buffer is not allocated in this memory. Deallocation failed.");
 		`else
-		$warning("[YAMM_WRN] Buffer is not linked anywhere in the memory. Deallocation failed.");
+			$warning("[YAMM_WRN] The buffer is not allocated in this memory. Deallocation failed.");
 		`endif
 		return 0;
 	end
 
-	// If the recursive bit is not set and there are buffers inside this buffer
-	// don't deallocate it
-	if((first != null) && (recursive == 0)) begin
+	// If the buffer is a child of a deeper level of this memory, delegate
+	// the deallocation to the level that directly contains it, so the
+	// buffer is removed from the correct list
+	if((deleted_buffer.parent != null) && (deleted_buffer.parent != this))
+		return deleted_buffer.parent.deallocate(deleted_buffer, recursive);
+
+	// If the recursive bit is not set and the buffer has other buffers
+	// inside it's memory space don't deallocate it
+	if((deleted_buffer.first != null) && (recursive == 0)) begin
 		`ifdef YAMM_USE_UVM
 		`uvm_warning("YAMM_WRN", "The buffer has other buffers inside it's memory space!");
 		`else
@@ -98,6 +139,7 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 	new_free_buffer.start_addr = deleted_buffer.start_addr;
 	new_free_buffer.end_addr = deleted_buffer.end_addr;
 	new_free_buffer.is_free = 1;
+	new_free_buffer.parent = this;
 	new_free_buffer.next = deleted_buffer.next;
 	new_free_buffer.prev = deleted_buffer.prev;
 	if(deleted_buffer.prev)
@@ -153,6 +195,7 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 	// Delete any references the buffer possesses
 	deleted_buffer.next = null;
 	deleted_buffer.prev = null;
+	deleted_buffer.parent = null;
 	deleted_buffer.first = null;
 	deleted_buffer.first_free = null;
 	deleted_buffer.next_free = null;

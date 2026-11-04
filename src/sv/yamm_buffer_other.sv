@@ -25,6 +25,10 @@ function bit yamm_buffer::check_address_space_consistency();
 	while(handle_to_buffer)
 	begin
 
+		// Every buffer in the list has to point back to the level containing it
+		if(handle_to_buffer.parent != this)
+			return 0;
+
 		if(handle_to_buffer.next) begin
 			// The start address of the following buffer has to be at the next address of the current's end address
 			if(!(handle_to_buffer.next.start_addr == (handle_to_buffer.end_addr+1))) begin

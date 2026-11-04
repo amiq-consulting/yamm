@@ -18,6 +18,7 @@ package yamm_test_pkg;
 	`include "yamm_uvm_stability_test.sv"
 	`include "yamm_uvm_fit_stress_test.sv"
 	`include "yamm_uvm_recursive_test.sv"
+	`include "yamm_uvm_deallocate_level_test.sv"
 
 endpackage
 

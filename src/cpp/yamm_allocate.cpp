@@ -84,6 +84,8 @@ bool yamm_buffer::allocate(yamm_buffer* new_buffer, int allocation_mode) {
 		return 0;
 
 	new_buffer->end_addr = new_buffer->start_addr + new_buffer->size - 1;
+	// Keep track of the memory level that contains the new buffer
+	new_buffer->parent = this;
 	add(new_buffer, temp_free);
 	return 1;
 

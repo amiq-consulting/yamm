@@ -90,6 +90,7 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 		first_free.size = size;
 		first_free.end_addr = first_free.start_addr + first_free.size - 1;
 		first_free.is_free = 1;
+		first_free.parent = this;
 		first = first_free;
 	end
 
@@ -151,6 +152,8 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 	end
 
 	if(handle_to_buffer.size >= new_buffer.size) begin
+		// Keep track of the memory level that contains the new buffer
+		new_buffer.parent = this;
 		add(new_buffer,handle_to_buffer);
 		return 1;
 	end

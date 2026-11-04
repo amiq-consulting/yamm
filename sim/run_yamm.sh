@@ -42,11 +42,13 @@ default_tool=questa
 default_do_clean="no"
 default_test_name="yamm_uvm_benchmark"
 default_seed="0"
+default_gui="no"
 
 tool=${default_tool}
 do_clean=${default_do_clean}
 test_name=${default_test_name}
 seed=${default_seed}
+gui=${default_gui}
 
 ##########################################################################################
 #  Methods
@@ -58,14 +60,18 @@ help() {
     echo "        [-c ]                                             --> delete work folder prior to compilation"
     echo "        [-test]                  {TEST_NAME}              --> specify the name of the test to be run"
     echo "        [-seed]                  {SEED}                   --> specify the seed"
+    echo "        [-gui]                                            --> open simulator in GUI mode (default: batch)"
     echo "        "
     echo "        ./run_yamm.sh    -h[elp]                            --> print this message"
     echo " Examples:"
     echo " - Cadence/IUS  : ./run_yamm.sh -c -tool ius -test yamm_uvm_benchmark -seed 33333"
+    echo " - Cadence/IUS  : ./run_yamm.sh -c -tool ius -test yamm_uvm_benchmark -seed 33333 -gui"
     echo "        "
     echo " - Mentor/Questa: ./run_yamm.sh -c -tool questa -test yamm_uvm_benchmark -seed 33333"
+    echo " - Mentor/Questa: ./run_yamm.sh -c -tool questa -test yamm_uvm_benchmark -seed 33333 -gui"
     echo "        "
     echo " - Synopsys/VCS : ./run_yamm.sh -c -tool vcs -test yamm_uvm_benchmark -seed 33333"
+    echo " - Synopsys/VCS : ./run_yamm.sh -c -tool vcs -test yamm_uvm_benchmark -seed 33333 -gui"
     echo "        "
     exit 0;
 }
@@ -81,8 +87,12 @@ run_with_ius() {
 	mkdir ${SCRIPT_DIR}/work_ius
     fi
 
-    cd ${SCRIPT_DIR}/work_ius    
-    irun -f ${PROJ_HOME}/sim/run_ncsim.options +SVSEED=${seed} +UVM_TESTNAME=${test_name}
+    cd ${SCRIPT_DIR}/work_ius
+    if [ ${gui} == "yes" ]; then
+	irun -gui -f ${PROJ_HOME}/sim/run_ncsim.options +SVSEED=${seed} +UVM_TESTNAME=${test_name}
+    else
+	irun -f ${PROJ_HOME}/sim/run_ncsim.options +SVSEED=${seed} +UVM_TESTNAME=${test_name}
+    fi
 }
 
 run_with_questa() {  
@@ -100,9 +110,8 @@ run_with_questa() {
     vlib work
     vlog -f $PROJ_HOME/sim/run_questa.options
 
-    # Run interactively when attached to a terminal, otherwise batch-run
-    if [ -t 0 ]; then
-	vsim yamm_uvm_testbench -sv_seed ${seed} +UVM_TESTNAME=${test_name} 
+    if [ ${gui} == "yes" ]; then
+	vsim yamm_uvm_testbench -sv_seed ${seed} +UVM_TESTNAME=${test_name}
     else
 	vsim -c yamm_uvm_testbench -sv_seed ${seed} +UVM_TESTNAME=${test_name} -do "run; quit"
     fi
@@ -121,16 +130,14 @@ run_with_vcs() {
 
     cd ${SCRIPT_DIR}/work_vcs
 
-    # Compile (and run) interactively when attached to a terminal,
-    # otherwise compile then run in batch mode
-    if [ -t 0 ]; then
+    if [ ${gui} == "yes" ]; then
 	vcsi -ntb_opts uvm -f ${PROJ_HOME}/sim/run_vcs.options -gui -full64 -sverilog -timescale=1ns/1ps
 	./simv +UVM_NO_RELNOTES +UVM_TESTNAME=${test_name} +ntb_random_seed=${seed}
     else
 	vcs -ntb_opts uvm -f ${PROJ_HOME}/sim/run_vcs.options -full64 -sverilog -timescale=1ns/1ps
 	./simv +UVM_NO_RELNOTES +UVM_TESTNAME=${test_name} +ntb_random_seed=${seed}
     fi
-}		
+}
 
 ##########################################################################################
 #  Extract options
@@ -152,6 +159,9 @@ while [ $# -gt 0 ]; do
                 ;;
       -c)
                 do_clean="yes"
+                ;;
+      -gui)
+                gui="yes"
                 ;;
     esac
     shift

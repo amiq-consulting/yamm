@@ -56,12 +56,50 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 		return 0;
 	}
 
-	if ((del->next == NULL) && (del->prev == NULL) && (first != del)) {
-		fprintf(stderr,
-				"[YAMM_WRN] Buffer is not linked anywhere!\n\t in %s at line %d\n",
-				__FILE__, __LINE__);
+	// This guard is only meaningful when del is a direct child of this level.
+	// When called from an ancestor level, del lives in a deeper list and its
+	// next/prev are relative to that list, not ours — so skip the check and
+	// let the parent-chain walk below determine ownership.
+	if (del->parent == this) {
+		if ((del->next == NULL) && (del->prev == NULL) && (first != del)) {
+			if (!disable_warnings)
+				fprintf(stderr,
+						"[YAMM_WRN] Buffer is not linked anywhere!\n\t in %s at line %d\n",
+						__FILE__, __LINE__);
+			return 0;
+		}
+	}
+
+	// Walk the parent chain to check ownership: reject buffers whose
+	// chain doesn't reach this level (sibling/foreign branch).
+	// Self-deallocate is naturally rejected, since the chain starts
+	// at the buffer's parent, not the buffer itself.
+	bool buffer_in_memory = false;
+	yamm_buffer* owner = del->parent;
+	// Guard against hypothetical parent-chain cycles with a bounded walk.
+	int depth = 0;
+	while (owner && !buffer_in_memory && depth < 256) {
+		if (owner == this)
+			buffer_in_memory = true;
+		else
+			owner = owner->parent;
+		depth++;
+	}
+
+	// The buffer isn't allocated anywhere inside this memory
+	if (!buffer_in_memory) {
+		if (!disable_warnings)
+			fprintf(stderr,
+					"[YAMM_WRN] The buffer is not allocated in this memory. Deallocation failed.\n\t in %s at line %d\n",
+					__FILE__, __LINE__);
 		return 0;
 	}
+
+	// If the buffer is a child of a deeper level of this memory, delegate
+	// the deallocation to the level that directly contains it, so the
+	// buffer is removed from the correct list
+	if ((del->parent != NULL) && (del->parent != this))
+		return del->parent->deallocate(del);
 
 	if (del->first != NULL) {
 		if (!disable_info)
@@ -75,6 +113,7 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 	// Create a new buffer to replace the deallocated one
 	yamm_buffer* new_free_buffer = new yamm_buffer(del->start_addr, del->size);
 	new_free_buffer->is_free = 1;
+	new_free_buffer->parent = this;
 	new_free_buffer->next = del->next;
 	new_free_buffer->prev = del->prev;
 	if (del->prev)
@@ -119,6 +158,7 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 	} else
 		first_free = new_free_buffer;
 
+	del->parent = NULL;
 	delete del;
 
 	return 1;

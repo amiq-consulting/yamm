@@ -12,9 +12,9 @@ sim/Objects/
 sim/YAMM
 
 # Simulator work directories (sim/run_yamm.sh)
-sim/work_ius/
-sim/work_q/
-sim/work_vcs/
+**/work_ius/
+**/work_q/
+**/work_vcs/
 
 # Specador/sphinx build artifacts in the generated docs (docs/yamm_html)
 docs/yamm_html/.buildinfo

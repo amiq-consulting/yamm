@@ -86,6 +86,8 @@ function bit yamm_buffer::allocate(yamm_buffer new_buffer, yamm_allocation_mode_
 	if(handle_to_buffer) begin
 		if(new_buffer.compute_start_addr(handle_to_buffer, allocation_mode)) begin
 			new_buffer.end_addr = new_buffer.start_addr + new_buffer.size - 1;
+			// Keep track of the memory level that contains the new buffer
+			new_buffer.parent = this;
 			add(new_buffer, handle_to_buffer);
 		end
 		else

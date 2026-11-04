@@ -61,6 +61,11 @@ class yamm_buffer
 	// Pointer to the previous free buffer in memory (Used by free buffers only)
 	protected yamm_buffer prev_free;
 
+	// Pointer to the memory level that contains this buffer in its own list.
+	// It is set when the buffer is allocated and used by deallocate() to
+	// find the correct level at which the buffer has to be deallocated.
+	protected yamm_buffer parent;
+
 
 	// If set to 1 it will disable all warnings caused by various inconsistencies
 	bit disable_warnings=0;
@@ -331,10 +336,18 @@ class yamm_buffer
 	/**
 	 * This function tries to deallocate a buffer allocated in the memory.
 	 *
-	 * @param del : The buffer that is going to be deallocated
+	 * The buffer can be a direct child of the level the function is called
+	 * from, or a child of any deeper level of that memory. In the second
+	 * case the deallocation is delegated to the level that directly
+	 * contains the buffer, so the buffer is always removed from the
+	 * correct list.
+	 *
+	 * @param deleted_buffer : The buffer that is going to be deallocated
 	 * @param recursive : If set then it will deallocate the buffer even if it contains other buffers inside
 	 *
 	 * @return It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.
+	 * It also returns 0 if the buffer is not allocated anywhere inside this memory
+	 * (a warning is given in that case).
 	 * It also returns 0 if ‘recursive’ bit is not set, and it contains allocated buffers.
 	 */
 	extern function bit deallocate(yamm_buffer deleted_buffer, bit recursive = 1);

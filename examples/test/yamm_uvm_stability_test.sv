@@ -60,7 +60,7 @@ class yamm_uvm_stability_test extends uvm_test;
 						maxval = maxval/2;
 
 				if(!queue1[i].check_address_space_consistency()) begin
-					queue1[i].sprint_buffer(1);
+					void'(queue1[i].sprint_buffer(1));
 					`uvm_fatal("YAMM_STABILITY_TEST_FATAL", "Consistency error!")
 				end
 

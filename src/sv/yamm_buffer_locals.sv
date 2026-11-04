@@ -132,6 +132,7 @@ function yamm_buffer yamm_buffer::find_suitable_buffer(yamm_size_width_t size, i
 			first_free.size = this.size;
 			first_free.end_addr = first_free.start_addr + first_free.size - 1;
 			first_free.is_free = 1;
+			first_free.parent = this;
 			first = first_free;
 			temp = first_free;
 		end
@@ -293,6 +294,7 @@ endfunction
 function void yamm_buffer::add(yamm_buffer new_buffer, yamm_buffer suitable_free_buffer);
 
 	yamm_buffer temp_prev = new;
+	temp_prev.parent = this;
 
 // First, check if there is a displacement caused by allocation mode or alignment
 	if(new_buffer.start_addr > suitable_free_buffer.start_addr) begin
