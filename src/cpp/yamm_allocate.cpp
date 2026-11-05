@@ -40,11 +40,21 @@ bool yamm_buffer::allocate(yamm_buffer* new_buffer, int allocation_mode) {
 		return 0;
 	}
 
-	// Sanitation check: Don't allocate buffers that are already in the memory
-	if ((new_buffer->next) || (new_buffer->prev)) {
+	// Sanitation check: don't allocate buffers already in the memory; the
+	// parent check also catches a buffer that exactly fills its level
+	if ((new_buffer->next) || (new_buffer->prev) || (new_buffer->parent)) {
 		if (!disable_warnings)
 			fprintf(stderr,
 					"[YAMM_WRN] Buffer is already linked in memory!\n\t in %s at line %d\n",
+					__FILE__, __LINE__);
+		return 0;
+	}
+
+	// A buffer can't be allocated inside itself or a descendant (parent loop)
+	if (is_self_or_ancestor(new_buffer)) {
+		if (!disable_warnings)
+			fprintf(stderr,
+					"[YAMM_WRN] A buffer can not be allocated inside itself or inside one of its descendants!\n\t in %s at line %d\n",
 					__FILE__, __LINE__);
 		return 0;
 	}

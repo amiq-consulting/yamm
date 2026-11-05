@@ -211,6 +211,22 @@ class yamm_buffer
 	extern protected function void intern_reset();
 
 	/**
+	 * Severs the direct children's parent links before dropping the child list,
+	 * so orphans can't later pass the parent-chain ownership check
+	 */
+	extern local function void orphan_children();
+
+	/**
+	 * Checks if the given buffer is this level or one of its ancestors.
+	 * Used to refuse allocations that would create a parent loop.
+	 *
+	 * @param candidate : The buffer that is going to be allocated or inserted in this level
+	 *
+	 * @return Returns 1 if candidate is this buffer or one of its ancestors and 0 otherwise
+	 */
+	extern local function bit is_self_or_ancestor(yamm_buffer candidate);
+
+	/**
 	 * It prints all the buffers in order
 	 * If recursive bit is set it also prints the buffers inside other buffers
 	 */

@@ -528,4 +528,15 @@ uint_64_t yamm_buffer::generate_rand64() {
 	return result;
 }
 
+bool yamm_buffer::is_self_or_ancestor(yamm_buffer* candidate) {
+	yamm_buffer* h = this;
+	// Acyclic: allocate()/insert() refuse targets that would loop back
+	while (h) {
+		if (h == candidate)
+			return true;
+		h = h->parent;
+	}
+	return false;
+}
+
 #endif // __yamm_buffer_locals

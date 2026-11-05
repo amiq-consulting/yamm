@@ -194,6 +194,16 @@ protected:
 	 */
 	yamm_buffer* internal_get_buffer(uint_64_t address);
 
+	/**
+	 *  Checks if the given buffer is this level or one of its ancestors.
+	 *  Used to refuse allocations that would create a parent loop.
+	 *
+	 * @param candidate The buffer that is going to be allocated or inserted in this level
+	 *
+	 * @return Returns true if candidate is this buffer or one of its ancestors
+	 */
+	bool is_self_or_ancestor(yamm_buffer* candidate);
+
 	// Debug functions
 
 	/**

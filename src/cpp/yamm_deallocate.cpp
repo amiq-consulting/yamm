@@ -56,10 +56,8 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 		return 0;
 	}
 
-	// This guard is only meaningful when del is a direct child of this level.
-	// When called from an ancestor level, del lives in a deeper list and its
-	// next/prev are relative to that list, not ours — so skip the check and
-	// let the parent-chain walk below determine ownership.
+	// Only a direct child's next/prev are relative to this level's lists;
+	// for deeper buffers the parent-chain walk below determines ownership
 	if (del->parent == this) {
 		if ((del->next == NULL) && (del->prev == NULL) && (first != del)) {
 			if (!disable_warnings)
@@ -70,20 +68,17 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 		}
 	}
 
-	// Walk the parent chain to check ownership: reject buffers whose
-	// chain doesn't reach this level (sibling/foreign branch).
-	// Self-deallocate is naturally rejected, since the chain starts
-	// at the buffer's parent, not the buffer itself.
+	// Reject buffers whose chain doesn't reach this level (sibling/foreign);
+	// self-deallocate is naturally rejected: the chain starts at the parent
 	bool buffer_in_memory = false;
 	yamm_buffer* owner = del->parent;
-	// Guard against hypothetical parent-chain cycles with a bounded walk.
-	int depth = 0;
-	while (owner && !buffer_in_memory && depth < 256) {
+	// The parent chain can't loop: allocate()/insert() refuse buffers that
+	// already have a parent, so no depth guard is needed
+	while (owner && !buffer_in_memory) {
 		if (owner == this)
 			buffer_in_memory = true;
 		else
 			owner = owner->parent;
-		depth++;
 	}
 
 	// The buffer isn't allocated anywhere inside this memory
@@ -95,9 +90,8 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 		return 0;
 	}
 
-	// If the buffer is a child of a deeper level of this memory, delegate
-	// the deallocation to the level that directly contains it, so the
-	// buffer is removed from the correct list
+	// Delegate to the direct owner so the buffer is removed from the
+	// correct (deepest) list
 	if ((del->parent != NULL) && (del->parent != this))
 		return del->parent->deallocate(del);
 
@@ -159,6 +153,8 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 		first_free = new_free_buffer;
 
 	del->parent = NULL;
+	// delete del: the destructor recursively deletes the child list and
+	// severs all its links
 	delete del;
 
 	return 1;

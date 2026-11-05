@@ -71,10 +71,8 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 		return 0;
 	end
 
-	// This guard is only meaningful when deleted_buffer is a direct child of
-	// this level. When called from an ancestor level, deleted_buffer lives in
-	// a deeper list and its next/prev are relative to that list, not ours —
-	// so skip the check and let the parent-chain walk below determine ownership.
+	// Only a direct child's next/prev are relative to this level's lists;
+	// for deeper buffers the parent-chain walk below determines ownership
 	if(deleted_buffer.parent == this) begin
 		if((deleted_buffer.next == null) && (deleted_buffer.prev == null) && (this.first != deleted_buffer)) begin
 			if(!disable_warnings)
@@ -87,22 +85,17 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 		end
 	end
 
-	// Walk the parent chain to check ownership: reject buffers whose
-	// chain doesn't reach this level (sibling/foreign branch).
-	// Self-deallocate is naturally rejected, since the chain starts
-	// at the buffer's parent, not the buffer itself.
+	// Reject buffers whose chain doesn't reach this level (sibling/foreign);
+	// self-deallocate is naturally rejected: the chain starts at the parent
 	buffer_in_memory = 0;
 	handle_to_buffer = deleted_buffer.parent;
-	// Guard against hypothetical parent-chain cycles with a bounded walk.
-	begin
-		int depth = 0;
-		while((handle_to_buffer != null) && (buffer_in_memory == 0) && (depth < 256)) begin
-			if(handle_to_buffer == this)
-				buffer_in_memory = 1;
-			else
-				handle_to_buffer = handle_to_buffer.parent;
-			depth++;
-		end
+	// The parent chain can't loop: allocate()/insert() refuse buffers that
+	// already have a parent, so no depth guard is needed
+	while((handle_to_buffer != null) && (buffer_in_memory == 0)) begin
+		if(handle_to_buffer == this)
+			buffer_in_memory = 1;
+		else
+			handle_to_buffer = handle_to_buffer.parent;
 	end
 
 	// The buffer isn't allocated anywhere inside this memory
@@ -116,17 +109,18 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 		return 0;
 	end
 
-	// If the buffer is a child of a deeper level of this memory, delegate
-	// the deallocation to the level that directly contains it, so the
-	// buffer is removed from the correct list
+	// Delegate to the direct owner so the buffer is removed from the
+	// correct (deepest) list
 	if((deleted_buffer.parent != null) && (deleted_buffer.parent != this))
 		return deleted_buffer.parent.deallocate(deleted_buffer, recursive);
 
-	// If the recursive bit is not set and the buffer has other buffers
-	// inside it's memory space don't deallocate it
-	if((deleted_buffer.first != null) && (recursive == 0)) begin
+	// With recursive=0 refuse if any child is occupied; a single free buffer
+	// spanning the whole range means all children are already free
+	if((recursive == 0) && (deleted_buffer.first != null) &&
+	   !(deleted_buffer.first.is_free && (deleted_buffer.first.next == null))) begin
+		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
-		`uvm_warning("YAMM_WRN", "The buffer has other buffers inside it's memory space!");
+			`uvm_warning("YAMM_WRN", "The buffer has other buffers inside it's memory space!");
 		`else
 		$warning("[YAMM_WRN] The buffer has other buffers inside it's memory space!");
 		`endif
@@ -196,8 +190,13 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 	deleted_buffer.next = null;
 	deleted_buffer.prev = null;
 	deleted_buffer.parent = null;
+	// Orphan the children so their stale parent links can't pass the
+	// ownership check, and reset the counters for a consistent re-allocation
+	deleted_buffer.orphan_children();
 	deleted_buffer.first = null;
 	deleted_buffer.first_free = null;
+	deleted_buffer.number_of_buffers = 0;
+	deleted_buffer.number_of_free_buffers = 1;
 	deleted_buffer.next_free = null;
 	deleted_buffer.prev_free = null;
 

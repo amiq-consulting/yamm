@@ -530,8 +530,9 @@ function void yamm_buffer::intern_reset();
 				temp.number_of_buffers = 0;
 				temp.number_of_free_buffers = 1;
 				if(temp.first != null) begin
-					// If recursive static buffers are implemented make this a recursive call
-					// temp.intern_reset();
+					// Orphan the children before dropping the list so their
+					// stale parent links can't pass the ownership check
+					temp.orphan_children();
 					temp.first = null;
 					temp.first_free = null;
 				end
@@ -541,6 +542,38 @@ function void yamm_buffer::intern_reset();
 		else
 			temp = temp.next;
 	end
+endfunction
+
+/**
+ * Severs the direct children's parent links before dropping the child list,
+ * so orphans can't later pass the parent-chain ownership check
+ */
+function void yamm_buffer::orphan_children();
+	yamm_buffer h;
+
+	h = first;
+	while(h) begin
+		h.parent = null;
+		h = h.next;
+	end
+endfunction
+
+/**
+ * Checks if the given buffer is this level or one of its ancestors.
+ * Used to refuse allocations that would create a parent loop.
+ */
+function bit yamm_buffer::is_self_or_ancestor(yamm_buffer candidate);
+	yamm_buffer h;
+
+	h = this;
+	// Acyclic: allocate()/insert() refuse targets that would loop back
+	while(h != null) begin
+		if(h == candidate)
+			return 1;
+		h = h.parent;
+	end
+
+	return 0;
 endfunction
 
 function yamm_buffer yamm_buffer::internal_get_buffer(yamm_addr_width_t start);

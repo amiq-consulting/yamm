@@ -240,6 +240,156 @@ class yamm_uvm_deallocate_level_test extends uvm_test;
 		if(!mem.check_address_space_consistency())
 			`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected child-frees-parent deallocate")
 
+		// ------------------------------------------------------------------
+		// Case 6: a reset() drops a static buffer's child list. The
+		// orphaned children keep their old handles but must no longer
+		// pass the parent-chain ownership check (stale parent links).
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 6: reset orphans a static buffer's children", UVM_NONE)
+		begin
+			yamm_buffer sb = new;
+			yamm_buffer sc1;
+			yamm_buffer sc2;
+			mem.reset();
+			sb.set_name("STATIC_BUF");
+			sb.set_start_addr_size(0, 'h20);
+			if(!mem.allocate_static_buffer(sb))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate STATIC_BUF")
+			sc1 = sb.allocate_by_size('h10, FIRST_FIT);
+			sc2 = sb.allocate_by_size('h10, FIRST_FIT);
+			if(sc1 == null || sc2 == null)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate inside STATIC_BUF")
+			mem.reset();
+			if(sb.get_buffer('h0) != null)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "STATIC_BUF's child list should have been dropped by reset")
+			if(!sb.allocate_by_size('h20, FIRST_FIT))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to re-allocate inside STATIC_BUF after reset")
+			// The stale child must be rejected both from the memory root
+			// and from the static buffer that used to own it
+			ok = mem.deallocate(sc1);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Stale child after reset was deallocated through the memory")
+			ok = sb.deallocate(sc1);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Stale child was deallocated from the static buffer itself")
+			if(!mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after stale child rejection")
+			if(!sb.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "STATIC_BUF inconsistent after stale child rejection")
+		end
+
+		// ------------------------------------------------------------------
+		// Case 7: a buffer that is deallocated recursively and then
+		// re-allocated must start with consistent child counters.
+		// RANDOM_FIT uses number_of_free_buffers, so a stale count walks
+		// past the end of the rebuilt free list and hits a null reference
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 7: re-allocation after recursive deallocate has consistent counters", UVM_NONE)
+		begin
+			yamm_buffer p = new;
+			yamm_buffer mid = new;
+			p.set_name("COUNTER_P");
+			p.set_size('h30);
+			if(!other_mem.allocate(p, FIRST_FIT))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate COUNTER_P")
+			// Insert a buffer in the middle so P ends up with two free buffers
+			mid.set_name("COUNTER_MID");
+			mid.set_size('h08);
+			mid.set_start_addr(p.get_start_addr() + 'h08);
+			if(!p.insert(mid))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to insert COUNTER_MID")
+			if(!other_mem.deallocate(p))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Recursive deallocate of COUNTER_P failed")
+			p.set_size('h10);
+			if(!other_mem.allocate(p, FIRST_FIT))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to re-allocate COUNTER_P")
+			if(p.allocate_by_size('h08, RANDOM_FIT) == null)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "RANDOM_FIT allocation in re-allocated COUNTER_P failed (stale free count)")
+		end
+
+		// ------------------------------------------------------------------
+		// Case 8: the recursive flag. A buffer whose children have all
+		// been freed (child list reduced to a single free buffer spanning
+		// the whole range) can be deallocated with recursive == 0. A
+		// buffer that still has an occupied child must be refused.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 8: recursive=0 on a buffer whose children are all free", UVM_NONE)
+		begin
+			yamm_buffer q = other_mem.allocate_by_size('h10, FIRST_FIT);
+			yamm_buffer qc = q.allocate_by_size('h08, FIRST_FIT);
+			yamm_buffer r = other_mem.allocate_by_size('h10, FIRST_FIT);
+			yamm_buffer rc = r.allocate_by_size('h04, FIRST_FIT);
+			if(q == null || qc == null || r == null || rc == null)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate Q/R structures")
+			// Free Q's only child: its list is now a single free buffer
+			if(!q.deallocate(qc))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to deallocate Q's child")
+			ok = other_mem.deallocate(q, 0);
+			if(!ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Non-recursive deallocate of a buffer with only free children should have succeeded")
+			// R still has an occupied child: recursive=0 must be refused
+			ok = other_mem.deallocate(r, 0);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Non-recursive deallocate of a buffer with occupied children should have failed")
+			if(r.get_size() != 'h10)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "R was modified even though deallocation should have failed")
+			// recursive=1 still works
+			if(!other_mem.deallocate(r, 1))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Recursive deallocate of R failed")
+			if(!other_mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after Case 8")
+		end
+
+		// ------------------------------------------------------------------
+		// Case 9: double allocation. A buffer that exactly fills its
+		// level (next/prev null) is still allocated: it must not be
+		// allocatable a second time into another level.
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 9: a buffer that fills its level can't be allocated twice", UVM_NONE)
+		begin
+			yamm_buffer h1 = other_mem.allocate_by_size(8, FIRST_FIT);
+			yamm_buffer h2 = other_mem.allocate_by_size(8, FIRST_FIT);
+			yamm_buffer fill = new;
+			if(h1 == null || h2 == null)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate H1/H2")
+			fill.set_name("FILL");
+			fill.set_size(8);
+			if(!h1.allocate(fill, FIRST_FIT))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Failed to allocate FILL inside H1")
+			// FILL now fills H1 exactly: next and prev are both null
+			ok = h2.allocate(fill, FIRST_FIT);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "A buffer that fills its level was allocated a second time")
+			if(fill.get_size() != 8)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "FILL was modified even though the second allocation should have failed")
+			if(!other_mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected double allocation")
+			// FILL is still a valid child of H1 and can be freed normally
+			if(!h1.deallocate(fill))
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "FILL should still be deallocatable from H1")
+		end
+
+		// ------------------------------------------------------------------
+		// Case 10: a never-allocated buffer can't be allocated inside
+		// itself (or one of its descendants): that would create a parent
+		// loop and make the ownership walk in deallocate() run forever
+		// ------------------------------------------------------------------
+		`uvm_info("YAMM_DEALLOC_LVL_INF", "Case 10: a buffer can't be allocated inside itself", UVM_NONE)
+		begin
+			yamm_buffer selfb = new;
+			selfb.set_name("SELF_BUF");
+			selfb.set_size(100);
+			ok = selfb.allocate(selfb, FIRST_FIT);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "A buffer was allocated inside itself (parent loop)")
+			// The ownership walk in deallocate() must terminate for such a buffer
+			ok = mem.deallocate(selfb);
+			if(ok)
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Self buffer was deallocated even though it was never allocated")
+			if(!mem.check_address_space_consistency())
+				`uvm_fatal("YAMM_DEALLOC_LVL_FATAL", "Inconsistent after rejected self-allocation")
+		end
+
 		`uvm_info("YAMM_DEALLOC_LVL_INF", "All cross-level deallocate cases passed", UVM_LOW)
 
 	endtask

@@ -44,14 +44,26 @@ function bit yamm_buffer::allocate(yamm_buffer new_buffer, yamm_allocation_mode_
 	// The hidden data
 	new_buffer.size = compute_size_with_gran(new_buffer.size, new_buffer.granularity);
 
-	// Sanitation check: Don't allocate buffers that are already in the memory
-	if((new_buffer.next) || (new_buffer.prev)) begin
+	// Sanitation check: don't allocate buffers already in the memory; the
+	// parent check also catches a buffer that exactly fills its level
+	if((new_buffer.next) || (new_buffer.prev) || (new_buffer.parent)) begin
 
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
 			`uvm_warning("YAMM_WRN", "The buffers is already allocated in the memory. Allocation failed.");
 		`else
 		$warning("[YAMM_WRN] The buffers is already allocated in the memory. Allocation failed.");
+		`endif
+		return 0;
+	end
+
+	// A buffer can't be allocated inside itself or a descendant (parent loop)
+	if(is_self_or_ancestor(new_buffer)) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "A buffer can not be allocated inside itself or inside one of its descendants. Allocation failed.");
+		`else
+		$warning("[YAMM_WRN] A buffer can not be allocated inside itself or inside one of its descendants. Allocation failed.");
 		`endif
 		return 0;
 	end

@@ -171,6 +171,66 @@ int main(int argc, char* argv[]) {
 	check(app1->get_size() == 32, "APP1 was modified even though child-frees-parent should have failed");
 	check(mem.check_address_space_consistency(), "Inconsistent after rejected child-frees-parent deallocate");
 
+	// ------------------------------------------------------------------
+	// Case 6: cross-level deallocate of a depth-2 buffer. MID lives two
+	// levels below other_mem; the call must walk the parent chain and
+	// delegate to the direct owner. (The buffer object is deleted by
+	// deallocate(), so its handle must not be used afterwards.)
+	// ------------------------------------------------------------------
+	yamm_buffer* p = other_mem.allocate_by_size(40, YAMM_FIRST_FIT);
+	check(p != NULL, "Failed to allocate P inside other_mem");
+	if (p == NULL)
+		return 1;
+	yamm_buffer* mid = p->allocate_by_size(8, YAMM_FIRST_FIT);
+	check(mid != NULL, "Failed to allocate MID inside P");
+	if (mid == NULL)
+		return 1;
+
+	std::cout << "Case 6: deallocate a depth-2 buffer from the memory root\n";
+	ok = other_mem.deallocate(mid);
+	check(ok, "Ancestor deallocate of a depth-2 buffer should have succeeded");
+	check(other_mem.check_address_space_consistency(), "other_mem inconsistent after depth-2 deallocate");
+
+	// ------------------------------------------------------------------
+	// Case 7: double allocation. A buffer that exactly fills its level
+	// (next/prev null) is still allocated: it must not be allocatable a
+	// second time into another level.
+	// ------------------------------------------------------------------
+	yamm_buffer* h1 = other_mem.allocate_by_size(8, YAMM_FIRST_FIT);
+	yamm_buffer* h2 = other_mem.allocate_by_size(8, YAMM_FIRST_FIT);
+	check(h1 != NULL && h2 != NULL, "Failed to allocate H1/H2");
+	if (h1 == NULL || h2 == NULL)
+		return 1;
+	yamm_buffer* fill = new yamm_buffer(8);
+	fill->set_name("FILL");
+	check(h1->allocate(fill, YAMM_FIRST_FIT), "Failed to allocate FILL inside H1");
+
+	std::cout << "Case 7: a buffer that fills its level can't be allocated twice\n";
+	ok = h2->allocate(fill, YAMM_FIRST_FIT);
+	check(!ok, "A buffer that fills its level was allocated a second time");
+	check(fill->get_size() == 8, "FILL was modified even though the second allocation should have failed");
+	check(other_mem.check_address_space_consistency(), "Inconsistent after rejected double allocation");
+	// FILL is still a valid child of H1 and can be freed normally
+	// (deallocate deletes the buffer object, so fill must not be used after)
+	ok = h1->deallocate(fill);
+	check(ok, "FILL should still be deallocatable from H1");
+
+	// ------------------------------------------------------------------
+	// Case 8: a never-allocated buffer can't be allocated inside itself
+	// (or one of its descendants): that would create a parent loop and
+	// make the ownership walk in deallocate() run forever.
+	// ------------------------------------------------------------------
+	yamm_buffer selfb(100);
+	selfb.set_name("SELF_BUF");
+
+	std::cout << "Case 8: a buffer can't be allocated inside itself\n";
+	ok = selfb.allocate(&selfb, YAMM_FIRST_FIT);
+	check(!ok, "A buffer was allocated inside itself (parent loop)");
+	// The ownership walk in deallocate() must terminate for such a buffer
+	ok = mem.deallocate(&selfb);
+	check(!ok, "Self buffer was deallocated even though it was never allocated");
+	check(mem.check_address_space_consistency(), "Inconsistent after rejected self-allocation");
+
 	if (g_failures == 0) {
 		std::cout << "All cross-level deallocate cases passed\n";
 		return 0;

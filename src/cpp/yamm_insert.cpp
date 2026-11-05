@@ -34,10 +34,27 @@ bool yamm_buffer::insert(yamm_buffer* n) {
 		return 0;
 	}
 
-	// Sanitation check: don't insert buffers already in the memory
-	if ((n->next) || (n->prev) || (n->next_free) || (n->prev_free)) {
+	// Sanitation check: don't insert buffers already in the memory; the
+	// parent check also catches a buffer that exactly fills its level
+	if ((n->next) || (n->prev) || (n->next_free) || (n->prev_free) || (n->parent)) {
 		fprintf(stderr,
 				"[YAMM_WRN] Buffer is already in the memory!\n\t in %s at line %d\n",
+				__FILE__, __LINE__);
+		return 0;
+	}
+
+	// A buffer can't be inserted inside itself or a descendant (parent loop)
+	if (is_self_or_ancestor(n)) {
+		fprintf(stderr,
+				"[YAMM_WRN] A buffer can not be inserted inside itself or inside one of its descendants!\n\t in %s at line %d\n",
+				__FILE__, __LINE__);
+		return 0;
+	}
+
+	// A buffer with children can't be inserted into another level
+	if (n->first) {
+		fprintf(stderr,
+				"[YAMM_WRN] Can't insert buffers with children!\n\t in %s at line %d\n",
 				__FILE__, __LINE__);
 		return 0;
 	}

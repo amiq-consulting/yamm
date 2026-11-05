@@ -70,13 +70,36 @@ function bit yamm_buffer::insert(yamm_buffer new_buffer);
 		return 0;
 	end
 
-	// Check to see if it is linked to any other buffers
-	if((new_buffer.next != null) || (new_buffer.prev != null)) begin
+	// Refuse buffers already linked anywhere; the parent check also
+	// catches a buffer that exactly fills its level (next/prev null)
+	if((new_buffer.next != null) || (new_buffer.prev != null) || (new_buffer.parent != null)) begin
 		if(!disable_warnings)
 		`ifdef YAMM_USE_UVM
 		`uvm_warning("YAMM_WRN", "The buffer is already allocated somewhere in the memory. Insertion failed.");
 		`else
 		$warning("[YAMM_WRN] The buffer is already allocated somewhere in the memory. Insertion failed.");
+		`endif
+		return 0;
+	end
+
+	// A buffer can't be inserted inside itself or a descendant (parent loop)
+	if(is_self_or_ancestor(new_buffer)) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "A buffer can not be inserted inside itself or inside one of its descendants. Insertion failed.");
+		`else
+		$warning("[YAMM_WRN] A buffer can not be inserted inside itself or inside one of its descendants. Insertion failed.");
+		`endif
+		return 0;
+	end
+
+	// A buffer with children can't be inserted into another level
+	if(new_buffer.first != null) begin
+		if(!disable_warnings)
+		`ifdef YAMM_USE_UVM
+			`uvm_warning("YAMM_WRN", "Can't insert buffers with children!");
+		`else
+		$warning("[YAMM_WRN] Can't insert buffers with children!");
 		`endif
 		return 0;
 	end
