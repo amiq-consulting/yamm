@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yamm_5fns_115',['yamm_ns',['../namespaceyamm__ns.html',1,'']]]
+  ['yamm_5fns_121',['yamm_ns',['../namespaceyamm__ns.html',1,'']]]
 ];

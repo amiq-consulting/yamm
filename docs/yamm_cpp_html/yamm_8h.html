@@ -142,6 +142,10 @@ Macros</h2></td></tr>
 <tr class="separator:ac460c7bbb500638dee4ee0c4584ab18d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8a34cf8886010d5132092b5250f2211"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yamm_8h.html#ab8a34cf8886010d5132092b5250f2211">YAMM_UNIFORM_FIT</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:ab8a34cf8886010d5132092b5250f2211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a442ec7d4f7a25cf168685d8b3ac87f7c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yamm_8h.html#a442ec7d4f7a25cf168685d8b3ac87f7c">YAMM_LAST_FIT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:a442ec7d4f7a25cf168685d8b3ac87f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae936fb1f19682c23c73f3ed2aac63ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yamm_8h.html#aae936fb1f19682c23c73f3ed2aac63ea">YAMM_NUM_ALLOC_MODES</a>&#160;&#160;&#160;(<a class="el" href="yamm_8h.html#a442ec7d4f7a25cf168685d8b3ac87f7c">YAMM_LAST_FIT</a> + 1)</td></tr>
+<tr class="separator:aae936fb1f19682c23c73f3ed2aac63ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543c2880678b6d4c62bb041af555194a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yamm_8h.html#a543c2880678b6d4c62bb041af555194a">YAMM_EXIT_CODE</a>&#160;&#160;&#160;19420</td></tr>
 <tr class="separator:a543c2880678b6d4c62bb041af555194a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -220,6 +224,36 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a442ec7d4f7a25cf168685d8b3ac87f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a442ec7d4f7a25cf168685d8b3ac87f7c">&#9670;&nbsp;</a></span>YAMM_LAST_FIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define YAMM_LAST_FIT&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Uses the highest-address free buffer that fits and places the new buffer at the highest aligned start inside it (as close to the end as possible) </p>
+
+</div>
+</div>
+<a id="aae936fb1f19682c23c73f3ed2aac63ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae936fb1f19682c23c73f3ed2aac63ea">&#9670;&nbsp;</a></span>YAMM_NUM_ALLOC_MODES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define YAMM_NUM_ALLOC_MODES&#160;&#160;&#160;(<a class="el" href="yamm_8h.html#a442ec7d4f7a25cf168685d8b3ac87f7c">YAMM_LAST_FIT</a> + 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of allocation modes; valid modes are 0 .. YAMM_NUM_ALLOC_MODES-1 </p>
 
 </div>
 </div>

@@ -5,7 +5,6 @@
 
 /**
  * Directed tests for the LAST_FIT allocation mode
- * (last_fit_plan.md, section 7, scenarios D1-D10)
  */
 class yamm_uvm_last_fit_test extends uvm_test;
 

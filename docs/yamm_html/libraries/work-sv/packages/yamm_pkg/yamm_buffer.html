@@ -24,7 +24,7 @@
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/highlight.min.js?v=2dda88ce"></script>
       <script src="../../../../_static/svg-pan-zoom.min.js?v=a65b44e7"></script>
-      <script src="../../../../_static/specador.js?v=877dcbae"></script>
+      <script src="../../../../_static/specador.js?v=da1fb8c3"></script>
       <script src="../../../../_static/custom.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -634,23 +634,20 @@ Function returns a queue with all buffers of a certain kind.
  This function tries to deallocate a buffer allocated in the memory.
 
 
+</p><p>
+
+ The buffer can be a direct child of the level the function is called
+  from, or a child of any deeper level of that memory. In the second
+  case the deallocation is delegated to the level that directly
+  contains the buffer, so the buffer is always removed from the
+  correct list.
+
+
 </p>
 
 <p>
 
 </p><dl><dt class="def_name_wrapper">
-
-Arguments:
-
-</dt><dd class="def_description_wrapper">
-
-<p>
-
-del : The buffer that is going to be deallocated
-
-</p>
-
-</dd></dl><dl><dt class="def_name_wrapper">
 
 Returns:
 
@@ -659,6 +656,8 @@ Returns:
 <p>
 
 It returns 1 if successful. It returns 0 if the specified buffer can’t be found or is a static buffer.
+It also returns 0 if the buffer is not allocated anywhere inside this memory
+(a warning is given in that case).
 It also returns 0 if ‘recursive’ bit is not set, and it contains allocated buffers.
 
 </p>

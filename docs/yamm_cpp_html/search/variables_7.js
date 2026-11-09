@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['prev_201',['prev',['../classyamm__ns_1_1yamm__buffer.html#a7977210ee30097d3df4f5a0927d0f645',1,'yamm_ns::yamm_buffer']]],
-  ['prev_5ffree_202',['prev_free',['../classyamm__ns_1_1yamm__buffer.html#a2e00e78093c8dd087cf6cdd93a7cc2a4',1,'yamm_ns::yamm_buffer']]]
+  ['name_205',['name',['../classyamm__ns_1_1yamm__buffer.html#af7015027789123d03e1f6dcfd37db572',1,'yamm_ns::yamm_buffer']]],
+  ['next_206',['next',['../classyamm__ns_1_1yamm__buffer.html#a6768b4e2d199bec0e59cfc020a2167fd',1,'yamm_ns::yamm_buffer']]],
+  ['next_5ffree_207',['next_free',['../classyamm__ns_1_1yamm__buffer.html#a1f55e15b01d0a276aa7a99e61b828bd4',1,'yamm_ns::yamm_buffer']]],
+  ['number_5fof_5fbuffers_208',['number_of_buffers',['../classyamm__ns_1_1yamm__buffer.html#a6f1cd50ac2fbad858d15145cd423fbf5',1,'yamm_ns::yamm_buffer']]],
+  ['number_5fof_5ffree_5fbuffers_209',['number_of_free_buffers',['../classyamm__ns_1_1yamm__buffer.html#a1c291db4067e8317c6627d0553e40068',1,'yamm_ns::yamm_buffer']]]
 ];

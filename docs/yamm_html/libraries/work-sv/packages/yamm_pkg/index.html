@@ -24,7 +24,7 @@
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../../_static/highlight.min.js?v=2dda88ce"></script>
       <script src="../../../../_static/svg-pan-zoom.min.js?v=a65b44e7"></script>
-      <script src="../../../../_static/specador.js?v=877dcbae"></script>
+      <script src="../../../../_static/specador.js?v=da1fb8c3"></script>
       <script src="../../../../_static/custom.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -195,7 +195,9 @@
 <dl class="object">
 <dt class="sig sig-object">
 <span class="sig-name descname"><span class="pre">yamm_allocation_mode_e</span></span></dt>
-<dd><div class="comment" ><p>The supported allocation modes, used by buffer allocation operations</p>
+<dd><div class="comment" ><p>The supported allocation modes, used by buffer allocation operations
+LAST_FIT: uses the highest-address free buffer that fits and places the new buffer at
+the highest aligned start inside it (as close to the end of the memory as possible)</p>
 </div><dl class="field-list simple">
 <dt class="field-odd">Enum Items<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -205,6 +207,7 @@
 <li><p>FIRST_FIT = 3</p></li>
 <li><p>BEST_FIT = 4</p></li>
 <li><p>UNIFORM_FIT = 5</p></li>
+<li><p>LAST_FIT = 6</p></li>
 </ul>
 </dd>
 </dl>

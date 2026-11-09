@@ -14,11 +14,12 @@ var searchData=
   ['get_5fgranularity_40',['get_granularity',['../classyamm__ns_1_1yamm__buffer.html#a7b1000fea92085d3983333724c590b2e',1,'yamm_ns::yamm_buffer']]],
   ['get_5fis_5ffree_41',['get_is_free',['../classyamm__ns_1_1yamm__buffer.html#aa9517d4d81a0657ae972bfb9dad0347b',1,'yamm_ns::yamm_buffer']]],
   ['get_5fis_5fstatic_42',['get_is_static',['../classyamm__ns_1_1yamm__buffer.html#a3efa475c57e47d69ef719f07400de1dc',1,'yamm_ns::yamm_buffer']]],
-  ['get_5fname_43',['get_name',['../classyamm__ns_1_1yamm__buffer.html#a6df438e6102f7c28fde2bb624adb3ed9',1,'yamm_ns::yamm_buffer']]],
-  ['get_5fsize_44',['get_size',['../classyamm__ns_1_1yamm.html#adc68ed58ecd3059344496e8183530cc5',1,'yamm_ns::yamm::get_size()'],['../classyamm__ns_1_1yamm__buffer.html#a8fdabfbafb1282dcdfd64e52ee2a245a',1,'yamm_ns::yamm_buffer::get_size()']]],
-  ['get_5fstart_5faddr_45',['get_start_addr',['../classyamm__ns_1_1yamm__buffer.html#abd298d944ae9e9be902916f76afb972c',1,'yamm_ns::yamm_buffer']]],
-  ['get_5fstart_5faddr_5falignment_46',['get_start_addr_alignment',['../classyamm__ns_1_1yamm__buffer.html#a1c69c8e72ec9284ce1d38f254ce4cc34',1,'yamm_ns::yamm_buffer']]],
-  ['get_5fstatic_5fbuffers_47',['get_static_buffers',['../classyamm__ns_1_1yamm.html#ae517da342a009767e8367cb10cd83dd6',1,'yamm_ns::yamm']]],
-  ['get_5fusage_5fstatistics_48',['get_usage_statistics',['../classyamm__ns_1_1yamm__buffer.html#a8718776c898711f5f3cc26f47900a33e',1,'yamm_ns::yamm_buffer']]],
-  ['granularity_49',['granularity',['../classyamm__ns_1_1yamm__buffer.html#a5fef85230ba3cc2d574a3529cd6f8f0b',1,'yamm_ns::yamm_buffer']]]
+  ['get_5flast_5ffit_5faddr_43',['get_last_fit_addr',['../classyamm__ns_1_1yamm__buffer.html#ab834aaf1a937bf6e589d47594808b21c',1,'yamm_ns::yamm_buffer']]],
+  ['get_5fname_44',['get_name',['../classyamm__ns_1_1yamm__buffer.html#a6df438e6102f7c28fde2bb624adb3ed9',1,'yamm_ns::yamm_buffer']]],
+  ['get_5fsize_45',['get_size',['../classyamm__ns_1_1yamm.html#adc68ed58ecd3059344496e8183530cc5',1,'yamm_ns::yamm::get_size()'],['../classyamm__ns_1_1yamm__buffer.html#a8fdabfbafb1282dcdfd64e52ee2a245a',1,'yamm_ns::yamm_buffer::get_size()']]],
+  ['get_5fstart_5faddr_46',['get_start_addr',['../classyamm__ns_1_1yamm__buffer.html#abd298d944ae9e9be902916f76afb972c',1,'yamm_ns::yamm_buffer']]],
+  ['get_5fstart_5faddr_5falignment_47',['get_start_addr_alignment',['../classyamm__ns_1_1yamm__buffer.html#a1c69c8e72ec9284ce1d38f254ce4cc34',1,'yamm_ns::yamm_buffer']]],
+  ['get_5fstatic_5fbuffers_48',['get_static_buffers',['../classyamm__ns_1_1yamm.html#ae517da342a009767e8367cb10cd83dd6',1,'yamm_ns::yamm']]],
+  ['get_5fusage_5fstatistics_49',['get_usage_statistics',['../classyamm__ns_1_1yamm__buffer.html#a8718776c898711f5f3cc26f47900a33e',1,'yamm_ns::yamm_buffer']]],
+  ['granularity_50',['granularity',['../classyamm__ns_1_1yamm__buffer.html#a5fef85230ba3cc2d574a3529cd6f8f0b',1,'yamm_ns::yamm_buffer']]]
 ];

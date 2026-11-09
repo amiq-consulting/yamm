@@ -281,7 +281,8 @@ bool yamm_buffer::check_address_space_consistency() {
 		if (temp->first) {
 
 			// Check recursively
-			temp->check_address_space_consistency();
+			if (!temp->check_address_space_consistency())
+				return 0;
 
 			// Check that the first child starts at buffer start address
 			if (temp->first->start_addr != temp->start_addr) {

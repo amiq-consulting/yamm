@@ -311,10 +311,6 @@ yamm::~yamm() {
 
 }
 
-/**
- * Function that builds the memory and allows us to start using it
- * @param size Total size of the memory
- */
 void yamm::build(uint_64_t size) {
 	if (this->init_done)
 		fprintf(stderr,
