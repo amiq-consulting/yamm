@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "\n";
 
-	for (int mode = 0; mode < 6; ++mode) {
+	for (int mode = 0; mode < YAMM_NUM_ALLOC_MODES; ++mode) {
 
 		const clock_t begin_time = clock();
 

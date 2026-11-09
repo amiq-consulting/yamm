@@ -21,7 +21,35 @@
 function bit yamm_buffer::check_address_space_consistency();
 	yamm_buffer handle_to_buffer = first;
 	yamm_buffer recursive_handle_to_buffer;
+	yamm_buffer last_seen_free = null;
 
+	// Free list: free buffers are linked in address order by
+	// next_free/prev_free between first_free and last_free
+	while(handle_to_buffer)
+	begin
+		if(handle_to_buffer.is_free) begin
+			if(handle_to_buffer.prev_free != last_seen_free)
+				return 0;
+			if(last_seen_free == null) begin
+				if(first_free != handle_to_buffer)
+					return 0;
+			end
+			else if(last_seen_free.next_free != handle_to_buffer)
+				return 0;
+			last_seen_free = handle_to_buffer;
+		end
+		handle_to_buffer = handle_to_buffer.next;
+	end
+
+	if(last_seen_free == null) begin
+		// No free buffer: the level is full or has no list yet
+		if((first_free != null) || (last_free != null))
+			return 0;
+	end
+	else if((last_free != last_seen_free) || (last_seen_free.next_free != null))
+		return 0;
+
+	handle_to_buffer = first;
 	while(handle_to_buffer)
 	begin
 

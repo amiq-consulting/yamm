@@ -20,9 +20,15 @@ class yamm_uvm_yamm_vs_mam_test extends uvm_test;
 
 	task run_phase(uvm_phase phase);
 
-		allocate_using_mam(5000, 1024*1024*1024);
+		// 512 MB and 2500 allocations (was 1 GiB and 5000): uvm_mem holds a
+		// byte array for the whole address space and uvm_mem_mam's memory
+		// grows ~linearly with the number of allocated fragments (~2.7 KB
+		// RSS each), so the original setup OOM-kills the simulator on a
+		// 12 GB host (~3900 fragments ~= 11 GB). 2500 x 100 B still leaves
+		// MAM heavily fragmented.
+		allocate_using_mam(2500, 512*1024*1024);
 
-		allocate_using_yamm(5000, 1024*1024*1024);
+		allocate_using_yamm(2500, 512*1024*1024);
 
 	endtask
 

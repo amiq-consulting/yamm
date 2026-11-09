@@ -37,6 +37,13 @@ namespace yamm_ns {
 #define YAMM_BEST_FIT 4
 #define YAMM_UNIFORM_FIT 5
 
+/** Uses the highest-address free buffer that fits and places the new buffer at
+ *  the highest aligned start inside it (as close to the end as possible) */
+#define YAMM_LAST_FIT 6
+
+/** Number of allocation modes; valid modes are 0 .. YAMM_NUM_ALLOC_MODES-1 */
+#define YAMM_NUM_ALLOC_MODES (YAMM_LAST_FIT + 1)
+
 #define YAMM_EXIT_CODE 19420
 
 typedef unsigned long long int uint_64_t;

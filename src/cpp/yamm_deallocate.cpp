@@ -135,8 +135,12 @@ bool yamm_buffer::deallocate(yamm_buffer* del) {
 		if (temp->is_free) {
 			temp->prev_free = new_free_buffer;
 			new_free_buffer->next_free = temp;
-		}
-	}
+		} else
+			// No free buffer after the new one: it is the tail of the free list
+			last_free = new_free_buffer;
+	} else
+		// The new free buffer is the last buffer of this level
+		last_free = new_free_buffer;
 
 	temp = new_free_buffer;
 

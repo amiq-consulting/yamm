@@ -55,6 +55,9 @@ yamm_fit_stress_test: lib
 yamm_deallocate_level_test: lib
 	g++ -g -O3 -Wall -o "YAMM" $(OBJS) ./../examples/cpp_tests/yamm_deallocate_level_test.cpp -I${YAMM_SRC_CPP} -I${YAMM_TESTS_CPP}
 
+yamm_last_fit_test: lib
+	g++ -g -O3 -Wall -o "YAMM" $(OBJS) ./../examples/cpp_tests/yamm_last_fit_test.cpp -I${YAMM_SRC_CPP} -I${YAMM_TESTS_CPP}
+
 run: $(TEST_TO_RUN)
 	./YAMM
 

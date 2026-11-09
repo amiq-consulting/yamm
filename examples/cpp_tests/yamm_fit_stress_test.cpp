@@ -25,6 +25,7 @@
 //   - the allocated buffer is aligned and lies completely inside one gap
 //   - BEST_FIT / BEST_FIT_RND use the smallest gap that fits
 //   - UNIFORM_FIT uses the largest gap that fits
+//   - LAST_FIT starts at floor_align(gap_end - size + 1) of the highest fitting gap
 //
 // Phases (each iterating the full enum over a range of sizes and alignments):
 //   0: deterministic directed scenarios with known free-gap layouts
@@ -59,15 +60,18 @@ struct ref_t {
 	bool any_fit;
 	uint_64_t best_sz;
 	uint_64_t uni_sz;
+	uint_64_t last_start;
 	std::vector<range_t> gaps;
 };
 
 static int g_errs = 0;
-static int g_errs_mode[6] = {0};
+static int g_errs_mode[YAMM_NUM_ALLOC_MODES] = {0};
 
 static const char* mname(int m) {
 	static const char* n[] = {"RANDOM_FIT", "FIRST_FIT_RND", "BEST_FIT_RND",
-			"FIRST_FIT", "BEST_FIT", "UNIFORM_FIT"};
+			"FIRST_FIT", "BEST_FIT", "UNIFORM_FIT", "LAST_FIT"};
+	static_assert(sizeof(n) / sizeof(n[0]) == YAMM_NUM_ALLOC_MODES,
+			"mname() must name every allocation mode");
 	return n[m];
 }
 
@@ -81,7 +85,7 @@ static void fail(int mode, const char* ctx, const std::string& what) {
 static std::string mode_summary() {
 	char buf[512];
 	int off = 0;
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < YAMM_NUM_ALLOC_MODES; i++)
 		off += snprintf(buf + off, sizeof(buf) - off, " %s=%d", mname(i), g_errs_mode[i]);
 	return std::string(buf);
 }
@@ -110,6 +114,7 @@ static void compute_reference(const std::vector<range_t>& used, uint_64_t sz,
 	ref.any_fit = false;
 	ref.best_sz = 0;
 	ref.uni_sz  = 0;
+	ref.last_start = 0;
 	for (size_t i = 0; i < ref.gaps.size(); i++) {
 		uint_64_t a = ((ref.gaps[i].s + align - 1) / align) * align;
 		uint_64_t gs = (uint_64_t)ref.gaps[i].e - ref.gaps[i].s + 1;
@@ -119,6 +124,9 @@ static void compute_reference(const std::vector<range_t>& used, uint_64_t sz,
 				ref.best_sz = gs;
 			if (gs > ref.uni_sz)
 				ref.uni_sz = gs;
+			// Gaps are visited in ascending order, so the last write
+			// belongs to the highest fitting gap (LAST_FIT)
+			ref.last_start = ((uint_64_t)ref.gaps[i].e - sz + 1) / align * align;
 		}
 	}
 }
@@ -163,6 +171,11 @@ static std::string check_alloc(uint_32_t align, uint_64_t sz, bool ok,
 	if (mode == YAMM_UNIFORM_FIT && gsz != ref.uni_sz) {
 		snprintf(buf, sizeof buf, "picked a gap of size 0x%llx, the largest fitting gap is 0x%llx",
 				(unsigned long long)gsz, (unsigned long long)ref.uni_sz);
+		return buf;
+	}
+	if (mode == YAMM_LAST_FIT && bs != ref.last_start) {
+		snprintf(buf, sizeof buf, "LAST_FIT expected start 0x%llx, got 0x%llx",
+				(unsigned long long)ref.last_start, (unsigned long long)bs);
 		return buf;
 	}
 	return "";
@@ -231,10 +244,21 @@ static bool run_one(const char* ctx, const std::vector<range_t>& used,
 		printf("trace: %s mode=%s sz=0x%llx align=%u\n", ctx, mname(mode),
 				(unsigned long long)sz, align);
 	bool ok = m->allocate(b, mode);
+	if (!ok) {
+		delete b; // allocate() leaves the buffer owned by the caller on failure
+		b = NULL;
+	}
 	if (start_out && ok)
 		*start_out = b->get_start_addr();
 	std::string err = check_alloc(align, sz, ok, b, mode, ref);
 	bool error = !err.empty();
+	if (!error && ok && !m->check_address_space_consistency()) {
+		err = "map inconsistent after allocate";
+		error = true;
+		// b is intentionally left allocated inside m: a corrupted map may
+		// crash or loop in deallocate(). The map is leaked on the error
+		// path (see comment above run_one) so b is cleaned up with it.
+	}
 	if (!error && ok && check_consistency) {
 		m->deallocate(b);
 		if (!m->check_address_space_consistency()) {
@@ -256,6 +280,13 @@ static bool run_one(const char* ctx, const std::vector<range_t>& used,
 static void phase0() {
 	std::vector<range_t> used;
 	const uint_32_t aligns[2] = {1, 512};
+	// Hand-checked LAST_FIT values, [scen-1][ai]; ai 0 = align 1, ai 1 = align 512.
+	// Scenario 1's used ranges stop at 0x9FFF, so the top gap [0xA000, 0xFFFF]
+	// is chosen there (0xFF38 / floor512 -> 0xFE00); scenarios 2 and 3 are
+	// used up to 0xFFFF, so the highest gaps are C (0x2AC8..0x2BFF) and C
+	// (0x2A40..0x2B3F) respectively.
+	static const uint_64_t last_exp[3][2] = {{0xff38, 0xfe00}, {0x2b38, 0x2000},
+			{0x2a78, 0x2000}};
 	for (int scen = 1; scen <= 3; scen++) {
 		load_scenario(scen, used);
 		for (int ai = 0; ai < 2; ai++) {
@@ -264,11 +295,13 @@ static void phase0() {
 			compute_reference(used, 0xc8, al, ref);
 			char ctx[64];
 			snprintf(ctx, sizeof ctx, "P0 scen%d align%u", scen, al);
-			for (int mi = 0; mi < 6; mi++) {
+			for (int mi = 0; mi < YAMM_NUM_ALLOC_MODES; mi++) {
 				uint_64_t start = 0;
 				bool err = run_one(ctx, used, 0xc8, al, mi, ref, false, &start);
 				if (!err && scen == 1 && mi == YAMM_BEST_FIT && start != 0x800)
 					fail(mi, ctx, "BEST_FIT expected addr 0x800");
+				if (!err && mi == YAMM_LAST_FIT && start != last_exp[scen - 1][ai])
+					fail(mi, ctx, "LAST_FIT start differs from the hand-checked value");
 			}
 		}
 	}
@@ -289,7 +322,7 @@ static void phase1() {
 				char ctx[80];
 				snprintf(ctx, sizeof ctx, "P1 scen%d align%u size0x%llx",
 						scen, aligns[ai], (unsigned long long)sizes[si]);
-				for (int mi = 0; mi < 6; mi++)
+				for (int mi = 0; mi < YAMM_NUM_ALLOC_MODES; mi++)
 					run_one(ctx, used, sizes[si], aligns[ai], mi, ref, false);
 			}
 		}
@@ -326,7 +359,7 @@ static void phase2(int iters) {
 		char ctx[80];
 		snprintf(ctx, sizeof ctx, "P2 it%d align%u size0x%llx",
 				it, al, (unsigned long long)sz);
-		for (int mi = 0; mi < 6; mi++)
+		for (int mi = 0; mi < YAMM_NUM_ALLOC_MODES; mi++)
 			run_one(ctx, used, sz, al, mi, ref, true);
 	}
 }

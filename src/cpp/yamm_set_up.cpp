@@ -46,6 +46,7 @@ yamm_buffer::yamm_buffer() {
 	this->prev = NULL;
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->contents = NULL;
@@ -81,6 +82,7 @@ yamm_buffer::yamm_buffer(uint_64_t size) {
 	this->prev = NULL;
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->contents = NULL;
@@ -115,6 +117,7 @@ yamm_buffer::yamm_buffer(yamm_buffer* n) {
 	this->prev = NULL;
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->contents = NULL;
@@ -156,6 +159,7 @@ yamm_buffer::yamm_buffer(uint_64_t start, uint_64_t size) {
 	this->prev = NULL;
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->contents = NULL;
@@ -189,6 +193,7 @@ yamm_buffer::yamm_buffer(std::string name) {
 	this->prev = NULL;
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->contents = NULL;
@@ -223,6 +228,7 @@ yamm_buffer::yamm_buffer(uint_64_t size, std::string name) {
 	this->prev = NULL;
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->contents = NULL;
@@ -260,6 +266,7 @@ yamm_buffer::~yamm_buffer() {
 
 		this->first = NULL;
 		this->first_free = NULL;
+		this->last_free = NULL;
 	}
 
 	this->parent = NULL;
@@ -276,6 +283,7 @@ yamm_buffer::~yamm_buffer() {
 yamm::yamm() {
 
 	this->first_free = NULL;
+	this->last_free = NULL;
 	this->first = NULL;
 
 	this->init_done = 0;
@@ -299,6 +307,7 @@ yamm::~yamm() {
 
 	this->first = NULL;
 	this->first_free = NULL;
+	this->last_free = NULL;
 
 }
 
@@ -318,6 +327,7 @@ void yamm::build(uint_64_t size) {
 		mem->parent = this;
 
 		this->first_free = mem;
+		this->last_free = mem;
 		this->first = mem;
 
 		this->init_done = 1;

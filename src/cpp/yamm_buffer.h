@@ -39,6 +39,8 @@ protected:
 
 	/** first free buffer contained */
 	yamm_buffer* first_free;
+	/** last free buffer contained (tail of the free list, mirror of first_free) */
+	yamm_buffer* last_free;
 	/**  first buffer contained (free or occupied) */
 	yamm_buffer* first;
 
@@ -103,6 +105,21 @@ protected:
 	 */
 	uint_64_t get_aligned_addr(const uint_32_t &alignment,
 			yamm_buffer* free_buffer);
+
+	/**
+	 * Computes the highest aligned start address at which a buffer of size bytes fits
+	 * inside free_buffer: floor_align(free_buffer->end_addr - size + 1).
+	 * Used by find_suitable_buffer() and compute_start_addr() for YAMM_LAST_FIT
+	 *
+	 * @param free_buffer The free buffer in which the allocation would take place
+	 * @param size The size of the new buffer
+	 * @param alignment The start address alignment of the new buffer
+	 * @param start The computed start address, only meaningful when true is returned
+	 *
+	 * @return true if the buffer fits inside free_buffer at an aligned address
+	 */
+	bool get_last_fit_addr(yamm_buffer* free_buffer, uint_64_t size,
+			uint_32_t alignment, uint_64_t& start);
 
 	/**
 	 * Computes the size taking in account alignment using get_aligned_addr()

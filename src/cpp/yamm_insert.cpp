@@ -68,6 +68,7 @@ bool yamm_buffer::insert(yamm_buffer* n) {
 		first_free->is_free = 1;
 		first_free->parent = this;
 		first = first_free;
+		last_free = first_free;
 	}
 
 	if (n->start_addr_alignment == 0) {

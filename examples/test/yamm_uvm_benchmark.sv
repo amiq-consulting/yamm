@@ -31,9 +31,7 @@ class yamm_uvm_benchmark extends uvm_test;
 		yamm_buffer_q buffer_q;
 		int search_iterations = 20000;
 
-		// Only test search
 		bit only_test_search = 0;
-		// Only test search
 
 		yamm mem = new;
 		mem.build("Name",memory_size);
@@ -92,10 +90,9 @@ class yamm_uvm_benchmark extends uvm_test;
 			else
 				`uvm_fatal("YAMM_BENCHMARK_FATAL", "Consistency problem!");
 
-			if(only_test_search)
-				i = 5;
-
-			if(i == 5)
+			// Run the search benchmark once: after UNIFORM_FIT, or right away in
+			// search-only mode ('i = 5' looped forever once there were 7 modes)
+			if((alloc_mode == UNIFORM_FIT) || only_test_search)
 			begin
 				yamm_addr_width_t rnd_addr;
 				int iterator = 0;
@@ -134,6 +131,10 @@ class yamm_uvm_benchmark extends uvm_test;
 			delta_time -= time1;
 			`uvm_info("YAMM_BENCHMARK_INF", $sformatf("Number of deallocations: %0d ; delta_time: %0d", number_of_deallocations, delta_time), UVM_NONE)
 			mem.print_stats();
+
+			// Search-only mode runs a single iteration
+			if(only_test_search)
+				break;
 
 		end
 

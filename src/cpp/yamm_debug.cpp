@@ -206,8 +206,23 @@ double yamm_buffer::get_usage_statistics() {
 
 bool yamm_buffer::check_address_space_consistency() {
 	yamm_buffer* temp;
+	yamm_buffer* last_seen_free = NULL;
+
 	temp = first;
 	while (temp) {
+
+		// Free list: free buffers are linked in address order by
+		// next_free/prev_free between first_free and last_free
+		if (temp->is_free) {
+			if ((temp->prev_free != last_seen_free)
+					|| (last_seen_free ? (last_seen_free->next_free != temp) : (first_free != temp))) {
+				fprintf(stderr,
+						"[YAMM_ERR] Free list link mismatch at [%llu, %llu] !\n\t in %s at line %d\n",
+						temp->start_addr, temp->end_addr, __FILE__, __LINE__);
+				return 0;
+			}
+			last_seen_free = temp;
+		}
 
 		// Every buffer in the list has to point back to the level containing it
 		if (temp->parent != this) {
@@ -266,7 +281,7 @@ bool yamm_buffer::check_address_space_consistency() {
 		if (temp->first) {
 
 			// Check recursively
-			temp->first->check_address_space_consistency();
+			temp->check_address_space_consistency();
 
 			// Check that the first child starts at buffer start address
 			if (temp->first->start_addr != temp->start_addr) {
@@ -295,6 +310,15 @@ bool yamm_buffer::check_address_space_consistency() {
 		}
 
 		temp = temp->next;
+	}
+
+	// The free list tail must match the last free buffer seen in the walk
+	if ((last_free != last_seen_free)
+			|| (last_seen_free ? (last_seen_free->next_free != NULL) : (first_free != NULL))) {
+		fprintf(stderr,
+				"[YAMM_ERR] first_free/last_free don't match the free buffers !\n\t in %s at line %d\n",
+				__FILE__, __LINE__);
+		return 0;
 	}
 	return 1;
 }

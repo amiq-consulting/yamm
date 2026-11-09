@@ -25,8 +25,10 @@
 
 /**
  * The supported allocation modes, used by buffer allocation operations
+ * LAST_FIT: uses the highest-address free buffer that fits and places the new buffer at
+ * the highest aligned start inside it (as close to the end of the memory as possible)
  */
-typedef enum {RANDOM_FIT=0, FIRST_FIT_RND=1, BEST_FIT_RND=2, FIRST_FIT=3, BEST_FIT=4, UNIFORM_FIT=5 } yamm_allocation_mode_e;
+typedef enum {RANDOM_FIT=0, FIRST_FIT_RND=1, BEST_FIT_RND=2, FIRST_FIT=3, BEST_FIT=4, UNIFORM_FIT=5, LAST_FIT=6 } yamm_allocation_mode_e;
 
 /**
  * Direction for accesses, not used at the moment

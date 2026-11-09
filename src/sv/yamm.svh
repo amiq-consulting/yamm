@@ -119,6 +119,7 @@ function void yamm::build(string name, yamm_size_width_t size);
 	mem.is_free = 1;
 	mem.parent = this;
 	first_free = mem;
+	last_free = mem;
 	first = mem;
 
 	number_of_buffers = 0;

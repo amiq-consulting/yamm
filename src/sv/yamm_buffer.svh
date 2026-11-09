@@ -46,6 +46,10 @@ class yamm_buffer
 	// Pointer to the first free buffer in the current memory space
 	protected yamm_buffer first_free;
 
+	// Pointer to the last free buffer in the current memory space (tail of the free list,
+	// mirror of first_free). LAST_FIT searches the free list backward from it.
+	protected yamm_buffer last_free;
+
 	// Pointer to the first buffer in the current memory space (can be free or occupied)
 	protected yamm_buffer first;
 
@@ -135,6 +139,20 @@ class yamm_buffer
 	 * @return Aligned start_addr if boundaries checking passes or temp buffer's (end_addr+1) if not
 	 */
 	extern local function yamm_addr_width_t get_aligned_addr(int alignment, yamm_buffer suitable_free_buffer);
+
+	/**
+	 * Computes the highest aligned start address at which a buffer of 'size' bytes fits
+	 * inside 'free_buffer': floor_align(free_buffer.end_addr - size + 1)
+	 * Used by find_suitable_buffer() and compute_start_addr() for LAST_FIT
+	 *
+	 * @param free_buffer : The free buffer in which the allocation would take place
+	 * @param size : The size of the new buffer
+	 * @param alignment : The start address alignment of the new buffer
+	 * @param start : The computed start address, only meaningful when 1 is returned
+	 *
+	 * @return 1 if the buffer fits inside free_buffer at an aligned address, 0 otherwise
+	 */
+	extern local function bit get_last_fit_addr(yamm_buffer free_buffer, yamm_size_width_t size, int alignment, output yamm_addr_width_t start);
 
 	/**
 	 * Used for finding a suitable buffer in which the new buffer can be allocated

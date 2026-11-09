@@ -34,6 +34,33 @@ function yamm_addr_width_t yamm_buffer::get_aligned_addr(int alignment, yamm_buf
 
 endfunction
 
+function bit yamm_buffer::get_last_fit_addr(yamm_buffer free_buffer, yamm_size_width_t size, int alignment, output yamm_addr_width_t start);
+
+	if(alignment == 0) begin
+		`ifdef YAMM_USE_UVM
+			`uvm_error("YAMM_ERR", "Alignment can't be 0 in get_last_fit_addr()!")
+		`else
+			$error("[YAMM_ERR] Alignment can't be 0 in get_last_fit_addr()!");
+		`endif
+		return 0;
+	end
+
+	// A buffer larger than the free buffer never fits. This also keeps
+	// end_addr - size + 1 from wrapping around (the operands are unsigned)
+	if(size > free_buffer.size)
+		return 0;
+
+	// Highest start address, snapped down to the alignment. Modulo is used
+	// because the alignment doesn't have to be a power of two
+	start = free_buffer.end_addr - size + 1;
+	start = start - (start % alignment);
+
+	// Snapping down can't move the end past free_buffer.end_addr, only the
+	// start below free_buffer.start_addr
+	return (start >= free_buffer.start_addr);
+
+endfunction
+
 function yamm_size_width_t yamm_buffer::compute_size_with_gran(yamm_size_width_t size, int granularity);
 
 	return size + (granularity - size % granularity) % granularity;
@@ -108,6 +135,11 @@ function bit yamm_buffer::compute_start_addr(yamm_buffer suitable_free_buffer, y
 				return 0;
 		end
 
+		LAST_FIT: begin
+			// Highest aligned start inside the free buffer (same rule as the search)
+			return get_last_fit_addr(suitable_free_buffer, size, start_addr_alignment, start_addr);
+		end
+
 		default:
 			return 0;
 
@@ -134,6 +166,7 @@ function yamm_buffer yamm_buffer::find_suitable_buffer(yamm_size_width_t size, i
 			first_free.is_free = 1;
 			first_free.parent = this;
 			first = first_free;
+			last_free = first_free;
 			temp = first_free;
 		end
 	end
@@ -284,6 +317,21 @@ function yamm_buffer yamm_buffer::find_suitable_buffer(yamm_size_width_t size, i
 			return null;
 
 		end
+		LAST_FIT: begin
+			// Walk the free list backward from its tail: the first free buffer that can
+			// hold the new buffer is the highest one. Only free buffers are visited.
+			yamm_addr_width_t last_fit_start;
+
+			temp = last_free;
+			while(temp != null) begin
+				if(get_last_fit_addr(temp, size, alignment, last_fit_start))
+					return temp;
+				temp = temp.prev_free;
+			end
+
+			return null;
+		end
+
 		default: begin
 			return null;
 		end
@@ -353,6 +401,10 @@ function void  yamm_buffer::link_in_list(yamm_buffer prev_free_buffer, yamm_buff
 			if(first_free == next_free_buffer)
 				first_free = next_free_buffer.next_free;
 
+			// Same for the tail of the free list
+			if(last_free == next_free_buffer)
+				last_free = next_free_buffer.prev_free;
+
 			// The free buffer was removed and replaced by an occupied one
 			number_of_buffers++;
 			number_of_free_buffers--;
@@ -407,6 +459,8 @@ function void  yamm_buffer::link_in_list(yamm_buffer prev_free_buffer, yamm_buff
 			// then the new free buffer we created will take it's place
 			if(first_free == next_free_buffer)
 				first_free = prev_free_buffer;
+			if(last_free == next_free_buffer)
+				last_free = prev_free_buffer;
 			if(prev_free_buffer.start_addr == this.start_addr)
 				first = prev_free_buffer;
 
@@ -535,6 +589,7 @@ function void yamm_buffer::intern_reset();
 					temp.orphan_children();
 					temp.first = null;
 					temp.first_free = null;
+					temp.last_free = null;
 				end
 				temp = temp.next;
 			end

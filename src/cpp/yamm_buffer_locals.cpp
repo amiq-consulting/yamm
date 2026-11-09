@@ -66,6 +66,29 @@ void yamm_buffer::get_closest_aligned_addr(yamm_buffer* temp) {
 
 }
 
+bool yamm_buffer::get_last_fit_addr(yamm_buffer* free_buffer, uint_64_t size,
+		uint_32_t alignment, uint_64_t& start) {
+
+	if (alignment == 0) {
+		fprintf(stderr,
+				"[YAMM_ERR] Alignment can't be 0 in get_last_fit_addr()!\n\t in %s at line %d\n",
+				__FILE__, __LINE__);
+		return false;
+	}
+
+	// A buffer larger than the free buffer never fits. This also keeps
+	// end_addr - size + 1 from wrapping around (the operands are unsigned)
+	if (size > free_buffer->size)
+		return false;
+
+	// Highest start address, snapped down to the alignment (modulo: the
+	// alignment doesn't have to be a power of two)
+	start = free_buffer->end_addr - size + 1;
+	start -= start % alignment;
+
+	return start >= free_buffer->start_addr;
+}
+
 bool yamm_buffer::compute_start_addr(yamm_buffer* temp, int alloc_mode) {
 
 	switch (alloc_mode) {
@@ -128,6 +151,11 @@ bool yamm_buffer::compute_start_addr(yamm_buffer* temp, int alloc_mode) {
 		break;
 	}
 
+	// Highest aligned start inside the free buffer (same rule as the search)
+	case YAMM_LAST_FIT: {
+		return get_last_fit_addr(temp, size, start_addr_alignment, start_addr);
+	}
+
 	default: {
 		return 0;
 		break;
@@ -162,6 +190,7 @@ yamm_buffer* yamm_buffer::find_suitable_buffer(uint_64_t size,
 			first_free->is_free = 1;
 			first_free->parent = this;
 			first = first_free;
+			last_free = first_free;
 			delete temp;
 			temp = first_free;
 		}
@@ -304,6 +333,18 @@ yamm_buffer* yamm_buffer::find_suitable_buffer(uint_64_t size,
 		break;
 	}
 
+		// Walk the free list backward from its tail: the first free buffer that
+		// can hold the new buffer is the highest one. Only free buffers are visited.
+	case YAMM_LAST_FIT: {
+		uint_64_t last_fit_start;
+
+		for (temp = last_free; temp; temp = temp->prev_free)
+			if (get_last_fit_addr(temp, size, alignment, last_fit_start))
+				return temp;
+
+		return NULL;
+	}
+
 	default: {
 		return NULL;
 		break;
@@ -378,6 +419,10 @@ void yamm_buffer::link_in_list(yamm_buffer* free_buffer_prev,
 			if (first_free == free_buffer_next)
 				first_free = free_buffer_next->next_free;
 
+			// Same for the tail of the free list (must run before the delete below)
+			if (last_free == free_buffer_next)
+				last_free = free_buffer_next->prev_free;
+
 			// The free buffer was removed and replaced by an occupied one
 			delete free_buffer_next;
 			free_buffer_next = NULL;
@@ -427,6 +472,9 @@ void yamm_buffer::link_in_list(yamm_buffer* free_buffer_prev,
 			// then the new free buffer we created will take it's place
 			if (first_free == free_buffer_next)
 				first_free = free_buffer_prev;
+			// Same for the tail of the free list (before the delete below)
+			if (last_free == free_buffer_next)
+				last_free = free_buffer_prev;
 			if (free_buffer_prev->start_addr == this->start_addr)
 				first = free_buffer_prev;
 

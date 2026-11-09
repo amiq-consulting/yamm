@@ -166,7 +166,13 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 			handle_to_buffer.prev_free = new_free_buffer;
 			new_free_buffer.next_free = handle_to_buffer;
 		end
+		else
+			// No free buffer after the new one: it is the tail of the free list
+			last_free = new_free_buffer;
 	end
+	else
+		// The new free buffer is the last buffer of this level
+		last_free = new_free_buffer;
 
 	handle_to_buffer = new_free_buffer;
 
@@ -195,6 +201,7 @@ function bit yamm_buffer::deallocate(yamm_buffer deleted_buffer, bit recursive =
 	deleted_buffer.orphan_children();
 	deleted_buffer.first = null;
 	deleted_buffer.first_free = null;
+	deleted_buffer.last_free = null;
 	deleted_buffer.number_of_buffers = 0;
 	deleted_buffer.number_of_free_buffers = 1;
 	deleted_buffer.next_free = null;

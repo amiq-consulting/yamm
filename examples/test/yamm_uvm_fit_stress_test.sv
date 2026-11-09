@@ -12,6 +12,7 @@
 //   - the allocated buffer is aligned and lies completely inside one gap
 //   - BEST_FIT / BEST_FIT_RND use the smallest gap that fits
 //   - UNIFORM_FIT uses the largest gap that fits
+//   - LAST_FIT starts at floor_align(gap_end - size + 1) of the highest fitting gap
 //
 // Phases (each iterating the full enum over a range of sizes and alignments):
 //   0: deterministic directed scenarios with known free-gap layouts
@@ -36,7 +37,7 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 
 	// ---------------- state shared across the phases ----------------
 	int errs;
-	int errs_mode[6];
+	int errs_mode[];
 	int used_s[$];
 	int used_sz[$];
 	int g_s[$];
@@ -44,12 +45,13 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 	bit any_fit;
 	int best_sz;
 	int uni_sz;
+	int last_start;
 
 	function new(string name, uvm_component parent);
+		yamm_allocation_mode_e m;
 		super.new(name, parent);
 		errs = 0;
-		foreach (errs_mode[i])
-			errs_mode[i] = 0;
+		errs_mode = new[m.num()];
 	endfunction
 
 	// ---------------- reference model ----------------
@@ -89,6 +91,7 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 		any_fit = 0;
 		best_sz = -1;
 		uni_sz  = -1;
+		last_start = -1;
 		foreach (g_s[i]) begin
 			a  = ((g_s[i] + align - 1) / align) * align;
 			gs = g_e[i] - g_s[i] + 1;
@@ -98,6 +101,9 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 					best_sz = gs;
 				if (gs > uni_sz)
 					uni_sz = gs;
+				// Gaps are visited in ascending order, so the last write
+				// belongs to the highest fitting gap (LAST_FIT)
+				last_start = ((g_e[i] - sz + 1) / align) * align;
 			end
 		end
 	endfunction
@@ -194,6 +200,8 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 			return $sformatf("picked a gap of size 0x%0h, the smallest fitting gap is 0x%0h", gsz, best_sz);
 		if ((mode == UNIFORM_FIT) && (gsz != uni_sz))
 			return $sformatf("picked a gap of size 0x%0h, the largest fitting gap is 0x%0h", gsz, uni_sz);
+		if ((mode == LAST_FIT) && (bs != last_start))
+			return $sformatf("LAST_FIT expected start 0x%0h, got 0x%0h", last_start, bs);
 		return "";
 	endfunction
 
@@ -207,12 +215,18 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 		yamm_allocation_mode_e mode;
 		string err;
 		bit ok;
+		// Hand-checked LAST_FIT values, [scen-1][ai]; ai 0 = align 1, ai 1 = align 512.
+		// In the SV scenarios all used ranges reach 0xFFFF, so the highest gaps
+		// are: scen1 B [0x1AC8, 0x1BFF] (fails 512-aligned, then A),
+		// scen2 C [0x2AC8, 0x2BFF] (fails 512-aligned, then B),
+		// scen3 C [0x2A40, 0x2B3F] (fails 512-aligned, then B)
+		int last_exp[3][2] = '{'{'h1b38, 'h800}, '{'h2b38, 'h2000}, '{'h2a78, 'h2000}};
 		for (int scen = 1; scen <= 3; scen++) begin
 			load_scenario(scen);
 			for (int ai = 0; ai < 2; ai++) begin
 				int al = (ai == 1) ? 512 : 1;
 				compute_reference('hc8, al);
-				for (int mi = 0; mi < 6; mi++) begin
+				for (int mi = 0; mi < mode.num(); mi++) begin
 					mode = yamm_allocation_mode_e'(mi);
 					m = build_map();
 					b = new;
@@ -220,11 +234,16 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 					b.set_start_addr_alignment(al);
 					ok = m.allocate(b, mode);
 					err = check_alloc(al, 'hc8, ok, b, mode);
+					if ((err == "") && ok && !m.check_address_space_consistency())
+						err = "map inconsistent after allocate";
 					if (err != "")
 						fail(mode, $sformatf("P0 scen%0d align%0d", scen, al), err);
 					if ((scen == 1) && (mode == BEST_FIT) && ok && (int'(b.get_start_addr()) != 'h800))
 						fail(mode, $sformatf("P0 scen%0d align%0d", scen, al),
 							$sformatf("BEST_FIT expected addr 0x800, got 0x%0h", b.get_start_addr()));
+					if ((mode == LAST_FIT) && ok && (int'(b.get_start_addr()) != last_exp[scen-1][ai]))
+						fail(mode, $sformatf("P0 scen%0d align%0d", scen, al),
+							$sformatf("LAST_FIT expected addr 0x%0h, got 0x%0h", last_exp[scen-1][ai], b.get_start_addr()));
 				end
 			end
 		end
@@ -245,7 +264,7 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 			for (int ai = 0; ai < 5; ai++) begin
 				for (int si = 0; si < 3; si++) begin
 					compute_reference(sizes[si], aligns[ai]);
-					for (int mi = 0; mi < 6; mi++) begin
+					for (int mi = 0; mi < mode.num(); mi++) begin
 						mode = yamm_allocation_mode_e'(mi);
 						m = build_map();
 						b = new;
@@ -253,6 +272,8 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 						b.set_start_addr_alignment(aligns[ai]);
 						ok = m.allocate(b, mode);
 						err = check_alloc(aligns[ai], sizes[si], ok, b, mode);
+						if ((err == "") && ok && !m.check_address_space_consistency())
+							err = "map inconsistent after allocate";
 						if (err != "")
 							fail(mode, $sformatf("P1 scen%0d align%0d size0x%0h", scen, aligns[ai], sizes[si]), err);
 					end
@@ -294,7 +315,7 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 			al = 1 << e;
 			sz = $urandom_range('h200, 1);
 			compute_reference(sz, al);
-			for (int mi = 0; mi < 6; mi++) begin
+			for (int mi = 0; mi < mode.num(); mi++) begin
 				mode = yamm_allocation_mode_e'(mi);
 				m = build_map();
 				b = new;
@@ -302,6 +323,8 @@ class yamm_uvm_fit_stress_test extends uvm_test;
 				b.set_start_addr_alignment(al);
 				ok = m.allocate(b, mode);
 				err = check_alloc(al, sz, ok, b, mode);
+				if ((err == "") && ok && !m.check_address_space_consistency())
+					err = "map inconsistent after allocate";
 				if (err != "") begin
 					fail(mode, $sformatf("P2 it%0d align%0d size0x%0h", it, al, sz), err);
 				end
